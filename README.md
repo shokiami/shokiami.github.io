@@ -1,3 +1,3 @@
-# shokiami.github.io
+# shokiami.com
 
 Welcome to my website!
