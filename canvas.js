@@ -77,6 +77,13 @@ class Canvas {
 
     this.vertex_positions = [];
     this.vertex_colors = [];
+    
+    this.camera_x = 0;
+    this.camera_y = 0;
+    this.camera_z = 6;
+    this.angle_x = 0;
+    this.angle_y = 0;
+    this.angle_z = 0;
   }
   
   clear() {
@@ -108,10 +115,10 @@ class Canvas {
   
     // create the model view matrix
     const model_view_matrix = mat4.create();
-    mat4.translate(model_view_matrix, model_view_matrix, [0, 0, -6]);
-    // mat4.rotate(model_view_matrix, model_view_matrix, t, [0, 0, 1]);  // rotate around z-axis
-    // mat4.rotate(model_view_matrix, model_view_matrix, 0.7 * t, [0, 1, 0]);  // rotate around y-axis
-    // mat4.rotate(model_view_matrix, model_view_matrix, 0.3 * t, [1, 0, 0]);  // rotate around x-axis
+    mat4.translate(model_view_matrix, model_view_matrix, [-this.camera_x, -this.camera_y, -this.camera_z]);
+    mat4.rotate(model_view_matrix, model_view_matrix, this.angle_x, [0, 0, 1]);  // rotate around z-axis
+    mat4.rotate(model_view_matrix, model_view_matrix, this.angle_y, [0, 1, 0]);  // rotate around y-axis
+    mat4.rotate(model_view_matrix, model_view_matrix, this.angle_z, [1, 0, 0]);  // rotate around x-axis
   
     // tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute
