@@ -3,7 +3,7 @@
 function main() {
   initWebGL();
   clear();
-  triangle(-1, -1, 0, 0, 1, 0, 1, -1, 0, 1, 1, 1, 1);
+  triangle(-1, -1, 0, 0, 1, 0, 1, -1, 0, 0, 0, 1, 1);
   render();
 }
 
