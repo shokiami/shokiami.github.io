@@ -8,24 +8,24 @@ function main() {
     canvas.angle_z += 0.03;
     // clear canvas
     canvas.clear();
-    // front face (white)
-    canvas.triangle(-1,  1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1);
-    canvas.triangle( 1, -1,  1,  1,  1,  1, -1, -1,  1,  1,  1,  1,  1);
-    // back face (red)
-    canvas.triangle(-1,  1, -1,  1,  1, -1, -1, -1, -1,  1,  0,  0,  1);
-    canvas.triangle( 1, -1, -1,  1,  1, -1, -1, -1, -1,  1,  0,  0,  1);
-    // top face (green)
-    canvas.triangle(-1,  1, -1,  1,  1, -1, -1,  1,  1,  0,  1,  0,  1);
-    canvas.triangle( 1,  1,  1,  1,  1, -1, -1,  1,  1,  0,  1,  0,  1);
-    // bottom face (blue)
+    // front face
+    canvas.triangle( 1,  1,  1, -1,  1,  1, -1, -1,  1,  0,  0,  1,  1);
+    canvas.triangle( 1, -1,  1,  1,  1,  1, -1, -1,  1,  0,  0,  1,  1);
+    // back face
+    canvas.triangle(-1,  1, -1,  1,  1, -1, -1, -1, -1,  0,  0,  1,  1);
+    canvas.triangle( 1,  1, -1,  1, -1, -1, -1, -1, -1,  0,  0,  1,  1);
+    // top face
+    canvas.triangle( 1,  1, -1, -1,  1, -1, -1,  1,  1,  0,  0,  1,  1);
+    canvas.triangle( 1,  1,  1,  1,  1, -1, -1,  1,  1,  0,  0,  1,  1);
+    // bottom face
     canvas.triangle(-1, -1, -1,  1, -1, -1, -1, -1,  1,  0,  0,  1,  1);
-    canvas.triangle( 1, -1,  1,  1, -1, -1, -1, -1,  1,  0,  0,  1,  1);
-    // right face (yellow)
-    canvas.triangle( 1,  1,  1,  1,  1, -1,  1, -1,  1,  1,  1,  0,  1);
-    canvas.triangle( 1, -1, -1,  1,  1, -1,  1, -1,  1,  1,  1,  0,  1);
-    // left face (pink)
-    canvas.triangle(-1,  1,  1, -1,  1, -1, -1, -1,  1,  1,  0,  1,  1);
-    canvas.triangle(-1, -1, -1, -1,  1, -1, -1, -1,  1,  1,  0,  1,  1);
+    canvas.triangle( 1, -1, -1,  1, -1,  1, -1, -1,  1,  0,  0,  1,  1);
+    // right face
+    canvas.triangle( 1,  1, -1,  1,  1,  1,  1, -1,  1,  0,  0,  1,  1);
+    canvas.triangle( 1, -1, -1,  1,  1, -1,  1, -1,  1,  0,  0,  1,  1);
+    // left face
+    canvas.triangle(-1,  1,  1, -1,  1, -1, -1, -1,  1,  0,  0,  1,  1);
+    canvas.triangle(-1,  1, -1, -1, -1, -1, -1, -1,  1,  0,  0,  1,  1);
     // render canvas
     canvas.render();
     requestAnimationFrame(refresh);

@@ -13,24 +13,35 @@ class Canvas {
     const vertex_shader_src = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
+    attribute vec3 aVertexNormal;
   
+    uniform mat4 uNormalMatrix;
     uniform mat4 uModelViewMatrix;
     uniform mat4 uProjectionMatrix;
   
     varying lowp vec4 vColor;
+    varying highp vec3 vLighting;
   
     void main() {
       gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
       vColor = aVertexColor;
+
+      highp vec3 ambientLight = vec3(0.1, 0.1, 0.1);
+      highp vec3 directionalLightColor = vec3(1, 1, 1);
+      highp vec3 directionalLightVector = normalize(vec3(0, 0, -1));
+      highp vec4 transformedNormal = uNormalMatrix * vec4(aVertexNormal, 1.0);
+      highp float directional = max(dot(-transformedNormal.xyz, directionalLightVector), 0.0);
+      vLighting = ambientLight + directionalLightColor * directional;
     }
     `;
   
     // fragment shader program
     const fragment_shader_src = `
     varying lowp vec4 vColor;
+    varying highp vec3 vLighting;
   
     void main() {
-      gl_FragColor = vColor;
+      gl_FragColor = vec4(vColor.rgb * vLighting, vColor.a);
     }
     `;
   
@@ -39,7 +50,7 @@ class Canvas {
     this.gl.shaderSource(vertex_shader, vertex_shader_src);
     this.gl.compileShader(vertex_shader);
     if (!this.gl.getShaderParameter(vertex_shader, this.gl.COMPILE_STATUS)) {
-      alert("An error occurred compiling the shaders: ${this.gl.getShaderInfoLog(shader)}");
+      alert("An error occurred compiling the vertex shader.");
       this.gl.deleteShader(vertex_shader);
       return;
     }
@@ -49,7 +60,7 @@ class Canvas {
     this.gl.shaderSource(fragment_shader, fragment_shader_src);
     this.gl.compileShader(fragment_shader);
     if (!this.gl.getShaderParameter(fragment_shader, this.gl.COMPILE_STATUS)) {
-      alert("An error occurred compiling the shaders: ${this.gl.getShaderInfoLog(shader)}");
+      alert("An error occurred compiling the fragment shader.");
       this.gl.deleteShader(fragment_shader);
       return;
     }
@@ -69,15 +80,20 @@ class Canvas {
     this.attribute_locs = {
       vertex_positions: this.gl.getAttribLocation(this.shader_program, "aVertexPosition"),
       vertex_colors: this.gl.getAttribLocation(this.shader_program, "aVertexColor"),
+      vertex_normals: this.gl.getAttribLocation(this.shader_program, "aVertexNormal"),
     };
     this.uniform_locs = {
       projection_matrix: this.gl.getUniformLocation(this.shader_program, "uProjectionMatrix"),
       model_view_matrix: this.gl.getUniformLocation(this.shader_program, "uModelViewMatrix"),
+      normal_matrix: this.gl.getUniformLocation(this.shader_program, "uNormalMatrix"),
     };
 
-    this.vertex_positions = [];
-    this.vertex_colors = [];
-    
+    this.gl.enable(this.gl.CULL_FACE);
+
+    // clear the canvas
+    this.clear();
+
+    // initialize state variables
     this.camera_x = 0;
     this.camera_y = 0;
     this.camera_z = 6;
@@ -89,11 +105,26 @@ class Canvas {
   clear() {
     this.vertex_positions = [];
     this.vertex_colors = [];
+    this.vertex_normals = [];
   }
   
   triangle(x1, y1, z1, x2, y2, z2, x3, y3, z3, r, g, b, a) {
     this.vertex_positions.push(x1, y1, z1, x2, y2, z2, x3, y3, z3);
     this.vertex_colors.push(r, g, b, a, r, g, b, a, r, g, b, a);
+    let u1 = x2 - x1;
+    let u2 = y2 - y1;
+    let u3 = z2 - z1;
+    let v1 = x3 - x1;
+    let v2 = y3 - y1;
+    let v3 = z3 - z1;
+    let n1 = u2 * v3 - u3 * v2;
+    let n2 = u3 * v1 - u1 * v3;
+    let n3 = u1 * v2 - u2 * v1;
+    let d = Math.sqrt(n1 * n1 + n2 * n2 + n3 * n3);
+    n1 /= d;
+    n2 /= d;
+    n3 /= d;
+    this.vertex_normals.push(n1, n2, n3, n1, n2, n3, n1, n2, n3);
   }
   
   render() {
@@ -119,6 +150,11 @@ class Canvas {
     mat4.rotate(model_view_matrix, model_view_matrix, this.angle_x, [0, 0, 1]);  // rotate around z-axis
     mat4.rotate(model_view_matrix, model_view_matrix, this.angle_y, [0, 1, 0]);  // rotate around y-axis
     mat4.rotate(model_view_matrix, model_view_matrix, this.angle_z, [1, 0, 0]);  // rotate around x-axis
+
+    // create normal matrix
+    const normal_matrix = mat4.create();
+    mat4.invert(normal_matrix, model_view_matrix);
+    mat4.transpose(normal_matrix, normal_matrix);
   
     // tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute
@@ -133,6 +169,12 @@ class Canvas {
     this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertex_colors), this.gl.STATIC_DRAW);
     this.gl.vertexAttribPointer(this.attribute_locs.vertex_colors, 4, this.gl.FLOAT, false, 0, 0);
     this.gl.enableVertexAttribArray(this.attribute_locs.vertex_colors);
+
+    const normal_buffer = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, normal_buffer);
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertex_normals), this.gl.STATIC_DRAW);
+    this.gl.vertexAttribPointer(this.attribute_locs.vertex_normals, 3, this.gl.FLOAT, false, 0, 0);
+    this.gl.enableVertexAttribArray(this.attribute_locs.vertex_normals);
   
     // tell WebGL to use our program when drawing
     this.gl.useProgram(this.shader_program);
@@ -140,6 +182,7 @@ class Canvas {
     // set the shader uniforms
     this.gl.uniformMatrix4fv(this.uniform_locs.projection_matrix, false, projection_matrix);
     this.gl.uniformMatrix4fv(this.uniform_locs.model_view_matrix, false, model_view_matrix);
+    this.gl.uniformMatrix4fv(this.uniform_locs.normal_matrix, false, normal_matrix);
   
     this.gl.drawArrays(this.gl.TRIANGLES, 0, this.vertex_positions.length / 3);
   }
