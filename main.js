@@ -1,46 +1,73 @@
 // Main
 
-onload = main;
+window.onload = main;
 
 function main() {
   init();
   function loop() {
     update();
-    requestAnimationFrame(loop);
+    window.requestAnimationFrame(loop);
   }
-  requestAnimationFrame(loop);
+  window.requestAnimationFrame(loop);
 }
 
 var canvas = null;
+var mouse = null;
+var ripples = null;
 
 function init() {
   canvas = new Canvas();
+  document.addEventListener("mousemove", mouse_move);
+  document.addEventListener("click", click);
+  ripples = [];
 }
 
 function update() {
-  canvas.angle_x += 0.01;
-  canvas.angle_y += 0.02;
-  canvas.angle_z += 0.03;
   // clear canvas
   canvas.clear();
-  // front face
-  canvas.triangle( 1,  1,  1, -1,  1,  1, -1, -1,  1,  0,  0,  1,  1);
-  canvas.triangle( 1, -1,  1,  1,  1,  1, -1, -1,  1,  0,  0,  1,  1);
-  // back face
-  canvas.triangle(-1,  1, -1,  1,  1, -1, -1, -1, -1,  0,  0,  1,  1);
-  canvas.triangle( 1,  1, -1,  1, -1, -1, -1, -1, -1,  0,  0,  1,  1);
-  // top face
-  canvas.triangle( 1,  1, -1, -1,  1, -1, -1,  1,  1,  0,  0,  1,  1);
-  canvas.triangle( 1,  1,  1,  1,  1, -1, -1,  1,  1,  0,  0,  1,  1);
-  // bottom face
-  canvas.triangle(-1, -1, -1,  1, -1, -1, -1, -1,  1,  0,  0,  1,  1);
-  canvas.triangle( 1, -1, -1,  1, -1,  1, -1, -1,  1,  0,  0,  1,  1);
-  // right face
-  canvas.triangle( 1,  1, -1,  1,  1,  1,  1, -1,  1,  0,  0,  1,  1);
-  canvas.triangle( 1, -1, -1,  1,  1, -1,  1, -1,  1,  0,  0,  1,  1);
-  // left face
-  canvas.triangle(-1,  1,  1, -1,  1, -1, -1, -1,  1,  0,  0,  1,  1);
-  canvas.triangle(-1,  1, -1, -1, -1, -1, -1, -1,  1,  0,  0,  1,  1);
+  update_ripples();
+  draw_ripples();
   // render canvas
   canvas.render();
+}
+
+function mouse_move(event) {
+  let [x, y] = canvas.to_xyz(event.clientX, event.clientY);
+  mouse = {
+    x: x,
+    y: y,
+  };
+}
+
+function click() {
+  let ripple = {
+    x: mouse.x,
+    y: mouse.y,
+    r: 0,
+  };
+  ripples.push(ripple);
+}
+
+function update_ripples() {
+  for (let i = ripples.length - 1; i >= 0; i--) {
+    let ripple = ripples[i];
+    if (ripple.r > 10) {
+      ripples.splice(i, 1);
+    } else {
+      ripple.r += 0.05;
+    }
+  }
+}
+
+function draw_ripples() {
+  for (let ripple of ripples) {
+    let x = ripple.x;
+    let y = ripple.y;
+    let r = ripple.r;
+    let res = 1000;
+    let dtheta = 2 * Math.PI / res;
+    for (let i = 0; i <= res; i++) {
+      canvas.triangle(x + r * Math.cos(i * dtheta), y + r * Math.sin(i * dtheta), 0, x + r * Math.cos(i * dtheta) + 0.01, y + r * Math.sin(i * dtheta), 0, x + r * Math.cos(i * dtheta), y + r * Math.sin(i * dtheta) + 0.01, 0, 1, 1, 1, 1);
+    }
+  }
 }

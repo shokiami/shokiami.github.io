@@ -94,12 +94,13 @@ class Canvas {
     this.clear();
 
     // initialize state variables
-    this.camera_x = 0;
-    this.camera_y = 0;
-    this.camera_z = 6;
-    this.angle_x = 0;
-    this.angle_y = 0;
-    this.angle_z = 0;
+    this.fov = Math.PI / 4;
+    this.x = 0;
+    this.y = 0;
+    this.z = 4;
+    this.rot_x = 0;
+    this.rot_y = 0;
+    this.rot_z = 0;
   }
   
   clear() {
@@ -111,20 +112,21 @@ class Canvas {
   triangle(x1, y1, z1, x2, y2, z2, x3, y3, z3, r, g, b, a) {
     this.vertex_positions.push(x1, y1, z1, x2, y2, z2, x3, y3, z3);
     this.vertex_colors.push(r, g, b, a, r, g, b, a, r, g, b, a);
-    let u1 = x2 - x1;
-    let u2 = y2 - y1;
-    let u3 = z2 - z1;
-    let v1 = x3 - x1;
-    let v2 = y3 - y1;
-    let v3 = z3 - z1;
-    let n1 = u2 * v3 - u3 * v2;
-    let n2 = u3 * v1 - u1 * v3;
-    let n3 = u1 * v2 - u2 * v1;
-    let d = Math.sqrt(n1 * n1 + n2 * n2 + n3 * n3);
-    n1 /= d;
-    n2 /= d;
-    n3 /= d;
+    var v1 = vec3.fromValues(x2 - x1, y2 - y1, z2 - z1);
+    var v2 = vec3.fromValues(x3 - x1, y3 - y1, z3 - z1);
+    var n = vec3.create();
+    vec3.cross(n, v1, v2);
+    vec3.normalize(n, n);
+    let [n1, n2, n3] = n;
     this.vertex_normals.push(n1, n2, n3, n1, n2, n3, n1, n2, n3);
+  }
+
+  to_xyz(pixel_x, pixel_y) {
+    let normalized_x = pixel_x / window.innerWidth * 2 - 1;
+    let normalized_y = pixel_y / window.innerHeight * -2 + 1;
+    let max_y = this.z * Math.tan(this.fov / 2);
+    let max_x = max_y * (window.innerWidth / window.innerHeight);
+    return [max_x * normalized_x, max_y * normalized_y];
   }
   
   render() {
@@ -137,19 +139,18 @@ class Canvas {
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
   
     // create the projection matrix
-    const fov = 45 * Math.PI / 180;  // in radians
     const aspect_ratio = this.gl.canvas.clientWidth / this.gl.canvas.clientHeight;
     const z_near = 0.1;
     const z_far = 100;
     const projection_matrix = mat4.create();
-    mat4.perspective(projection_matrix, fov, aspect_ratio, z_near, z_far);
+    mat4.perspective(projection_matrix, this.fov, aspect_ratio, z_near, z_far);
   
     // create the model view matrix
     const model_view_matrix = mat4.create();
-    mat4.translate(model_view_matrix, model_view_matrix, [-this.camera_x, -this.camera_y, -this.camera_z]);
-    mat4.rotate(model_view_matrix, model_view_matrix, this.angle_x, [0, 0, 1]);  // rotate around z-axis
-    mat4.rotate(model_view_matrix, model_view_matrix, this.angle_y, [0, 1, 0]);  // rotate around y-axis
-    mat4.rotate(model_view_matrix, model_view_matrix, this.angle_z, [1, 0, 0]);  // rotate around x-axis
+    mat4.rotate(model_view_matrix, model_view_matrix, this.rot_z, [0, 0, 1]);  // rotate around z-axis
+    mat4.rotate(model_view_matrix, model_view_matrix, this.rot_y, [0, 1, 0]);  // rotate around y-axis
+    mat4.rotate(model_view_matrix, model_view_matrix, this.rot_x, [1, 0, 0]);  // rotate around x-axis
+    mat4.translate(model_view_matrix, model_view_matrix, [-this.x, -this.y, -this.z]);
 
     // create normal matrix
     const normal_matrix = mat4.create();
