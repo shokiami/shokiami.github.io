@@ -131,9 +131,9 @@ class Canvas {
   
   render() {
     this.gl.clearColor(0, 0, 0, 1);  // clear to black, fully opaque
-    this.gl.clearDepth(1);  // clear everything
-    this.gl.enable(this.gl.DEPTH_TEST);  // enable depth testing
-    this.gl.depthFunc(this.gl.LEQUAL);  // near things obscure far things
+    this.gl.disable(this.gl.DEPTH_TEST);
+    this.gl.enable(this.gl.BLEND);
+    this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
   
     // clear the canvas before we start drawing on it
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
