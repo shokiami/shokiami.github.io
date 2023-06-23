@@ -2,11 +2,9 @@
 #include "png++/png.hpp"
 #include <iostream>
 #include <string>
-#include <tuple>
 #include <vector>
 
 using std::string;
-using std::tuple;
 using std::vector;
 using std::min;
 using std::max;
