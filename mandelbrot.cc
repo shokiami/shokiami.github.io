@@ -34,10 +34,10 @@ void render(long double real, long double imag, long double zoom, int max_itr, s
         z_r2 = z_r * z_r;
         z_i2 = z_i * z_i;
         if (z_r2 + z_i2 > bailout * bailout) {
-          long double itr_cont = itr + 1.0 - log2(0.5 * log(z_r2 + z_i2) / log(bailout));
-          long double idx_cont = 7.0 * log(itr_cont + 1.0);
+          double itr_cont = itr + 1.0 - log2(0.5 * log(z_r2 + z_i2) / log(bailout));
+          double idx_cont = 7.0 * log(itr_cont + 1.0);
           int idx = idx_cont;
-          long double p = idx_cont - idx;
+          double p = idx_cont - idx;
           png::rgb_pixel color_1 = palette[idx % palette.size()];
           png::rgb_pixel color_2 = palette[(idx + 1) % palette.size()];
           int r = (1.0 - p) * color_1.red + p * color_2.red;
