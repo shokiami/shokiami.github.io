@@ -5,8 +5,8 @@
 #include <vector>
 #include <filesystem>
 
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH 3840
+#define HEIGHT 2160
 #define DIR "out/"
 
 const std::vector<png::rgb_pixel> palette = {
