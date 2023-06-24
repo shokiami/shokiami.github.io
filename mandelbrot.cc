@@ -7,7 +7,7 @@
 
 #define WIDTH 3840
 #define HEIGHT 2160
-#define DIR "out/"
+#define DIR "images/"
 
 const std::vector<png::rgb_pixel> palette = {
   {134, 181, 229}, {211, 236, 248}, {241, 233, 191}, {248, 201,  95},
