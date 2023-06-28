@@ -1,78 +1,34 @@
-// Main
+const WIDTH = 3840;
+const HEIGHT = 2160;
+const NUM_IMGS = 51;
 
-window.onload = main;
-
-function main() {
-  init();
-  function loop() {
-    update();
-    window.requestAnimationFrame(loop);
-  }
-  window.requestAnimationFrame(loop);
-}
-
-var canvas = null;
-var mouse = null;
-var ripples = null;
+window.onload = init;
 
 function init() {
-  canvas = new Canvas();
-  document.addEventListener("mousemove", mouse_move);
-  document.addEventListener("click", click);
-  ripples = [];
+  let image_container = document.getElementById('image-container');
+  for (let i = 0; i < NUM_IMGS; i++) {
+    let image = document.createElement('img');
+    image.id = i;
+    image.src = 'images/' + i + '.png';
+    image.className = 'image';
+    image_container.appendChild(image);
+  }
+  update();
 }
 
 function update() {
-  // clear canvas
-  canvas.clear();
-  update_ripples();
-  draw_ripples();
-  // render canvas
-  canvas.render();
-}
-
-function mouse_move(event) {
-  let [x, y] = canvas.to_xyz(event.clientX, event.clientY);
-  mouse = {
-    x: x,
-    y: y,
-  };
-}
-
-function click() {
-  let ripple = {
-    x: mouse.x,
-    y: mouse.y,
-    r: 0,
-  };
-  ripples.push(ripple);
-}
-
-function update_ripples() {
-  for (let i = ripples.length - 1; i >= 0; i--) {
-    let ripple = ripples[i];
-    if (ripple.r > 5) {
-      ripples.splice(i, 1);
-    } else {
-      ripple.r += 0.05;
+  let curr = NUM_IMGS * Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.999);
+  for (image of document.querySelectorAll('.image')) {
+    let i = parseInt(image.id);
+    if (curr < i || curr > i + 1) {
+      image.style.setProperty('visibility', 'hidden');
+      continue;
     }
+    image.style.setProperty('visibility', 'visible');
+    let scale = Math.min(2.0 ** (curr - i), 2.0);
+    image.style.setProperty('transform', 'scale(' + scale + ')');
+    let width = Math.max(window.innerHeight / window.innerWidth * WIDTH / HEIGHT, 1.0);
+    image.style.setProperty('width', 100 * width + '%');
   }
-}
-
-function draw_ripples() {
-  for (let ripple of ripples) {
-    let x = ripple.x;
-    let y = ripple.y;
-    let r = ripple.r;
-    let res = 1000;
-    let dtheta = 2 * Math.PI / res;
-    for (let i = 0; i < res; i++) {
-      let cos1 = Math.cos(i * dtheta);
-      let sin1 = Math.sin(i * dtheta);
-      let cos2 = Math.cos((i + 1) * dtheta);
-      let sin2 = Math.sin((i + 1) * dtheta);
-      canvas.triangle(x + r * cos1, y + r * sin1, 0, x + r * cos2, y + r * sin2, 0, x + (r - 0.01) * cos1, y + (r - 0.01) * sin1, 0, 1, 1, 1, 1 - r / 5);
-      canvas.triangle(x + (r - 0.01) * cos1, y + (r - 0.01) * sin1, 0,  x + r * cos2, y + r * sin2, 0, x + (r - 0.01) * cos2, y + (r - 0.01) * sin2, 0, 1, 1, 1, 1 - r / 5);
-    }
-  }
+  window.requestAnimationFrame(update);
 }
