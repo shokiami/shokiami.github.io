@@ -35,7 +35,7 @@ function update() {
     }
     image.style.setProperty('visibility', 'visible');
     // update scale
-    let scale = Math.min(2.0 ** (scroll - i), 4.0);
+    let scale = 1.02 * Math.min(2.0 ** (scroll - i), 4.0);
     image.style.setProperty('transform', 'translate(-50%, -50%) scale(' + scale + ')');
     // update opacity
     let opacity = 1.0;
@@ -49,7 +49,9 @@ function update() {
     // update position
     let target = 0.67;
     let left = target - (target - 0.5) * Math.pow(2.0, -0.5 * scroll);
-    image.style.setProperty('left', 100 * left + '%');    
+    image.style.setProperty('left', 100 * left + '%');
+    let top = 0.5 - (0.53 - 0.5) * Math.pow(2.0, -0.5 * scroll);
+    image.style.setProperty('top', 100 * top + '%');
   }
   // update fog
   let left = -Math.pow(2.0, -1.0 * scroll);
