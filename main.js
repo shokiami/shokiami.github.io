@@ -15,16 +15,21 @@ function init() {
 }
 
 function update() {
-  let curr = NUM_IMAGES * Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.999);
+  let p = NUM_IMAGES * window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
   for (image of document.querySelectorAll('.image')) {
     let i = parseInt(image.id);
-    if (curr < i || curr > i + 1) {
+    if (p < i || p > i + 2) {
       image.style.setProperty('visibility', 'hidden');
       continue;
     }
     image.style.setProperty('visibility', 'visible');
-    let scale = Math.min(2.0 ** (curr - i), 2.0);
+    let scale = Math.min(2.0 ** (p - i), 4.0);
     image.style.setProperty('transform', 'scale(' + scale + ')');
+    let opacity = 1.0;
+    if (i > 0) {
+      opacity = Math.min(p - i, 1.0);
+    }
+    image.style.setProperty('opacity', opacity);
     let width = Math.max(window.innerHeight / window.innerWidth * image.width / image.height, 1.0);
     image.style.setProperty('width', 100 * width + '%');
   }
