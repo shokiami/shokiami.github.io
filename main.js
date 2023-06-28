@@ -25,7 +25,7 @@ function init() {
 }
 
 function update() {
-  let scroll = NUM_IMAGES * window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+  let scroll = NUM_IMAGES * Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
   for (image of document.querySelectorAll('.image')) {
     // update visibility
     let i = parseInt(image.id);
