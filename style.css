@@ -1,16 +1,36 @@
-#image-container {
-  height: 100vh;
-  width: 100%;
+#title {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  font-size: 100px;
+}
+
+#main {
+  position: absolute;
+  top: 100%;
+  left: 50px;
+  width: 40%;
+}
+
+.subtitle {
+  font-size: 50px;
+}
+
+.text {
+  font-size: 25px;
+}
+
+#fog {
   position: fixed;
   top: 0;
   left: 0;
+  height: 100vh;
+  width: 100%;
   z-index: -1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .image {
-  visibility: hidden;
   position: fixed;
+  top: 50%;
+  z-index: -2;
 }
