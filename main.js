@@ -26,8 +26,8 @@ function init() {
 
 function update() {
   let scroll = Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
-  let scroll_offset = 0.07;
-  let i_cont = (1.0 - scroll) * scroll_offset + scroll * NUM_IMAGES;
+  let image_offset = 0.07;
+  let i_cont = (1.0 - scroll) * image_offset + scroll * NUM_IMAGES;
   for (image of document.querySelectorAll('.image')) {
     // update visibility
     let i = parseInt(image.id);
@@ -56,8 +56,9 @@ function update() {
     image.style.setProperty('top', 100 * top + '%');
   }
   // update fog
-  let left = -Math.pow(2.0, -1.0 * i_cont);
-  console.log(left);
+  let scroll_offset = 0.5 * window.innerHeight / (document.documentElement.scrollHeight - window.innerHeight);
+  let i_offset = (1.0 - scroll_offset) * image_offset + scroll_offset * NUM_IMAGES;
+  let left = -Math.pow(2.0, -2.0 * (i_cont - i_offset));
   let fog = document.getElementById('fog');
   fog.style.setProperty('left', 100 * left + '%');
   // loop
