@@ -8,7 +8,7 @@ function init() {
   for (let i = 0; i < NUM_IMAGES; i++) {
     let image = document.createElement('img');
     image.id = i;
-    image.src = 'images/' + i + '.png';
+    image.src = 'images/' + i + '.jpg';
     image.className = 'image';
     image_container.appendChild(image);
   }
