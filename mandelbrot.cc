@@ -5,25 +5,45 @@
 #include <vector>
 #include <filesystem>
 
-#define WIDTH 1920
-#define HEIGHT 1080
+using std::cout;
+using std::endl;
+using std::min;
+using std::max;
+using std::to_string;
+using std::string;
+using std::vector;
+namespace fs = std::filesystem;
+
+#define RES 1500
+#define SCALAR 1.284  // e^(1/4)
 #define DIR "images/"
 
-const std::vector<png::rgb_pixel> palette = {
-  {250, 250, 250}, {200, 200, 200}, {150, 150, 150}, {100, 100, 100}, { 50,  50,  50}, {  9,   1,  47}, {  4,   4,  73},
-  {  0,   7, 100}, {  1,  44, 138}, { 24,  82, 177}, { 57, 125, 209}, {134, 181, 229}, {211, 236, 248}, {241, 233, 191},
-  {248, 201,  95}, {255, 170,   0}, {204, 128,   0}, {153,  87,   0}, {106,  52,   3}, { 25,   7,  26}, { 66,  30,  15},
+const vector<png::rgb_pixel> palette = {
+  {  9,   1,  47}, {  4,   4,  73}, {  0,   7, 100}, { 12,  44, 138},
+  { 24,  82, 177}, { 57, 125, 209}, {134, 181, 229}, {211, 236, 248},
+  {241, 233, 191}, {248, 201,  95}, {255, 170,   0}, {204, 128,   0},
+  {153,  87,   0}, {106,  52,   3}, { 66,  30,  15}, { 25,   7,  26}, 
 };
 
-void render(long double real, long double imag, long double zoom, int max_itr, std::string filename) {
-  const int bailout = 1024;
-  int percent = 0;
+png::rgb_pixel idx_to_color(int idx) {
+  double white_grad = 1.6;
+  int white_limit = log(256) / log(white_grad) + 1;
+  if (idx < white_limit) {
+    int white = 256 - pow(white_grad, idx);
+    return png::rgb_pixel(white, white, white);
+  }
+  return palette[(idx - white_limit) % palette.size()];
+}
+
+void render(long double real, long double imag, long double zoom, int max_itr, int height, int width, string filename) {
+  vector<double> itrs = vector<double>(height * width);
+  int bailout = 1024;
   double min_itr = max_itr;
-  std::vector<double> itrs = std::vector<double>(WIDTH * HEIGHT);
-  for (int i = 0; i < HEIGHT; i++) {
-    for (int j = 0; j < WIDTH; j++) {
-      long double c_r = 4.0 * (j - WIDTH / 2) / std::min(WIDTH, HEIGHT) / zoom + real;
-      long double c_i = 4.0 * (HEIGHT / 2 - i) / std::min(WIDTH, HEIGHT) / zoom + imag;
+  int percent = 0;
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      long double c_r = 4.0 * (j - width / 2) / min(width, height) / zoom + real;
+      long double c_i = 4.0 * (height / 2 - i) / min(width, height) / zoom + imag;
       long double z_r = 0.0;
       long double z_i = 0.0;
       long double z_r2 = 0.0;
@@ -35,50 +55,52 @@ void render(long double real, long double imag, long double zoom, int max_itr, s
         z_i2 = z_i * z_i;
         if (z_r2 + z_i2 > bailout * bailout) {
           double itr_cont = itr + 1.0 - log2(0.5 * log(z_r2 + z_i2) / log(bailout));
-          itrs[i * WIDTH + j] = itr_cont;
+          itrs[i * width + j] = itr_cont;
           if (itr_cont < min_itr) {
             min_itr = itr_cont;
           }
           break;
         }
       }
-      if (100.0 * (i * WIDTH + j + 1) / (HEIGHT * WIDTH) - percent >= 1.0) {
+      if (100.0 * (i * width + j + 1) / (height * width) - percent >= 1.0) {
         percent++;
-        std::cout << filename + ": " + std::to_string(percent) + "%" << std::endl;
+        cout << filename + ": " + to_string(percent) + "%" << endl;
       }
     }
   }
-  std::cout << filename + ": saving..." << std::endl;
-  png::image<png::rgb_pixel> image = png::image<png::rgb_pixel>(WIDTH, HEIGHT);
-  for (int i = 0; i < HEIGHT; i++) {
-    for (int j = 0; j < WIDTH; j++) {
-      double itr_cont = itrs[i * WIDTH + j];
+  cout << filename + ": saving..." << endl;
+  png::image<png::rgb_pixel> image = png::image<png::rgb_pixel>(width, height);
+  double grad = 1.8 * pow(zoom, -0.15) + 1.8;
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      double itr_cont = itrs[i * width + j];
       if (itr_cont == 0.0) {
         continue;
       }
-      double idx_cont = std::pow((itr_cont - min_itr) / (max_itr - min_itr), 0.6) * palette.size();
+      double idx_cont = grad * log(itr_cont - min_itr + 1.0);
       int idx = idx_cont;
       double p = idx_cont - idx;
-      png::rgb_pixel color_1 = palette[idx % palette.size()];
-      png::rgb_pixel color_2 = palette[(idx + 1) % palette.size()];
-      int r = (1.0 - p) * color_1.red + p * color_2.red;
-      int g = (1.0 - p) * color_1.green + p * color_2.green;
-      int b = (1.0 - p) * color_1.blue + p * color_2.blue;
-      image[i][j] = png::rgb_pixel(r, g, b);
+      png::rgb_pixel color_1 = idx_to_color(idx);
+      png::rgb_pixel color_2 = idx_to_color(idx + 1);
+      int red = (1.0 - p) * color_1.red + p * color_2.red;
+      int green = (1.0 - p) * color_1.green + p * color_2.green;
+      int blue = (1.0 - p) * color_1.blue + p * color_2.blue;
+      image[i][j] = png::rgb_pixel(red, green, blue);
     }
   }
   image.write(DIR + filename);
-  std::cout << filename + ": done!" << std::endl;
+  cout << filename + ": done!" << endl;
 }
 
 int main() {
-  long double real = -0.7436438870371591;
-  long double imag =  0.1318259042053125;
-  std::filesystem::create_directory(DIR);
-  for (int i = 0; i <= 50; i++) {
-    long double zoom = pow(2.0, i);
-    int max_itr = 1000 * pow(zoom, 0.2);
-    render(real, imag, zoom, max_itr, std::to_string(i) + ".png");
+  long double real = -1.41771888487527228;
+  long double imag =  0.00012464572571004;
+  fs::create_directory(DIR);
+  for (int i = 0; i < 150; i += 1) {
+    long double zoom = pow(SCALAR, i);
+    int max_itr = 60000 * pow(zoom, 0.08) - 59000;
+    int width = RES * (1.0 + 1.2 * pow(0.4, i));
+    render(real, imag, zoom, max_itr, RES, width, to_string(i) + ".png");
   }
   return EXIT_SUCCESS;
 }
