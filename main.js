@@ -1,5 +1,6 @@
-const NUM_IMAGES = 149;
-const SCALAR = 1.284;  // e^(1/4)
+const NUM_IMAGES = 140;
+const SCALAR = 1.28402541669;  // e^(1/4)
+const IMAGES_DIR = 'images/mandelbrot/';
 
 window.onload = init;
 
@@ -9,52 +10,44 @@ function init() {
   for (let i = 0; i < NUM_IMAGES; i++) {
     let image = document.createElement('img');
     image.id = i;
-    image.src = 'images/' + i + '.png';
+    image.src = IMAGES_DIR + i + '.jpg';
     image.className = 'image';
     image_container.appendChild(image);
   }
-  // init fog
-  let midpoint = 0.5;
-  let gradient = '';
-  for (let p = 0.0; p <= 1.0; p += 0.01) {
-    let a = 1.0 / (1.0 + 2.0 ** (25.0 * (p / midpoint - 1.0)));
-    gradient += ', rgba(255, 255, 255, ' + a + ') ' + 100 * p + '%';
-  }
-  let fog = document.getElementById('fog');
-  fog.style.setProperty('background', 'linear-gradient(to right' + gradient + ')');
   update();
 }
 
 function update() {
-  let scroll = NUM_IMAGES * Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
+  let scroll = Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
+  let i_cont = scroll * NUM_IMAGES;
   for (image of document.querySelectorAll('.image')) {
     // update visibility
     let i = parseInt(image.id);
-    if (scroll < i || scroll > i + 2) {
+    if (i_cont < i || i_cont > i + 2) {
       image.style.setProperty('visibility', 'hidden');
       continue;
     }
     image.style.setProperty('visibility', 'visible');
+    // update size
+    let height = 100.0 * Math.max(image.height / image.width * window.innerWidth / window.innerHeight, 1.0) + '%';
+    image.style.setProperty('height', height);
     // update scale
-    let scale = Math.min(SCALAR ** (scroll - i), SCALAR * SCALAR);
-    image.style.setProperty('transform', 'translate(-50%, -50%) scale(' + scale + ')');
+    let scale = SCALAR ** (i_cont - i);
+    let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.9 ** i) + '%';
+    let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.9 ** i) + '%';
+    let transform = 'translate(-50%, -50%) scale(' + scale + ') translate(' + dx + ', ' + dy + ')';
+    image.style.setProperty('transform', transform);
+    // update position
+    let left = 100.0 * (0.9 - 0.25 * 0.9 ** i_cont) + '%';
+    let top = 100.0 * (0.2 + 0.18 * 0.9 ** i_cont) + '%';
+    image.style.setProperty('left', left);
+    image.style.setProperty('top', top);
     // update opacity
     let opacity = 1.0;
     if (i > 0) {
-      opacity = Math.min(scroll - i, 1.0);
+      opacity = Math.min(i_cont - i, 1.0);
     }
     image.style.setProperty('opacity', opacity);
-    // update size
-    let height = Math.max(window.innerWidth / window.innerHeight * 9.0 / 16.0, 1.0);
-    image.style.setProperty('height', 100 * height + '%');
-    // update position
-    let left = 0.7 - 0.3 * 0.7 ** scroll;
-    image.style.setProperty('left', 100 * left + '%');
   }
-  // update fog
-  let left = -1.0 * 0.5 ** scroll;
-  let fog = document.getElementById('fog');
-  fog.style.setProperty('left', 100 * left + '%');
-  // loop
   window.requestAnimationFrame(update);
 }

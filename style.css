@@ -1,38 +1,130 @@
-#title {
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Anaheim';
+}
+
+#navbar {
   position: absolute;
-  top: 40px;
-  left: 50px;
-  font-size: 80px;
+  width: 100%;
+  background-color: #202A44;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1;
+}
+
+#brand {
+  font-size: 30px;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+}
+
+#menu {
+  list-style-type: none;
+  margin: 0;
+  display: flex;
+}
+
+#navbar li a {
+  display: block;
+  font-size: 20px;
+  padding: 16.75px;
+  color: white;
+  text-decoration: none;
+  transition-duration: 0.2s;
+}
+
+#navbar li a:hover {
+  background-color: grey;
+  transition-duration: 0.2s;
+}
+
+#cover {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title-container {
+  text-align: center;
   font-family: 'Italiana';
+  color: white;
+  mix-blend-mode: difference;
+}
+
+#title {
+  font-size: 160px;
+}
+
+#subtitle {
+  font-size: 40px;
+}
+
+#head-shot {
+  float: right;
+  width: 200px;
+  padding: 20px;
 }
 
 #main {
-  position: absolute;
-  top: 100%;
-  left: 50px;
-  width: 40%;
+  background: white;
+  color: #222222;
+  box-sizing: border-box;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding: 80px;
 }
 
-.subtitle {
+.section {
   font-size: 40px;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .text {
   font-size: 20px;
+  line-height: 150%;
 }
 
-#fog {
-  position: fixed;
-  top: 0%;
-  left: -100%;
-  height: 100%;
-  width: 100%;
-  z-index: -1;
+#contact {
+  background-color: #202A44;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+#contact-me {
+  font-size: 40px;
+}
+
+#contact ul {
+  list-style: none;
+  display: inline-block;
+  text-align: left;
+}
+
+#contact li {
+  position: relative;
+  left: -10px;
+  padding: 5px;
+}
+
+#contact a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
 }
 
 .image {
   position: fixed;
   top: 50%;
+  left: 50%;
   height: 100%;
-  z-index: -2;
+  z-index: -1;
 }
