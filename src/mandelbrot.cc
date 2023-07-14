@@ -17,8 +17,8 @@ namespace fs = std::filesystem;
 #define HEIGHT 1080
 #define WIDTH 1920
 #define SCALAR 1.28402541669  // e^(1/4)
-#define REAL 0.3388866579009341
-#define IMAG 0.5735275233665983
+#define REAL 0.33888665790093404
+#define IMAG 0.57352752336659824
 #define BAILOUT 1024
 #define DIR "../images/mandelbrot/"
 
@@ -47,7 +47,7 @@ int main() {
           z_i2 = z_i * z_i;
           if (z_r2 + z_i2 > BAILOUT * BAILOUT) {
             double itr_cont = itr + 1.0 - log2(0.5 * log(z_r2 + z_i2) / log(BAILOUT));
-            int c = 128 * sin(1.4 * log(itr_cont)) + 128;
+            int c = 128 * sin(1.44 * log(itr_cont)) + 128;
             image[i][j] = png::rgb_pixel(c, c, c);
             break;
           }
