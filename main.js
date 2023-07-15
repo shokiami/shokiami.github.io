@@ -19,7 +19,7 @@ function init() {
 
 function update() {
   let scroll = Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
-  let i_cont = scroll * NUM_IMAGES;
+  let i_cont = scroll * (NUM_IMAGES - 1);
   for (image of document.querySelectorAll('.image')) {
     // update visibility
     let i = parseInt(image.id);
