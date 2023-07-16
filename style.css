@@ -10,39 +10,59 @@ body {
 #navbar {
   position: fixed;
   width: 20%;
-  margin: 20px;
+  padding: 20px;
+  box-sizing: border-box;
   mix-blend-mode: difference;
 }
 
-#brand {
-  font-size: 40px;
+#navbar-title {
+  font-size: 30px;
   color: white;
   border-bottom: 1px solid white;
   text-decoration: none;
 }
 
-#menu {
+#section-menu {
   list-style-type: none;
   padding: 0;
 }
 
-#menu li {
+#section-menu li {
   padding-top: 10px;
   padding-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
-#menu li a {
-  font-size: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+#section-menu a {
+  font-size: 20px;
   color: white;
   text-decoration: none;
   transition-duration: 0.2s;
 }
 
-#menu li a:hover {
+#section-menu a:hover {
   padding-left: 10px;
   transition-duration: 0.2s;
+}
+
+#project-dropdown {
+  margin-left: 10px;
+}
+
+#arrow {
+  cursor: pointer;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: translateY(-1px) rotate(45deg);
+  -webkit-transform: translateY(-1px) rotate(45deg);
+}
+
+#project-menu {
+  display: none;
+  padding-left: 30px;
 }
 
 #home {

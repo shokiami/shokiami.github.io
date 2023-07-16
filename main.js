@@ -45,11 +45,13 @@ function update() {
     image.style.setProperty('top', top);
     image.style.setProperty('left', left);
     // update opacity
-    let opacity = 1.0;
-    if (i > 0) {
-      opacity = Math.min(i_cont - i, 1.0);
-    }
+    let opacity = i > 0 ? Math.min(i_cont - i, 1.0) : 1.0;
     image.style.setProperty('opacity', opacity);
   }
   window.requestAnimationFrame(update);
+}
+
+function toggleDropdown(event) {
+  let project_menu = document.getElementById('project-menu');
+  project_menu.style.display = project_menu.style.display == 'block' ? 'none' : 'block';
 }
