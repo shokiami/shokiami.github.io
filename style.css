@@ -37,10 +37,12 @@ body {
   padding-bottom: 10px;
   color: white;
   text-decoration: none;
+  transition-duration: 0.2s;
 }
 
 #menu li a:hover {
-  text-decoration: underline;
+  padding-left: 10px;
+  transition-duration: 0.2s;
 }
 
 #home {
@@ -104,7 +106,8 @@ body {
 }
 
 .project-container {
-  width: 33%;
+  position: relative;
+  flex-basis: 33%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -114,15 +117,11 @@ body {
 .project-container a {
   text-decoration: none;
   color: #222222;
-  width: 80%;
+  width: 160px;
 }
 
-.project-container a:hover .project-title {
+.project-container a:not(.in-progress):hover .project-title {
   text-decoration: underline;
-}
-
-.project-container a:hover .project-thumbnail {
-  opacity: 50%;
 }
 
 .project-title {
@@ -130,8 +129,31 @@ body {
 }
 
 .project-thumbnail {
-  width: 100%;
+  width: 160px;
   border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+.in-progress .project-thumbnail{
+  opacity: 50%;
+}
+
+.project-thumbnail-container {
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-container a:not(.in-progress):hover .project-thumbnail {
+  width: 168px;
+  transition-duration: 0.2s;
+}
+
+.in-progress-text {
+  position: absolute;
+  font-size: 16px;
+  z-index: 1;
 }
 
 .project-description {
