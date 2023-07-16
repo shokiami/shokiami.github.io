@@ -2,7 +2,7 @@ const IMAGE_COUNT = 140;
 const IMAGE_HEIGHT = 1080;
 const IMAGE_WIDTH = 1920;
 const IMAGE_SCALAR = 1.28402541669;  // e^(1/4)
-const IMAGE_DIR = 'images/mandelbrot/';
+const IMAGE_DIR = 'assets/mandelbrot/';
 
 window.onload = init;
 

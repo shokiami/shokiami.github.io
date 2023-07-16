@@ -20,7 +20,7 @@ namespace fs = std::filesystem;
 #define REAL 0.33888665790093404
 #define IMAG 0.57352752336659824
 #define BAILOUT 1024
-#define DIR "../images/mandelbrot/"
+#define DIR "../assets/mandelbrot/"
 
 void render(long double zoom, int max_itr, double top, double left, string filename) {
   png::image<png::rgb_pixel> image = png::image<png::rgb_pixel>(WIDTH, HEIGHT);

@@ -1,8 +1,8 @@
 import os
 from PIL import Image
 
-IN_DIR = '../images/mandelbrot/'
-OUT_DIR = '../images/out/'
+IN_DIR = '../assets/mandelbrot/'
+OUT_DIR = '../assets/out/'
 NUM_IMAGES = 140
 
 if not os.path.isdir(OUT_DIR):

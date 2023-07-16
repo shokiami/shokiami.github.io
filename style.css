@@ -37,12 +37,10 @@ body {
   padding-bottom: 10px;
   color: white;
   text-decoration: none;
-  transition-duration: 0.2s;
 }
 
 #menu li a:hover {
-  font-size: 40px;
-  transition-duration: 0.2s;
+  text-decoration: underline;
 }
 
 #home {
@@ -95,8 +93,50 @@ body {
 }
 
 .text {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 150%;
+}
+
+#project-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.project-container {
+  width: 33%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.project-container a {
+  text-decoration: none;
+  color: #222222;
+  width: 80%;
+}
+
+.project-container a:hover .project-title {
+  text-decoration: underline;
+}
+
+.project-container a:hover .project-thumbnail {
+  opacity: 50%;
+}
+
+.project-title {
+  font-size: 20px;
+}
+
+.project-thumbnail {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.project-description {
+  font-size: 12px;
+  text-align: left;
 }
 
 #contact {
