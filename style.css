@@ -48,6 +48,8 @@ body {
 
 #project-dropdown {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
   padding-left: 5px;
   padding-right: 5px;
 }
