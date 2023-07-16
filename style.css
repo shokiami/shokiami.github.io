@@ -7,8 +7,33 @@ body {
   font-family: 'Anaheim';
 }
 
+#home {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#title-container {
+  text-align: center;
+  font-family: 'Italiana';
+  color: white;
+  mix-blend-mode: difference;
+  margin-bottom: 8vh;
+}
+
+#title {
+  font-size: 160px;
+}
+
+#subtitle {
+  font-size: 40px;
+}
+
 #navbar {
   position: fixed;
+  top: 0;
   width: 20%;
   padding: 20px;
   box-sizing: border-box;
@@ -75,30 +100,6 @@ body {
   padding-left: 20px;
 }
 
-#home {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#title-container {
-  text-align: center;
-  font-family: 'Italiana';
-  color: white;
-  mix-blend-mode: difference;
-  margin-bottom: 8vh;
-}
-
-#title {
-  font-size: 160px;
-}
-
-#subtitle {
-  font-size: 40px;
-}
-
 #head-shot {
   float: right;
   width: 200px;
@@ -127,6 +128,7 @@ body {
 .text {
   font-size: 16px;
   line-height: 150%;
+  margin-bottom: 20px;
 }
 
 #project-list {
@@ -189,6 +191,13 @@ body {
 .project-description {
   font-size: 12px;
   text-align: left;
+}
+
+.youtube {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
 }
 
 #contact {
