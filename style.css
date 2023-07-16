@@ -8,42 +8,44 @@ body {
 }
 
 #navbar {
-  position: absolute;
-  width: 100%;
-  background-color: #202A44;
-  display: flex;
-  justify-content: space-between;
-  z-index: 1;
+  position: fixed;
+  width: 20%;
+  margin: 20px;
+  mix-blend-mode: difference;
 }
 
 #brand {
-  font-size: 30px;
+  font-size: 40px;
   color: white;
+  border-bottom: 1px solid white;
   text-decoration: none;
-  padding: 10px;
 }
 
 #menu {
   list-style-type: none;
-  margin: 0;
-  display: flex;
+  padding: 0;
 }
 
-#navbar li a {
-  display: block;
-  font-size: 20px;
-  padding: 16.75px;
+#menu li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#menu li a {
+  font-size: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: white;
   text-decoration: none;
   transition-duration: 0.2s;
 }
 
-#navbar li a:hover {
-  background-color: grey;
+#menu li a:hover {
+  font-size: 40px;
   transition-duration: 0.2s;
 }
 
-#cover {
+#home {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -56,6 +58,7 @@ body {
   font-family: 'Italiana';
   color: white;
   mix-blend-mode: difference;
+  margin-bottom: 8vh;
 }
 
 #title {
@@ -75,14 +78,18 @@ body {
 #main {
   background: white;
   color: #222222;
-  box-sizing: border-box;
   margin-left: 20%;
   margin-right: 20%;
-  padding: 80px;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .section {
   font-size: 40px;
+  padding-top: 40px;
   padding-bottom: 20px;
   text-align: center;
 }
@@ -93,32 +100,29 @@ body {
 }
 
 #contact {
-  background-color: #202A44;
-  color: white;
-  padding: 20px;
   text-align: center;
-}
-
-#contact-me {
-  font-size: 40px;
 }
 
 #contact ul {
   list-style: none;
   display: inline-block;
+  margin: 0;
   text-align: left;
 }
 
 #contact li {
-  position: relative;
-  left: -10px;
-  padding: 5px;
+  margin: 20px;
 }
 
 #contact a {
-  color: white;
+  color: #222222;
+  font-size: 20px;
   text-decoration: none;
-  padding: 10px;
+  padding-left: 10px;
+}
+
+#footer {
+  margin-top: 100px;
 }
 
 .image {
