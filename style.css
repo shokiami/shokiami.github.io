@@ -121,13 +121,19 @@ body {
 .section {
   font-size: 40px;
   padding-top: 40px;
-  padding-bottom: 20px;
+  text-align: center;
+}
+
+.section-date {
+  font-size: 20px;
+  color: #888888;
   text-align: center;
 }
 
 .text {
   font-size: 16px;
   line-height: 150%;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
@@ -135,6 +141,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 40px;
 }
 
 .project-container {
@@ -158,6 +165,11 @@ body {
 
 .project-title {
   font-size: 20px;
+}
+
+.project-date {
+  font-size: 15px;
+  color: #888888;
 }
 
 .project-thumbnail {
