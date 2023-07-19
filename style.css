@@ -218,6 +218,10 @@ body {
   margin-bottom: 50px;
 }
 
+.youtube iframe {
+  background-color: black;
+}
+
 #contact {
   text-align: center;
 }
