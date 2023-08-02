@@ -63,12 +63,12 @@ body {
   font-size: 20px;
   color: white;
   text-decoration: none;
-  transition-duration: 0.2s;
+  transition: 0.2s;
 }
 
 #section-menu a:hover {
   padding-left: 10px;
-  transition-duration: 0.2s;
+  transition: 0.2s;
 }
 
 #project-dropdown {
@@ -79,20 +79,20 @@ body {
   padding-right: 5px;
 }
 
-.arrow {
+.dropdown-arrow {
   border: solid white;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 2px;
   transform: translateY(-2px) rotate(-45deg);
   -webkit-transform: translateY(-2px) rotate(-45deg);
-  transition-duration: 0.2s;
+  transition: 0.2s;
 }
 
-#project-dropdown:hover .arrow {
+#project-dropdown:hover .dropdown-arrow {
   transform: translateY(-2px) scale(1.2) rotate(-45deg);
   -webkit-transform: translateY(-2px) scale(1.2) rotate(-45deg);
-  transition-duration: 0.2s;
+  transition: 0.2s;
 }
 
 .activated {
@@ -103,12 +103,16 @@ body {
 #project-dropdown:hover .activated {
   transform: translateY(-3px) scale(1.2) rotate(45deg);
   -webkit-transform: translateY(-3px) scale(1.2) rotate(45deg);
-  transition-duration: 0.2s;
 }
 
 #project-menu {
-  display: none;
   padding-left: 20px;
+}
+
+.dropdown-menu {
+  height: 0px;
+  overflow: hidden;
+  transition: 0.5s;
 }
 
 #head-shot {
@@ -186,7 +190,7 @@ body {
 .project-thumbnail {
   width: 160px;
   border-radius: 10px;
-  transition-duration: 0.2s;
+  transition: 0.2s;
 }
 
 .in-progress .project-thumbnail{
@@ -202,7 +206,7 @@ body {
 
 .project-container a:not(.in-progress):hover .project-thumbnail {
   width: 168px;
-  transition-duration: 0.2s;
+  transition: 0.2s;
 }
 
 .in-progress-text {

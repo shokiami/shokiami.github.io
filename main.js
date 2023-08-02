@@ -52,8 +52,14 @@ function update() {
 }
 
 function toggleDropdown(dropdown) {
-  let menu = dropdown.parentElement.nextElementSibling;
-  menu.style.display = menu.style.display == 'block' ? 'none' : 'block';
-  let arrow = dropdown.children[0];
-  arrow.classList.toggle('activated');
+  let dropdown_menu = dropdown.parentElement.nextElementSibling;
+  if (dropdown_menu.offsetHeight == 0) {
+    let item_height = dropdown_menu.children[0].getBoundingClientRect().height;
+    let height = dropdown_menu.children.length * item_height;
+    dropdown_menu.style.setProperty('height', height + 'px');
+  } else {
+    dropdown_menu.style.setProperty('height', '0px');
+  }
+  let dropdown_arrow = dropdown.children[0];
+  dropdown_arrow.classList.toggle('activated');
 }
