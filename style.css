@@ -134,28 +134,34 @@ body {
 
 .section {
   font-size: 40px;
-  padding-top: 40px;
   text-align: center;
+  padding-top: 40px;
 }
 
 .section-date {
   font-size: 20px;
   color: #888888;
   text-align: center;
+  padding-bottom: 40px;
+}
+
+.subsection {
+  font-size: 20px;
+  color: #888888;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 .text {
   font-size: 16px;
   line-height: 150%;
-  margin-top: 40px;
-  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 #project-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin-top: 40px;
 }
 
 .project-container {
@@ -223,13 +229,14 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-bottom: 20px;
 }
 
 .youtube {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  padding-bottom: 20px;
 }
 
 .youtube iframe {
