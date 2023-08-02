@@ -51,7 +51,9 @@ function update() {
   window.requestAnimationFrame(update);
 }
 
-function toggleDropdown(event) {
-  let project_menu = document.getElementById('project-menu');
-  project_menu.style.display = project_menu.style.display == 'block' ? 'none' : 'block';
+function toggleDropdown(dropdown) {
+  let menu = dropdown.parentElement.nextElementSibling;
+  menu.style.display = menu.style.display == 'block' ? 'none' : 'block';
+  let arrow = dropdown.children[0];
+  arrow.classList.toggle('activated');
 }
