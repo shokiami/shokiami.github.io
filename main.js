@@ -7,6 +7,10 @@ const IMAGE_DIR = 'assets/mandelbrot/';
 window.onload = init;
 
 function init() {
+  // init dropdowns
+  for (let dropdown_menu of document.querySelectorAll('.dropdown-menu')) {
+    dropdown_menu.style.setProperty('height', '0px');
+  }
   // init images
   let image_container = document.getElementById('image-container');
   for (let i = 0; i < IMAGE_COUNT; i++) {
@@ -22,7 +26,7 @@ function init() {
 function update() {
   let scroll = Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
   let i_cont = scroll * (IMAGE_COUNT - 1);
-  for (image of document.querySelectorAll('.image')) {
+  for (let image of document.querySelectorAll('.image')) {
     // update visibility
     let i = parseInt(image.id);
     if (i_cont < i || i_cont > i + 2) {
@@ -53,7 +57,7 @@ function update() {
 
 function toggleDropdown(dropdown) {
   let dropdown_menu = dropdown.parentElement.nextElementSibling;
-  if (dropdown_menu.offsetHeight == 0) {
+  if (dropdown_menu.style.getPropertyValue('height') == '0px') {
     let item_height = dropdown_menu.children[0].getBoundingClientRect().height;
     let height = dropdown_menu.children.length * item_height;
     dropdown_menu.style.setProperty('height', height + 'px');
