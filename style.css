@@ -161,7 +161,6 @@ body {
 
 #head-shot {
   float: right;
-  width: 200px;
   padding: 20px;
 }
 
@@ -236,6 +235,13 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-bottom: 20px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   padding-bottom: 20px;
 }
 
