@@ -133,12 +133,16 @@ body {
 }
 
 .section {
-  font-size: 40px;
-  text-align: center;
+  border-bottom: 1px solid #888888;
   padding-top: 40px;
 }
 
-.section-date {
+.header {
+  font-size: 40px;
+  text-align: center;
+}
+
+.date {
   font-size: 20px;
   color: #888888;
   text-align: center;
@@ -146,9 +150,12 @@ body {
 }
 
 .subsection {
+  padding-bottom: 40px;
+}
+
+.subheader {
   font-size: 20px;
-  color: #888888;
-  padding-top: 10px;
+  font-weight: bold;
   padding-bottom: 20px;
 }
 
@@ -267,7 +274,7 @@ body {
 
 #footer {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 
 .image {
