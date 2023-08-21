@@ -26,13 +26,13 @@
           <div id="project-dropdown" onclick="toggleDropdown(this)"><i class="dropdown-arrow"></i></div>
         </li>
         <ul id="project-menu" class="dropdown-menu">
-          <li><a href="#genaug">GenAug</a></li>
+          <li><a href="#dancetime">DanceTime</a></li>
           <li><a href="#alphafour">AlphaFour</a></li>
           <li><a href="#driverless-software">Driverless Software</a></li>
+          <li><a href="#genaug">GenAug</a></li>
           <li><a href="#geoknowr">GeoKnowr</a></li>
-          <li><a href="#dancetime">DanceTime</a></li>
-          <li><a href="#project-sidewalk">Project Sidewalk</a></li>
           <li><a href="#frijma">Frijma</a></li>
+          <li><a href="#project-sidewalk">Project Sidewalk</a></li>
           <li><a href="#danzon">Danzón No. 2</a></li>
           <li><a href="#cinema-paradiso">Cinema Paradiso</a></li>
           <li><a href="#cello">Cello</a></li>
@@ -119,14 +119,14 @@
               </a>
             </div>
             <div class="project-container">
-              <a href="#genaug">
-                <div class="project-title">GenAug</div>
-                <div class="project-date">Jan 2023 - Mar 2023</div>
+              <a href="#dancetime">
+                <div class="project-title">DanceTime</div>
+                <div class="project-date">May 2021 - Jul 2023</div>
                 <div class="project-thumbnail-container">
-                  <img class="project-thumbnail" src="assets/genaug/thumbnail.png">
+                  <img class="project-thumbnail" src="assets/dancetime/thumbnail.png">
                 </div>
                 <div class="project-description">
-                  Training a robot to perform pick-place tasks with imitation learning and generative models.
+                  A multiplayer dance-based rhythm game inspired by Just Dance and FaceTime.
                 </div>
               </a>
             </div>
@@ -155,6 +155,18 @@
               </a>
             </div>
             <div class="project-container">
+              <a href="#genaug">
+                <div class="project-title">GenAug</div>
+                <div class="project-date">Jan 2023 - Mar 2023</div>
+                <div class="project-thumbnail-container">
+                  <img class="project-thumbnail" src="assets/genaug/thumbnail.png">
+                </div>
+                <div class="project-description">
+                  Training a robot to perform pick-place tasks with imitation learning and generative models.
+                </div>
+              </a>
+            </div>
+            <div class="project-container">
               <a href="#geoknowr">
                 <div class="project-title">GeoKnowr</div>
                 <div class="project-date">Nov 2022 - Dec 2022</div>
@@ -167,14 +179,14 @@
               </a>
             </div>
             <div class="project-container">
-              <a href="#dancetime">
-                <div class="project-title">DanceTime</div>
-                <div class="project-date">May 2021 - Jul 2023</div>
+              <a href="#frijma">
+                <div class="project-title">Frijma</div>
+                <div class="project-date">Oct 2022 - Oct 2022</div>
                 <div class="project-thumbnail-container">
-                  <img class="project-thumbnail" src="assets/dancetime/thumbnail.png">
+                  <img class="project-thumbnail" src="assets/frijma/thumbnail.png">
                 </div>
                 <div class="project-description">
-                  A multiplayer dance/rhythm game so you can dance off against your friends.
+                  A web app where you can scan receipts and keep track of expiration dates.
                 </div>
               </a>
             </div>
@@ -187,18 +199,6 @@
                 </div>
                 <div class="project-description">
                   A data crowdsourcing and computer vision pipeline for sidewalk accessibility evaluation.
-                </div>
-              </a>
-            </div>
-            <div class="project-container">
-              <a href="#frijma">
-                <div class="project-title">Frijma</div>
-                <div class="project-date">Oct 2022 - Oct 2022</div>
-                <div class="project-thumbnail-container">
-                  <img class="project-thumbnail" src="assets/frijma/thumbnail.png">
-                </div>
-                <div class="project-description">
-                  A web app where you can scan receipts and keep track of expiration dates.
                 </div>
               </a>
             </div>
@@ -241,6 +241,255 @@
           </div>
         </div>
       </div>
+
+      <div id="dancetime" class="section">
+        <div class="header">DanceTime</div>
+        <div class="date">May 2021 - Jul 2023</div>
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+          <div class="text">
+            DanceTime is a multiplayer dance-based rhythm game inspired by Just Dance and FaceTime. The premise is very
+            simple: each player must try to follow the dance moves of the avatar as closely as possible, and the closer
+            you are, the more points you get.
+            This is one of my most technical projects as it features a custom pose estimation library that is so
+            optimized that it can run smoothly on any laptop and an original regression-based numerical scoring algorithm.
+          </div>
+          <div class="image-container">
+            <video width="80%" autoplay loop muted>
+              <source src="assets/dancetime/dancing.mp4" type="video/mp4"/>
+            </video>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Code: <a href="https://github.com/shokiami/DanceTime" target="_blank">https://github.com/shokiami/DanceTime</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Software & Tools</div>
+          <ul class="list">
+            <li>Language: C++</li>
+            <li>CV Library: OpenCV</li>
+            <li>ML Library: MediaPipe, TensorFlow Lite</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">System Overview</div>
+          <div class="text">
+            DanceTime's control flow is difficult to summarize due to its many complicated algorithms and abundance of parallelism.
+            However, here is my best attempt:
+          </div>
+          <div class="image-container">
+            <img width="80%" src="assets/dancetime/flow.png">
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Algorithms</div>
+          <div class="text">
+            One algorithm I wanted to highlight was the scoring algorithm. This algorithm took me nearly an entire year
+            to develop, namely because the problem was so non-trivial:
+          </div>
+          <div class="text">
+            Define a pose to be a set of (x, y) coordinates for various key joints/body parts. Given a constant stream
+            of noisy pose readings, how can we arrive at a score which captures how similarly the two players danced?
+          </div>
+          <div class="text">
+            There were three main challenges which made this problem difficult:
+          </div>
+          <ul class="list">
+            <li>Invariance: translation/scaling should not affect scoring.</li>
+            <li>Noise: the pose data can be very jittery/sporadic.</li>
+            <li>Timing offset: scoring cannot fixate on current poses and must account for timing offsets.</li>
+          </ul>
+          <div class="text">
+            Invariance was the easiest problem to address. I tried various strategies such as comparing joint velocities and
+            joint angles, but both of these failed due to the noise. What worked best was translating/scaling each pose
+            such that the torso height had unit length and was centered at the origin.
+          </div>
+          <div class="text">
+            Noise was the hardest one to combat. For example, examining the x coordinate of the left wrist might yield data
+            that looks like the following:
+          </div>
+          <div class="image-container">
+            <img width="80%" src="assets/dancetime/1.png">
+          </div>
+          <div class="text">
+            The first natural step was to use a moving average, but this ended up either not making a significant enough
+            impact or over-dampening the gesture trajectory shape.
+          </div>
+          <div class="text">
+            So instead, I came up with a two part solution. The first part is a conditional moving average which only
+            averages if a current point is further from its neighbors than they are to each other. This works because
+            it still preserves a lot of the gesture trajectory shape.
+          </div>
+          <div class="image-container">
+            <img width="80%" src="assets/dancetime/2.png">
+          </div>
+          <div class="text">
+            The second part is using regression to find the polynomial of best fit for the data. The intuition is that this would help
+            capture the player's overall gesture and significantly reduce the affect of any remaining noise in our data.
+            After lots of experimentation, I found that a polynomial degree of 3 provided the best results without overfitting.
+          </div>
+          <div class="image-container">
+            <img width="80%" src="assets/dancetime/3.png">
+          </div>
+          <div class="text">
+            Using polynomial regression actually serves a second purpose which is that it makes addressing the timing offset issue
+            more straight forward as we are now operating in continuous space. To find the timing offset between the player and the avatar,
+            we can simply take their polynomials and shift them around to find what horizontal offset minimizes the error between them.
+            I ended up using maximum error instead of mean error for my error criterion since it was more reliably minimized when
+            the functions were horizontally aligned. In the following visual, the red and blue functions are vertical translations
+            of each other and the green function is the mean error as a function of offset and the orange function is the max
+            error as a function of offset. We see that the max error is minimized at offset 0 which is desired while the mean
+            error is not.
+          </div>
+          <div class="image-container">
+            <video width="80%" autoplay loop muted>
+              <source src="assets/dancetime/4.mp4" type="video/mp4"/>
+            </video>
+          </div>
+          <div class="text">
+            Finally, we can take the error and offset and feed them into some activation function such as a sigmoid
+            to get a similarity value between 0 and 1.
+          </div>
+          <div class="text">
+            Here is the full pseudocode for the entire scoring algorithm:
+          </div>
+          <div class="algo">
+            function remove_outliers(poses):
+            <div class="tabbed">
+              for pose in poses:
+              <div class="tabbed">
+                for body_part in pose:
+                <div class="tabbed">
+                  prev_to_curr = dist(prev_body_part, body_part)<br>
+                  curr_to_next = dist(body_part, next_body_part)<br>
+                  pev_to_next = dist(prev_body_part, next_body_part)<br>
+                  if prev_to_next < prev_to_curr or prev_to_next < curr_to_next:
+                  <div class="tabbed">
+                    body_part = (prev_body_part + next_body_part) / 2
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="algo">
+            function standardize(poses):
+            <div class="tabbed">
+              for pose in poses:
+              <div class="tabbed">
+                left_shoulder = pose[left_shoulder]<br>
+                right_shoulder = pose[right_shoulder]<br>
+                left_hip = pose[left_hip]<br>
+                right_hip = pose[right_hip]<br>
+                torso_center = (left_shoulder + left_hip + right_shoulder + right_hip) / 4.0<br>
+                left_torso_length = dist(left_shoulder, left_hip)<br>
+                right_torso_length = dist(right_shoulder, right hip)<br>
+                torso_length = (left_torso_length + right_torso_length) / 2<br>
+                for body_part in pose:
+                <div class="tabbed">
+                  body_part = (body_part - torso_center) / torso_length
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="algo">
+            function poly_regression(poses):
+            <div class="tabbed">
+              polys = {}<br>
+              for body_part in body_parts:
+              <div class="tabbed">
+                A = matrix(poses.length, POLY_DEGREE + 1)<br>
+                b = vector(poses.length)<br>
+                for i from 0 to poses.length:
+                <div class="tabbed">
+                  A[i] = [1, i, i^2, ..., i^POLY_DEGREE]<br>
+                  b[i] = poses[i][body_part]
+                </div>
+                P = A * (A^T * A)^-1 * A^T<br>
+                proj_b = P * b<br>
+                poly_coeffs = A^-1 * proj_b<br>
+                polys[body_part] = poly_coeffs
+              </div>
+              return polys
+            </div>
+          </div>
+          <div class="algo">
+            function max_error(player_polys, avatar_polys):
+            <div class="tabbed">
+              max_error = -infinity<br>
+              for body_part in body_parts:
+              <div class="tabbed">
+                for t from T_START to T_END with T_STEP:
+                <div class="tabbed">
+                  f = player_polys[body_part]<br>
+                  g = avatar_polys[body_part]<br>
+                  error = (f(t) - g(t))^2<br>
+                  if error > max_error:
+                  <div class="tabbed">
+                    max_error = error
+                  </div>
+                </div>
+              </div>
+              return max_error
+            </div>
+          </div>
+          <div class="algo">
+            function score(player_poses, avatar_poses):
+            <div class="tabbed">
+              remove_outliers(player_poses)<br>
+              remove_outliers(player_poses)<br>
+              standardize(player_poses)<br>
+              standardize(avatar_poses)<br>
+              player_polys = poly_regression(player_poses)<br>
+              avatar_polys = poly_regression(avatar_poses)<br>
+              min_error = infinity<br>
+              for t from T_MIN to T_MAX with T_STEP:
+              <div class="tabbed">
+                error = max_error(player_polys.translate(t), avatar_polys)<br>
+                if error < min_error:
+                <div class="tabbed">
+                  min_error = error<br>
+                  offset = |t|
+                </div>
+              </div>
+              score = sigmoid(min_error + OFFSET_COST * offset)<br>
+              return score
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="alphafour" class="section">
+        <div class="header">AlphaFour</div>
+        <div class="date">Jun 2022 - Jul 2023</div>
+        <div class="text">
+          Sed risus pretium quam vulputate dignissim suspendisse. Sem fringilla ut morbi tincidunt augue interdum. Orci dapibus ultrices in iaculis nunc sed. Vitae justo eget magna fermentum iaculis eu non diam phasellus. Quam id leo in vitae turpis massa sed. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Vitae congue eu consequat ac felis donec et odio pellentesque. Aliquam vestibulum morbi blandit cursus risus. Enim eu turpis egestas pretium aenean pharetra magna. Libero volutpat sed cras ornare arcu dui vivamus. Velit scelerisque in dictum non consectetur a erat. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Senectus et netus et malesuada. Enim praesent elementum facilisis leo vel fringilla est ullamcorper eget. Sit amet facilisis magna etiam tempor. <br><br>
+          Erat velit scelerisque in dictum non consectetur. At lectus urna duis convallis convallis tellus id. Ut pharetra sit amet aliquam id diam. Lectus sit amet est placerat. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet. Vitae congue eu consequat ac felis. Egestas integer eget aliquet nibh praesent tristique. Ut eu sem integer vitae justo eget magna fermentum. Eget duis at tellus at urna condimentum mattis. Sit amet luctus venenatis lectus magna fringilla. Enim diam vulputate ut pharetra sit amet aliquam id diam. Nisl nunc mi ipsum faucibus vitae aliquet. Fermentum dui faucibus in ornare quam viverra. Curabitur gravida arcu ac tortor. Id consectetur purus ut faucibus. <br><br>
+          Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ipsum a arcu cursus vitae congue mauris rhoncus. Quam viverra orci sagittis eu volutpat odio. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Eget dolor morbi non arcu risus quis varius quam. Blandit libero volutpat sed cras ornare arcu dui. Metus vulputate eu scelerisque felis imperdiet. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Rhoncus mattis rhoncus urna neque viverra. Arcu non sodales neque sodales ut. Sed ullamcorper morbi tincidunt ornare massa. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Odio euismod lacinia at quis risus sed. Nunc vel risus commodo viverra. Sed euismod nisi porta lorem mollis aliquam ut. Lobortis scelerisque fermentum dui faucibus in. Ultricies integer quis auctor elit sed vulputate mi sit. Id cursus metus aliquam eleifend mi in. <br><br>
+          Adipiscing elit ut aliquam purus sit. Bibendum est ultricies integer quis auctor. A erat nam at lectus urna duis convallis convallis. Quam nulla porttitor massa id neque. Pretium lectus quam id leo in. Sit amet mauris commodo quis. Tristique nulla aliquet enim tortor. Cursus turpis massa tincidunt dui ut. Praesent elementum facilisis leo vel fringilla. Vestibulum lorem sed risus ultricies tristique nulla aliquet. <br><br>
+          Interdum posuere lorem ipsum dolor sit amet consectetur. Lobortis elementum nibh tellus molestie nunc non blandit. Augue eget arcu dictum varius. Pulvinar sapien et ligula ullamcorper. Egestas sed tempus urna et pharetra pharetra. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Orci phasellus egestas tellus rutrum. Felis eget nunc lobortis mattis aliquam faucibus purus in massa. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Tortor id aliquet lectus proin nibh nisl condimentum id venenatis. Ac turpis egestas maecenas pharetra convallis posuere morbi. Id interdum velit laoreet id donec ultrices tincidunt arcu non. Nulla at volutpat diam ut venenatis tellus in. Nibh mauris cursus mattis molestie a iaculis at erat. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Mattis enim ut tellus elementum sagittis vitae et leo duis. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Auctor eu augue ut lectus arcu bibendum at varius vel. Egestas erat imperdiet sed euismod nisi porta. Justo laoreet sit amet cursus. <br><br>
+          Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Gravida in fermentum et sollicitudin ac. Diam maecenas ultricies mi eget. Id donec ultrices tincidunt arcu non sodales neque sodales. Curabitur vitae nunc sed velit dignissim sodales ut. Lacus viverra vitae congue eu. Lacus vel facilisis volutpat est velit egestas dui. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Imperdiet sed euismod nisi porta lorem mollis aliquam. Ultricies leo integer malesuada nunc. Viverra vitae congue eu consequat ac felis donec et odio. Non enim praesent elementum facilisis leo vel fringilla est. Enim eu turpis egestas pretium aenean pharetra magna. Cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo. Augue mauris augue neque gravida in. Non curabitur gravida arcu ac tortor dignissim convallis aenean et. Dictum sit amet justo donec enim diam vulputate ut. Justo eget magna fermentum iaculis eu non. Ac tortor vitae purus faucibus. <br><br>
+          Est sit amet facilisis magna etiam. Tristique et egestas quis ipsum suspendisse ultrices gravida. Senectus et netus et malesuada fames. Nec feugiat in fermentum posuere. Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Fames ac turpis egestas integer eget aliquet nibh praesent tristique. Faucibus nisl tincidunt eget nullam non. Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Turpis nunc eget lorem dolor sed viverra ipsum nunc. Nunc faucibus a pellentesque sit amet porttitor. Neque ornare aenean euismod elementum nisi quis eleifend. Nunc sed id semper risus in hendrerit gravida rutrum quisque. Consequat semper viverra nam libero justo. <br><br>
+          In nisl nisi scelerisque eu ultrices vitae. Tellus at urna condimentum mattis. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Purus ut faucibus pulvinar elementum integer enim. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Pellentesque habitant morbi tristique senectus et. Dictumst vestibulum rhoncus est pellentesque. Ac tortor dignissim convallis aenean et tortor.
+        </div>
+      </div>
+
+      <div id="driverless-software" class="section">
+        <div class="header">Driverless Software</div>
+        <div class="date">Jan 2023 - May 2023</div>
+        <div class="text">
+          Sed risus pretium quam vulputate dignissim suspendisse. Sem fringilla ut morbi tincidunt augue interdum. Orci dapibus ultrices in iaculis nunc sed. Vitae justo eget magna fermentum iaculis eu non diam phasellus. Quam id leo in vitae turpis massa sed. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Vitae congue eu consequat ac felis donec et odio pellentesque. Aliquam vestibulum morbi blandit cursus risus. Enim eu turpis egestas pretium aenean pharetra magna. Libero volutpat sed cras ornare arcu dui vivamus. Velit scelerisque in dictum non consectetur a erat. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Senectus et netus et malesuada. Enim praesent elementum facilisis leo vel fringilla est ullamcorper eget. Sit amet facilisis magna etiam tempor. <br><br>
+          Erat velit scelerisque in dictum non consectetur. At lectus urna duis convallis convallis tellus id. Ut pharetra sit amet aliquam id diam. Lectus sit amet est placerat. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet. Vitae congue eu consequat ac felis. Egestas integer eget aliquet nibh praesent tristique. Ut eu sem integer vitae justo eget magna fermentum. Eget duis at tellus at urna condimentum mattis. Sit amet luctus venenatis lectus magna fringilla. Enim diam vulputate ut pharetra sit amet aliquam id diam. Nisl nunc mi ipsum faucibus vitae aliquet. Fermentum dui faucibus in ornare quam viverra. Curabitur gravida arcu ac tortor. Id consectetur purus ut faucibus. <br><br>
+          Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ipsum a arcu cursus vitae congue mauris rhoncus. Quam viverra orci sagittis eu volutpat odio. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Eget dolor morbi non arcu risus quis varius quam. Blandit libero volutpat sed cras ornare arcu dui. Metus vulputate eu scelerisque felis imperdiet. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Rhoncus mattis rhoncus urna neque viverra. Arcu non sodales neque sodales ut. Sed ullamcorper morbi tincidunt ornare massa. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Odio euismod lacinia at quis risus sed. Nunc vel risus commodo viverra. Sed euismod nisi porta lorem mollis aliquam ut. Lobortis scelerisque fermentum dui faucibus in. Ultricies integer quis auctor elit sed vulputate mi sit. Id cursus metus aliquam eleifend mi in. <br><br>
+          Adipiscing elit ut aliquam purus sit. Bibendum est ultricies integer quis auctor. A erat nam at lectus urna duis convallis convallis. Quam nulla porttitor massa id neque. Pretium lectus quam id leo in. Sit amet mauris commodo quis. Tristique nulla aliquet enim tortor. Cursus turpis massa tincidunt dui ut. Praesent elementum facilisis leo vel fringilla. Vestibulum lorem sed risus ultricies tristique nulla aliquet. <br><br>
+          Interdum posuere lorem ipsum dolor sit amet consectetur. Lobortis elementum nibh tellus molestie nunc non blandit. Augue eget arcu dictum varius. Pulvinar sapien et ligula ullamcorper. Egestas sed tempus urna et pharetra pharetra. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Orci phasellus egestas tellus rutrum. Felis eget nunc lobortis mattis aliquam faucibus purus in massa. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Tortor id aliquet lectus proin nibh nisl condimentum id venenatis. Ac turpis egestas maecenas pharetra convallis posuere morbi. Id interdum velit laoreet id donec ultrices tincidunt arcu non. Nulla at volutpat diam ut venenatis tellus in. Nibh mauris cursus mattis molestie a iaculis at erat. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Mattis enim ut tellus elementum sagittis vitae et leo duis. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Auctor eu augue ut lectus arcu bibendum at varius vel. Egestas erat imperdiet sed euismod nisi porta. Justo laoreet sit amet cursus. <br><br>
+          Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Gravida in fermentum et sollicitudin ac. Diam maecenas ultricies mi eget. Id donec ultrices tincidunt arcu non sodales neque sodales. Curabitur vitae nunc sed velit dignissim sodales ut. Lacus viverra vitae congue eu. Lacus vel facilisis volutpat est velit egestas dui. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Imperdiet sed euismod nisi porta lorem mollis aliquam. Ultricies leo integer malesuada nunc. Viverra vitae congue eu consequat ac felis donec et odio. Non enim praesent elementum facilisis leo vel fringilla est. Enim eu turpis egestas pretium aenean pharetra magna. Cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo. Augue mauris augue neque gravida in. Non curabitur gravida arcu ac tortor dignissim convallis aenean et. Dictum sit amet justo donec enim diam vulputate ut. Justo eget magna fermentum iaculis eu non. Ac tortor vitae purus faucibus. <br><br>
+          Est sit amet facilisis magna etiam. Tristique et egestas quis ipsum suspendisse ultrices gravida. Senectus et netus et malesuada fames. Nec feugiat in fermentum posuere. Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Fames ac turpis egestas integer eget aliquet nibh praesent tristique. Faucibus nisl tincidunt eget nullam non. Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Turpis nunc eget lorem dolor sed viverra ipsum nunc. Nunc faucibus a pellentesque sit amet porttitor. Neque ornare aenean euismod elementum nisi quis eleifend. Nunc sed id semper risus in hendrerit gravida rutrum quisque. Consequat semper viverra nam libero justo. <br><br>
+          In nisl nisi scelerisque eu ultrices vitae. Tellus at urna condimentum mattis. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Purus ut faucibus pulvinar elementum integer enim. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Pellentesque habitant morbi tristique senectus et. Dictumst vestibulum rhoncus est pellentesque. Ac tortor dignissim convallis aenean et tortor.
+        </div>
+      </div>
       
       <div id="genaug" class="section">
         <div class="header">GenAug</div>
@@ -272,7 +521,7 @@
         <div class="subsection">
           <div class="subheader">Links</div>
           <ul class="list">
-            <li>Website: <a href="https://genaug.github.io/" target="_blank">https://genaug.github.io/</a></li>
+            <li>Website: <a href="https://genaug.github.io" target="_blank">https://genaug.github.io</a></li>
             <li>Code: <a href="https://github.com/genaug/genaug" target="_blank">https://github.com/genaug/genaug</a></li>
             <li>Paper: <a href="https://arxiv.org/abs/2302.06671" target="_blank">https://arxiv.org/abs/2302.06671</a></li>
           </ul>
@@ -364,36 +613,6 @@
           </div>
         </div>
       </div>
-      
-      <div id="alphafour" class="section">
-        <div class="header">AlphaFour</div>
-        <div class="date">Jun 2022 - Jul 2023</div>
-        <div class="text">
-          Sed risus pretium quam vulputate dignissim suspendisse. Sem fringilla ut morbi tincidunt augue interdum. Orci dapibus ultrices in iaculis nunc sed. Vitae justo eget magna fermentum iaculis eu non diam phasellus. Quam id leo in vitae turpis massa sed. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Vitae congue eu consequat ac felis donec et odio pellentesque. Aliquam vestibulum morbi blandit cursus risus. Enim eu turpis egestas pretium aenean pharetra magna. Libero volutpat sed cras ornare arcu dui vivamus. Velit scelerisque in dictum non consectetur a erat. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Senectus et netus et malesuada. Enim praesent elementum facilisis leo vel fringilla est ullamcorper eget. Sit amet facilisis magna etiam tempor. <br><br>
-          Erat velit scelerisque in dictum non consectetur. At lectus urna duis convallis convallis tellus id. Ut pharetra sit amet aliquam id diam. Lectus sit amet est placerat. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet. Vitae congue eu consequat ac felis. Egestas integer eget aliquet nibh praesent tristique. Ut eu sem integer vitae justo eget magna fermentum. Eget duis at tellus at urna condimentum mattis. Sit amet luctus venenatis lectus magna fringilla. Enim diam vulputate ut pharetra sit amet aliquam id diam. Nisl nunc mi ipsum faucibus vitae aliquet. Fermentum dui faucibus in ornare quam viverra. Curabitur gravida arcu ac tortor. Id consectetur purus ut faucibus. <br><br>
-          Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ipsum a arcu cursus vitae congue mauris rhoncus. Quam viverra orci sagittis eu volutpat odio. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Eget dolor morbi non arcu risus quis varius quam. Blandit libero volutpat sed cras ornare arcu dui. Metus vulputate eu scelerisque felis imperdiet. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Rhoncus mattis rhoncus urna neque viverra. Arcu non sodales neque sodales ut. Sed ullamcorper morbi tincidunt ornare massa. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Odio euismod lacinia at quis risus sed. Nunc vel risus commodo viverra. Sed euismod nisi porta lorem mollis aliquam ut. Lobortis scelerisque fermentum dui faucibus in. Ultricies integer quis auctor elit sed vulputate mi sit. Id cursus metus aliquam eleifend mi in. <br><br>
-          Adipiscing elit ut aliquam purus sit. Bibendum est ultricies integer quis auctor. A erat nam at lectus urna duis convallis convallis. Quam nulla porttitor massa id neque. Pretium lectus quam id leo in. Sit amet mauris commodo quis. Tristique nulla aliquet enim tortor. Cursus turpis massa tincidunt dui ut. Praesent elementum facilisis leo vel fringilla. Vestibulum lorem sed risus ultricies tristique nulla aliquet. <br><br>
-          Interdum posuere lorem ipsum dolor sit amet consectetur. Lobortis elementum nibh tellus molestie nunc non blandit. Augue eget arcu dictum varius. Pulvinar sapien et ligula ullamcorper. Egestas sed tempus urna et pharetra pharetra. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Orci phasellus egestas tellus rutrum. Felis eget nunc lobortis mattis aliquam faucibus purus in massa. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Tortor id aliquet lectus proin nibh nisl condimentum id venenatis. Ac turpis egestas maecenas pharetra convallis posuere morbi. Id interdum velit laoreet id donec ultrices tincidunt arcu non. Nulla at volutpat diam ut venenatis tellus in. Nibh mauris cursus mattis molestie a iaculis at erat. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Mattis enim ut tellus elementum sagittis vitae et leo duis. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Auctor eu augue ut lectus arcu bibendum at varius vel. Egestas erat imperdiet sed euismod nisi porta. Justo laoreet sit amet cursus. <br><br>
-          Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Gravida in fermentum et sollicitudin ac. Diam maecenas ultricies mi eget. Id donec ultrices tincidunt arcu non sodales neque sodales. Curabitur vitae nunc sed velit dignissim sodales ut. Lacus viverra vitae congue eu. Lacus vel facilisis volutpat est velit egestas dui. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Imperdiet sed euismod nisi porta lorem mollis aliquam. Ultricies leo integer malesuada nunc. Viverra vitae congue eu consequat ac felis donec et odio. Non enim praesent elementum facilisis leo vel fringilla est. Enim eu turpis egestas pretium aenean pharetra magna. Cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo. Augue mauris augue neque gravida in. Non curabitur gravida arcu ac tortor dignissim convallis aenean et. Dictum sit amet justo donec enim diam vulputate ut. Justo eget magna fermentum iaculis eu non. Ac tortor vitae purus faucibus. <br><br>
-          Est sit amet facilisis magna etiam. Tristique et egestas quis ipsum suspendisse ultrices gravida. Senectus et netus et malesuada fames. Nec feugiat in fermentum posuere. Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Fames ac turpis egestas integer eget aliquet nibh praesent tristique. Faucibus nisl tincidunt eget nullam non. Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Turpis nunc eget lorem dolor sed viverra ipsum nunc. Nunc faucibus a pellentesque sit amet porttitor. Neque ornare aenean euismod elementum nisi quis eleifend. Nunc sed id semper risus in hendrerit gravida rutrum quisque. Consequat semper viverra nam libero justo. <br><br>
-          In nisl nisi scelerisque eu ultrices vitae. Tellus at urna condimentum mattis. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Purus ut faucibus pulvinar elementum integer enim. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Pellentesque habitant morbi tristique senectus et. Dictumst vestibulum rhoncus est pellentesque. Ac tortor dignissim convallis aenean et tortor.
-        </div>
-      </div>
-
-      <div id="driverless-software" class="section">
-        <div class="header">Driverless Software</div>
-        <div class="date">Jan 2023 - May 2023</div>
-        <div class="text">
-          Sed risus pretium quam vulputate dignissim suspendisse. Sem fringilla ut morbi tincidunt augue interdum. Orci dapibus ultrices in iaculis nunc sed. Vitae justo eget magna fermentum iaculis eu non diam phasellus. Quam id leo in vitae turpis massa sed. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Vitae congue eu consequat ac felis donec et odio pellentesque. Aliquam vestibulum morbi blandit cursus risus. Enim eu turpis egestas pretium aenean pharetra magna. Libero volutpat sed cras ornare arcu dui vivamus. Velit scelerisque in dictum non consectetur a erat. Sed cras ornare arcu dui vivamus arcu felis bibendum ut. Purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Senectus et netus et malesuada. Enim praesent elementum facilisis leo vel fringilla est ullamcorper eget. Sit amet facilisis magna etiam tempor. <br><br>
-          Erat velit scelerisque in dictum non consectetur. At lectus urna duis convallis convallis tellus id. Ut pharetra sit amet aliquam id diam. Lectus sit amet est placerat. Consectetur adipiscing elit duis tristique sollicitudin nibh sit amet. Vitae congue eu consequat ac felis. Egestas integer eget aliquet nibh praesent tristique. Ut eu sem integer vitae justo eget magna fermentum. Eget duis at tellus at urna condimentum mattis. Sit amet luctus venenatis lectus magna fringilla. Enim diam vulputate ut pharetra sit amet aliquam id diam. Nisl nunc mi ipsum faucibus vitae aliquet. Fermentum dui faucibus in ornare quam viverra. Curabitur gravida arcu ac tortor. Id consectetur purus ut faucibus. <br><br>
-          Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Ipsum a arcu cursus vitae congue mauris rhoncus. Quam viverra orci sagittis eu volutpat odio. Imperdiet sed euismod nisi porta lorem mollis aliquam ut. Eget dolor morbi non arcu risus quis varius quam. Blandit libero volutpat sed cras ornare arcu dui. Metus vulputate eu scelerisque felis imperdiet. Eget egestas purus viverra accumsan in nisl nisi scelerisque. Rhoncus mattis rhoncus urna neque viverra. Arcu non sodales neque sodales ut. Sed ullamcorper morbi tincidunt ornare massa. Hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit ullamcorper. Odio euismod lacinia at quis risus sed. Nunc vel risus commodo viverra. Sed euismod nisi porta lorem mollis aliquam ut. Lobortis scelerisque fermentum dui faucibus in. Ultricies integer quis auctor elit sed vulputate mi sit. Id cursus metus aliquam eleifend mi in. <br><br>
-          Adipiscing elit ut aliquam purus sit. Bibendum est ultricies integer quis auctor. A erat nam at lectus urna duis convallis convallis. Quam nulla porttitor massa id neque. Pretium lectus quam id leo in. Sit amet mauris commodo quis. Tristique nulla aliquet enim tortor. Cursus turpis massa tincidunt dui ut. Praesent elementum facilisis leo vel fringilla. Vestibulum lorem sed risus ultricies tristique nulla aliquet. <br><br>
-          Interdum posuere lorem ipsum dolor sit amet consectetur. Lobortis elementum nibh tellus molestie nunc non blandit. Augue eget arcu dictum varius. Pulvinar sapien et ligula ullamcorper. Egestas sed tempus urna et pharetra pharetra. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Orci phasellus egestas tellus rutrum. Felis eget nunc lobortis mattis aliquam faucibus purus in massa. Ut faucibus pulvinar elementum integer enim neque volutpat ac. Tortor id aliquet lectus proin nibh nisl condimentum id venenatis. Ac turpis egestas maecenas pharetra convallis posuere morbi. Id interdum velit laoreet id donec ultrices tincidunt arcu non. Nulla at volutpat diam ut venenatis tellus in. Nibh mauris cursus mattis molestie a iaculis at erat. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Mattis enim ut tellus elementum sagittis vitae et leo duis. Turpis egestas pretium aenean pharetra magna ac placerat vestibulum lectus. Auctor eu augue ut lectus arcu bibendum at varius vel. Egestas erat imperdiet sed euismod nisi porta. Justo laoreet sit amet cursus. <br><br>
-          Cursus risus at ultrices mi tempus imperdiet nulla malesuada pellentesque. Gravida in fermentum et sollicitudin ac. Diam maecenas ultricies mi eget. Id donec ultrices tincidunt arcu non sodales neque sodales. Curabitur vitae nunc sed velit dignissim sodales ut. Lacus viverra vitae congue eu. Lacus vel facilisis volutpat est velit egestas dui. Facilisi nullam vehicula ipsum a arcu cursus vitae congue. Enim nunc faucibus a pellentesque sit amet porttitor eget dolor. Imperdiet sed euismod nisi porta lorem mollis aliquam. Ultricies leo integer malesuada nunc. Viverra vitae congue eu consequat ac felis donec et odio. Non enim praesent elementum facilisis leo vel fringilla est. Enim eu turpis egestas pretium aenean pharetra magna. Cursus mattis molestie a iaculis at erat pellentesque adipiscing commodo. Augue mauris augue neque gravida in. Non curabitur gravida arcu ac tortor dignissim convallis aenean et. Dictum sit amet justo donec enim diam vulputate ut. Justo eget magna fermentum iaculis eu non. Ac tortor vitae purus faucibus. <br><br>
-          Est sit amet facilisis magna etiam. Tristique et egestas quis ipsum suspendisse ultrices gravida. Senectus et netus et malesuada fames. Nec feugiat in fermentum posuere. Et molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Fames ac turpis egestas integer eget aliquet nibh praesent tristique. Faucibus nisl tincidunt eget nullam non. Adipiscing commodo elit at imperdiet dui accumsan sit amet nulla. Turpis nunc eget lorem dolor sed viverra ipsum nunc. Nunc faucibus a pellentesque sit amet porttitor. Neque ornare aenean euismod elementum nisi quis eleifend. Nunc sed id semper risus in hendrerit gravida rutrum quisque. Consequat semper viverra nam libero justo. <br><br>
-          In nisl nisi scelerisque eu ultrices vitae. Tellus at urna condimentum mattis. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Purus ut faucibus pulvinar elementum integer enim. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Pellentesque habitant morbi tristique senectus et. Dictumst vestibulum rhoncus est pellentesque. Ac tortor dignissim convallis aenean et tortor.
-        </div>
-      </div>
 
       <div id="geoknowr" class="section">
         <div class="header">GeoKnowr</div>
@@ -419,7 +638,7 @@
         <div class="subsection">
           <div class="subheader">Links</div>
           <ul class="list">
-            <li>Code: <a href="https://github.com/shokiami/GeoKnowr/" target="_blank">https://github.com/shokiami/GeoKnowr/</a></li>
+            <li>Code: <a href="https://github.com/shokiami/GeoKnowr" target="_blank">https://github.com/shokiami/GeoKnowr</a></li>
           </ul>
         </div>
         <div class="subsection">
@@ -602,83 +821,6 @@
         </div>
       </div>
 
-      <div id="dancetime" class="section">
-        <div class="header">DanceTime</div>
-        <div class="date">May 2021 - Jul 2023</div>
-        <div class="subsection">
-          <div class="subheader">Abstract</div>
-          <div class="text">
-            DanceTime!
-          </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Video</div>
-          <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/dancetime/dancing.mp4" type="video/mp4"/>
-            </video>
-          </div>
-        </div>
-      </div>
-
-      <div id="project-sidewalk" class="section">
-        <div class="header">Project Sidewalk</div>
-        <div class="date">Sep 2021 - Jun 2022</div>
-        <div class="subsection">
-          <div class="subheader">Abstract</div>
-          <div class="text">
-            In 2020, I joined the UW Makeability Lab as a software engineer, co-developing the Project Sidewalk webpage:
-            a gameified website where users walk around in Google Street View and label sidewalk accessibility issues for wheelchair
-            users and older adults. Since deployment, we were able to build a never-seen-before dataset of 1 million labels
-            across 8 cities.
-          </div>
-          <div class="text">
-            In 2021, I joined forces with my friends Michael and Logan to apply deep learning to the above dataset to
-            create a computer vision pipeline for automatic sidwealk evaluation. As a culmination of our work, we authored
-            a paper discussing the effects of filtered vs. unfiltered and single-city vs. cross-city training data and
-            how our models can label new cities with a promising 80-90% accuracy. Our paper was accepted to the ASSETS
-            conference in Oct 2022.
-          </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Links</div>
-          <ul class="list">
-            <li>Sidewalk Webpage: <a href="https://sidewalk-sea.cs.washington.edu/" target="_blank">https://sidewalk-sea.cs.washington.edu/</a></li>
-            <li>Sidewalk Webpage Code: <a href="https://github.com/ProjectSidewalk/SidewalkWebpage" target="_blank">https://github.com/ProjectSidewalk/SidewalkWebpage</a></li>
-            <li>Sidewalk CV Code: <a href="https://github.com/michaelduan8/sidewalk-cv-2021" target="_blank">https://github.com/michaelduan8/sidewalk-cv-2021</a></li>
-            <li>Publication: <a href="https://dl.acm.org/doi/10.1145/3517428.3550381" target="_blank">https://dl.acm.org/doi/10.1145/3517428.3550381</a></li>
-          </ul>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Software & Tools</div>
-          <ul class="list">
-            <li>Sidewalk Webpage Languages: PostgreSQL, Scala, JavaScript, HTML, CSS</li>
-            <li>Sidewalk CV Languages: Python, Bash</li>
-            <li>Street View API: Google Street View</li>
-            <li>ML Library: PyTorch</li>
-            <li>Util Libraries: Pandas, Matplotlib</li>
-            <li>Paper: LaTeX</li>
-          </ul>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Data Collection</div>
-          <div class="text">
-            Here's a screenshot of the Project Sidewalk webpage for crowdsourcing labels. I worked on many features
-            including visualizing the users observed area in the bottom right corner that improved data quality by
-            incentivizing users to look around.
-          </div>
-          <div class="image-container">
-            <img width="80%" src="assets/project_sidewalk/webpage.png">
-          </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Publication</div>
-          <div class="pdf">
-            <iframe height="830" width="600" src="assets/project_sidewalk/paper.pdf"></iframe>
-          </div>
-        </div>
-      </div>
-
       <div id="frijma" class="section">
         <div class="header">Frijma</div>
         <div class="date">Oct 2022 - Oct 2022</div>
@@ -697,8 +839,8 @@
         <div class="subsection">
           <div class="subheader">Links</div>
           <ul class="list">
-            <li>Frijma: <a href="https://todoran.dev/frijma/" target="_blank">https://todoran.dev/frijma/</a></li>
-            <li>Code: <a href="https://github.com/StefanTodoran/frijma/" target="_blank">https://github.com/StefanTodoran/frijma/</a></li>
+            <li>Frijma: <a href="https://todoran.dev/frijma" target="_blank">https://todoran.dev/frijma</a></li>
+            <li>Code: <a href="https://github.com/StefanTodoran/frijma" target="_blank">https://github.com/StefanTodoran/frijma</a></li>
           </ul>
         </div>
         <div class="subsection">
@@ -720,9 +862,9 @@
           <div class="subheader">Algorithms</div>
           <div class="text">
             Although I worked on the entire pipeline, the I focused on the parsing, search, and edit-distance
-            algorithms. The runtime of the three combined algos is O(mn) where m is the number of characters in the receipt
+            algorithms. The runtime of the three combined algorithms is O(mn) where m is the number of characters in the receipt
             and n is the number of characters in the dataset (note that this is the optimal runtime).
-            Here is the pseudocode for the three algos:
+            Here is the pseudocode for the three algorithms:
           </div>
           <div class="algo">
             function parse(receipt):
@@ -841,6 +983,64 @@
           </div>
           <div class="image-container">
             <img width="80%" src="assets/frijma/recipes.png">
+          </div>
+        </div>
+      </div>
+
+      <div id="project-sidewalk" class="section">
+        <div class="header">Project Sidewalk</div>
+        <div class="date">Sep 2021 - Jun 2022</div>
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+          <div class="text">
+            In 2020, I joined the UW Makeability Lab as a software engineer, co-developing the Project Sidewalk webpage:
+            a gameified website where users walk around in Google Street View and label sidewalk accessibility issues for wheelchair
+            users and older adults. Since deployment, we were able to build a never-seen-before dataset of 1 million labels
+            across 8 cities.
+          </div>
+          <div class="text">
+            In 2021, I joined forces with my friends Michael and Logan to apply deep learning to the above dataset to
+            create a computer vision pipeline for automatic sidwealk evaluation. As a culmination of our work, we authored
+            a paper discussing the effects of filtered vs. unfiltered and single-city vs. cross-city training data and
+            how our models can label new cities with a promising 80-90% accuracy. Our paper was accepted to the ASSETS
+            conference in Oct 2022.
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Sidewalk Webpage: <a href="https://sidewalk-sea.cs.washington.edu" target="_blank">https://sidewalk-sea.cs.washington.edu</a></li>
+            <li>Sidewalk Webpage Code: <a href="https://github.com/ProjectSidewalk/SidewalkWebpage" target="_blank">https://github.com/ProjectSidewalk/SidewalkWebpage</a></li>
+            <li>Sidewalk CV Code: <a href="https://github.com/michaelduan8/sidewalk-cv-2021" target="_blank">https://github.com/michaelduan8/sidewalk-cv-2021</a></li>
+            <li>Publication: <a href="https://dl.acm.org/doi/10.1145/3517428.3550381" target="_blank">https://dl.acm.org/doi/10.1145/3517428.3550381</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Software & Tools</div>
+          <ul class="list">
+            <li>Sidewalk Webpage Languages: PostgreSQL, Scala, JavaScript, HTML, CSS</li>
+            <li>Sidewalk CV Languages: Python, Bash</li>
+            <li>Street View API: Google Street View</li>
+            <li>ML Library: PyTorch</li>
+            <li>Util Libraries: Pandas, Matplotlib</li>
+            <li>Paper: LaTeX</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Data Collection</div>
+          <div class="text">
+            Here's a screenshot of the Project Sidewalk webpage for crowdsourcing labels. I worked on many features
+            including visualizing the users observed area in the bottom right corner that improved data quality by
+            incentivizing users to look around.
+          </div>
+          <div class="image-container">
+            <img width="80%" src="assets/project_sidewalk/webpage.png">
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Publication</div>
+          <div class="pdf">
+            <iframe height="830" width="600" src="assets/project_sidewalk/paper.pdf"></iframe>
           </div>
         </div>
       </div>
