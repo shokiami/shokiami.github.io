@@ -159,6 +159,10 @@ body {
   padding-bottom: 20px;
 }
 
+.centered {
+  text-align: center;
+}
+
 .list {
   font-size: 16px;
   line-height: 150%;
@@ -270,7 +274,7 @@ a:hover {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 5%;
+  gap: 3%;
   padding-bottom: 20px;
 }
 
