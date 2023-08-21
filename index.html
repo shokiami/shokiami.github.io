@@ -316,12 +316,12 @@
           </div>
           <div class="text">
             The first natural step was to use a moving average, but this ended up either not making a significant enough
-            impact or over-dampening the gesture trajectory shape.
+            impact or over-dampening the overall shape of the data
           </div>
           <div class="text">
             So instead, I came up with a two part solution. The first part is a conditional moving average which only
             averages if a current point is further from its neighbors than they are to each other. This works because
-            it still preserves a lot of the gesture trajectory shape.
+            it still preserves a lot of the shape of the data.
           </div>
           <div class="image-container">
             <img width="80%" src="assets/dancetime/2.png">
@@ -340,8 +340,9 @@
             we can simply take their polynomials and shift them around to find what horizontal offset minimizes the error between them.
             I ended up using maximum error instead of mean error for my error criterion since it was more reliably minimized when
             the functions were horizontally aligned. In the following visual, the red and blue functions are vertical translations
-            of each other and the green function is the mean error as a function of offset and the orange function is the max
-            error as a function of offset. We see that the max error is minimized at offset 0 which is desired.
+            of each other and the green function is the mean error (over the interval -1 to 1) as a function of offset
+            and the orange function is the max error as a function of offset.
+            We see that the max error is minimized at offset 0 which is desired.
           </div>
           <div class="image-container">
             <video width="80%" autoplay loop muted>
