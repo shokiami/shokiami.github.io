@@ -53,18 +53,16 @@
             mathematics, and cello.
           </div>
           <div class="text">
-            I admit I have not taken the most orthodox path through undergrad. I began by studying CS because I was really
-            into programming during high school and was working on all sorts of personal projects, but after interning at
-            companies like Microsoft and Apple, I realized that software industry was not for me. I thought that maybe
-            research would be more exciting, so I onboarded a second major in math early on and worked in labs across
-            fields like computation biology, computer vision, and deep robotic learning.
+            I started off my undergraduate studies double-majoring in CS and math, receiving early industry experience at
+            companies such as Microsoft and Apple along with research experience in labs across fields including
+            computational biology, computer vision, and deep robotic learning.
           </div>
           <div class="text">
-            However, just this past year, I was reminded of my childhood interest in mechanical engineering, and after having
-            a blast taking physics courses, 3-D modeling in CAD, and manufacturing parts on the mill and lathe in the
-            machine shop, I decided to pivot into engineering and onboard my third major. Today, I continue to further my
-            passion for ME through my work as suspension engineer on UW Formula Motorsports and robotics researcher
-            in the UW WEIRD lab.
+            Midway through undergrad, I was reminded of my long-term curiosity for ME and decided to pivot my education.
+            Luckily, since I had already mostly finished my CS and math degree, the university actually allowed me to
+            keep all three majors.
+            Today, I continue to further my passion for ME through my work as suspension engineer on UW Formula Motorsports
+            and robotics researcher in the UW WEIRD lab.
           </div>
           <div class="text">
             Outside of school, my main hobby is playing the cello. I started when I was four years old and still play avidly
@@ -248,16 +246,20 @@
         <div class="subsection">
           <div class="subheader">Abstract</div>
           <div class="text">
-            DanceTime is a multiplayer dance-based rhythm game inspired by Just Dance and FaceTime. The premise is very
-            simple: each player must try to follow the dance moves of the avatar as closely as possible, and the closer
-            you are, the more points you get.
-            This is one of my most technical projects as it features a custom pose estimation library that is so
-            optimized that it can run smoothly on any laptop and an original regression-based numerical scoring algorithm.
+            DanceTime is a multiplayer dance-based rhythm game inspired by Just Dance and FaceTime. In DanceTime,
+            each player must try to follow the dance moves of the avatar, and the closer you are, the more points you get.
+            This is one of my most technical projects as it features a custom 30 Hz pose estimation library and an original
+            regression-based scoring algorithm.
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/dancetime/dancing.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 60%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/dancetime/dancing.mp4" type="video/mp4"/>
+              </video>
+              <div class="caption">
+                My friend Tim Erwin and I playing DanceTime.
+              </div>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -276,26 +278,23 @@
         </div>
         <div class="subsection">
           <div class="subheader">System Overview</div>
-          <div class="text">
-            DanceTime's control flow is difficult to summarize due to its many complicated algorithms and abundance of parallelism.
-            However, here is my best attempt:
-          </div>
           <div class="image-container">
-            <img width="80%" src="assets/dancetime/flow.png">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/dancetime/flow.png">
+            </div>
           </div>
         </div>
         <div class="subsection">
           <div class="subheader">Algorithms</div>
           <div class="text">
-            One algorithm I wanted to highlight was the scoring algorithm. This algorithm took me nearly an entire year
-            to develop, namely because the problem was so non-trivial:
+            One algorithm I wanted to highlight was the scoring algorithm. This algorithm solves a simple yet non-trivial problem:
           </div>
           <div class="text">
             Define a pose to be a set of (x, y) coordinates for various key joints/body parts. Given a constant stream
             of noisy pose readings, how can we arrive at a score which captures how similarly the two players danced?
           </div>
           <div class="text">
-            There were three main challenges which made this problem difficult:
+            There were three main nuances which made this problem challenging:
           </div>
           <ul class="list">
             <li>Invariance: translation/scaling should not affect scoring.</li>
@@ -308,156 +307,130 @@
             the torso had unit length and was centered at the origin.
           </div>
           <div class="text">
-            Noise was the hardest one to combat. For example, examining the x coordinate of the left wrist might yield data
-            that looks like the following:
+            Noise was the hardest problem to combat. The first natural step was to use a moving average, but this ended
+            up either not making a significant enough impact or over-dampening the overall shape of the data.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/dancetime/1.png">
-          </div>
-          <div class="text">
-            The first natural step was to use a moving average, but this ended up either not making a significant enough
-            impact or over-dampening the overall shape of the data
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/dancetime/1.png">
+              <div class="caption">
+                Example left wrist x coordinate vs. time data standardized to [-1, 1].
+              </div>
+            </div>
           </div>
           <div class="text">
             So instead, I came up with a two part solution. The first part is a conditional moving average which only
-            averages if a current point is further from its neighbors than they are to each other. This works because
-            it still preserves a lot of the shape of the data.
+            averages if a current point is further from its neighbors than they are to each other (these points are
+            defined to be outliers). This does a better job preserving the shape of the data.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/dancetime/2.png">
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/dancetime/2.png">
+              <div class="caption">
+                Outliers set to average of their neighbors and marked with an "X".
+              </div>
+            </div>
           </div>
           <div class="text">
             The second part is using regression to find the polynomial of best fit for the data. The intuition is that this would help
-            capture the player's overall gesture and significantly reduce the affect of any remaining noise in our data.
+            capture the player's overall trajectory and significantly reduce the affect of any remaining noise in our data.
             After lots of experimentation, I found that a polynomial degree of 3 provided the best results without overfitting.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/dancetime/3.png">
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/dancetime/3.png">
+              <div class="caption">
+                A cubic polynomial is fitted to the data using regression.
+              </div>
+            </div>
           </div>
           <div class="text">
-            Using polynomial regression actually serves a second purpose which is that it makes addressing the timing offset issue
-            more straight forward as we are now operating in continuous space. To find the timing offset between the player and the avatar,
-            we can simply take their polynomials and shift them around to find what horizontal offset minimizes the error between them.
-            I ended up using maximum error instead of mean error for my error criterion since it was more reliably minimized when
-            the functions were horizontally aligned. In the following visual, the red and blue functions are vertical translations
-            of each other and the green function is the mean error (over the interval -1 to 1) as a function of offset
-            and the orange function is the max error as a function of offset.
-            We see that the max error is minimized at offset 0, which is desired.
-          </div>
-          <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/dancetime/4.mp4" type="video/mp4"/>
-            </video>
-          </div>
-          <div class="text">
+            Using polynomial regression actually serves a second purpose in helping address the timing offset issue by
+            transforming our problem to continuous space, making it easy to find the horizontal translation that
+            minimizes the polynomials errors.
+            I ended up using maximum error instead of mean error since it is a more accurate measure of alignment.
             Finally, we can take the error and offset and feed them into some activation function such as a sigmoid
             to get a similarity score between 0 and 1.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 60%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/dancetime/4.mp4" type="video/mp4"/>
+              </video>
+              <div class="caption">
+                The red and blue functions are identical cubic functions that are vertically offset and the green function
+                and orange function are the mean and max error respectively over the interval [-1, 1]. Note that the max error
+                is minimized at offset zero which is desired.
+              </div>
+            </div>
           </div>
           <div class="text">
             Here is the full pseudocode for the entire scoring algorithm:
           </div>
-          <div class="algo">
-            function remove_outliers(poses):
-            <div class="tabbed">
-              for pose in poses:
-              <div class="tabbed">
-                for body_part in pose:
-                <div class="tabbed">
-                  prev_to_curr = dist(prev_body_part, body_part)<br>
-                  curr_to_next = dist(body_part, next_body_part)<br>
-                  pev_to_next = dist(prev_body_part, next_body_part)<br>
-                  if prev_to_next < prev_to_curr or prev_to_next < curr_to_next:
-                  <div class="tabbed">
-                    body_part = (prev_body_part + next_body_part) / 2
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="algo">
-            function standardize(poses):
-            <div class="tabbed">
-              for pose in poses:
-              <div class="tabbed">
-                left_shoulder = pose[left_shoulder]<br>
-                right_shoulder = pose[right_shoulder]<br>
-                left_hip = pose[left_hip]<br>
-                right_hip = pose[right_hip]<br>
-                torso_center = (left_shoulder + left_hip + right_shoulder + right_hip) / 4<br>
-                left_torso_length = dist(left_shoulder, left_hip)<br>
-                right_torso_length = dist(right_shoulder, right hip)<br>
-                torso_length = (left_torso_length + right_torso_length) / 2<br>
-                for body_part in pose:
-                <div class="tabbed">
-                  body_part = (body_part - torso_center) / torso_length
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="algo">
-            function poly_regression(poses):
-            <div class="tabbed">
-              polys = {}<br>
-              for body_part in body_parts:
-              <div class="tabbed">
-                A = matrix(poses.length, POLY_DEGREE + 1)<br>
-                b = vector(poses.length)<br>
-                for i from 0 to poses.length:
-                <div class="tabbed">
-                  A[i] = [1, i, i^2, ..., i^POLY_DEGREE]<br>
-                  b[i] = poses[i][body_part]
-                </div>
-                P = A * (A^T * A)^-1 * A^T<br>
-                proj_b = P * b<br>
-                poly_coeffs = A^-1 * proj_b<br>
-                polys[body_part] = poly_coeffs
-              </div>
-              return polys
-            </div>
-          </div>
-          <div class="algo">
-            function max_error(player_polys, avatar_polys):
-            <div class="tabbed">
-              max_error = -infinity<br>
-              for body_part in body_parts:
-              <div class="tabbed">
-                for t from T_START to T_END with T_STEP:
-                <div class="tabbed">
-                  f = player_polys[body_part]<br>
-                  g = avatar_polys[body_part]<br>
-                  error = (f(t) - g(t))^2<br>
-                  if error > max_error:
-                  <div class="tabbed">
-                    max_error = error
-                  </div>
-                </div>
-              </div>
-              return max_error
-            </div>
-          </div>
-          <div class="algo">
-            function score(player_poses, avatar_poses):
-            <div class="tabbed">
-              remove_outliers(player_poses)<br>
-              remove_outliers(player_poses)<br>
-              standardize(player_poses)<br>
-              standardize(avatar_poses)<br>
-              player_polys = poly_regression(player_poses)<br>
-              avatar_polys = poly_regression(avatar_poses)<br>
-              min_error = infinity<br>
-              for t from T_MIN to T_MAX with T_STEP:
-              <div class="tabbed">
-                error = max_error(player_polys.translate(t), avatar_polys)<br>
-                if error < min_error:
-                <div class="tabbed">
-                  min_error = error<br>
-                  offset = |t|
-                </div>
-              </div>
-              score = sigmoid(min_error + OFFSET_COST * offset)<br>
-              return score
-            </div>
-          </div>
+          <pre class="algo">
+score(player_poses, avatar_poses):
+  remove_outliers(player_poses)
+  remove_outliers(player_poses)
+  standardize(player_poses)
+  standardize(avatar_poses)
+  player_polys = poly_regression(player_poses)
+  avatar_polys = poly_regression(avatar_poses)
+  min_error = infinity
+  for t from T_MIN to T_MAX with T_STEP:
+    error = max_error(player_polys.translate(t), avatar_polys)
+    if error < min_error:
+      min_error = error
+      offset = |t|
+  score = sigmoid(min_error + OFFSET_COST * offset)
+  return score
+
+remove_outliers(poses):
+  for pose in poses:
+    for body_part in pose:
+      prev_to_curr = dist(prev_body_part, body_part)
+      curr_to_next = dist(body_part, next_body_part)
+      pev_to_next = dist(prev_body_part, next_body_part)
+      if prev_to_next < prev_to_curr or prev_to_next < curr_to_next:
+        body_part = (prev_body_part + next_body_part) / 2
+
+standardize(poses):
+  for pose in poses:
+    left_shoulder = pose[left_shoulder]
+    right_shoulder = pose[right_shoulder]
+    left_hip = pose[left_hip]
+    right_hip = pose[right_hip]
+    torso_center = (left_shoulder + left_hip + right_shoulder + right_hip) / 4
+    left_torso_length = dist(left_shoulder, left_hip)
+    right_torso_length = dist(right_shoulder, right hip)
+    torso_length = (left_torso_length + right_torso_length) / 2
+    for body_part in pose:
+      body_part = (body_part - torso_center) / left_torso_length
+
+poly_regression(poses):
+  polys = {}
+  for body_part in body_parts:
+    A = matrix(poses.length, POLY_DEGREE + 1)
+    b = vector(poses.length)
+    for i from 0 to poses.length:
+      A[i] = [1, i, i^2, ..., i^POLY_DEGREE]
+      b[i] = poses[i][body_part]
+    P = A * (A^T * A)^-1 * A^T
+    proj_b = P * b
+    poly_coeffs = A^-1 * proj_b
+    polys[body_part] = poly_coeffs
+  return polys
+
+max_error(player_polys, avatar_polys):
+  max_error = -infinity
+  for body_part in body_parts:
+    for t from T_START to T_END with T_STEP:
+      f = player_polys[body_part]
+      g = avatar_polys[body_part]
+      error = (f(t) - g(t))^2
+      if error > max_error:
+        max_error = error
+  return max_error
+          </pre>
         </div>
       </div>
 
@@ -495,7 +468,9 @@
             Here is the loss vs. epoch plot after training for 20 generations (~9 hours):
           </div>
           <div class="image-container">
-            <img width="60%" src="assets/alphafour/loss.png">
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/alphafour/loss.png">
+            </div>
           </div>
           <div class="text">
             Those who are familiar with machine learning might wonder what all of the little spikes are. Each of the spikes
@@ -509,33 +484,29 @@
             win against. Thus, how many moves the AI survives is a rough metric of how well it is playing.
           </div>
           <div class="image-container">
-            <div style="width: 45%;">
-              <div class="text centered">
-                Generation 0 vs. Optimal Player<br>
-                (7 moves)
+            <div class="image" style="width: 45%;">
+              <div class="image-title">
+                Generation 0 vs. Optimal Player (7 moves)
               </div>
               <img width="100%" src="assets/alphafour/0_vs_opt.gif">
             </div>
-            <div style="width: 45%;">
-              <div class="text centered">
-                Generation 5 vs. Optimal Player<br>
-                (17 moves)
+            <div image="image" style="width: 45%;">
+              <div class="image-title">
+                Generation 5 vs. Optimal Player (17 moves)
               </div>
               <img width="100%" src="assets/alphafour/5_vs_opt.gif">
             </div>
           </div>
           <div class="image-container">
-            <div style="width: 45%;">
-              <div class="text centered">
-                Generation 10 vs. Optimal Player<br>
-                (31 moves)
+            <div class="image" style="width: 45%;">
+              <div class="image-title">
+                Generation 10 vs. Optimal Player (31 moves)
               </div>
               <img width="100%" src="assets/alphafour/10_vs_opt.gif">
             </div>
-            <div style="width: 45%;">
-              <div class="text centered">
-                Generation 20 vs. Optimal Player<br>
-                (37 moves)
+            <div class="image" style="width: 45%;">
+              <div class="image-title">
+                Generation 20 vs. Optimal Player (37 moves)
               </div>
               <img width="100%" src="assets/alphafour/20_vs_opt.gif">
             </div>
@@ -547,12 +518,13 @@
             In the following game, first player plays optimally except for move 5 in which it plays the third best move.
             Here, AlphaFour is able to take advantage of this mistake to win the game with an impressive 5 in a row.
           </div>
-          <div class="text centered">
-            Generation 20 vs. Optimal Player w/ 1 Mistake<br>
-            (40 moves)
-          </div>
           <div class="image-container">
-            <img width="50%" src="assets/alphafour/20_vs_subopt.gif">
+            <div class="image" style="width: 45%;">
+              <div class="image-title">
+                Generation 20 vs. Optimal Player w/ 1 Mistake (40 moves)
+              </div>
+              <img width="100%" src="assets/alphafour/20_vs_subopt.gif">
+            </div>
           </div>
         </div>
       </div>
@@ -571,7 +543,7 @@
           In nisl nisi scelerisque eu ultrices vitae. Tellus at urna condimentum mattis. Tortor pretium viverra suspendisse potenti nullam ac tortor vitae. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Purus ut faucibus pulvinar elementum integer enim. Vitae proin sagittis nisl rhoncus mattis rhoncus urna neque. Ridiculus mus mauris vitae ultricies leo integer malesuada nunc vel. Pellentesque habitant morbi tristique senectus et. Dictumst vestibulum rhoncus est pellentesque. Ac tortor dignissim convallis aenean et tortor.
         </div>
       </div>
-      
+
       <div id="genaug" class="section">
         <div class="header">GenAug</div>
         <div class="date">Jan 2023 - Mar 2023</div>
@@ -584,7 +556,9 @@
             contain limited objects/scenes, preventing the robot from generalizing to novel scenarios.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/genaug/pipeline.png">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/genaug/pipeline.png">
+            </div>
           </div>
           <div class="text">
             GenAug was a solution proposed by PhD student Zoey Chen (a colleague from the UW WEIRD Lab) who asked me to
@@ -621,16 +595,18 @@
         <div class="subsection">
           <div class="subheader">Data Collection</div>
           <div class="text">
-            Our setup involves the xArm mounted to a table with a vacuum gripper and the depth camera pointing towards
-            the table top (left-hand image).
             To collect human demonstrations, the user labels pick/place locations on a 2D top-down projection of the
-            scene point cloud. These locations are mapped back to 3D coordinates using calibrated depth maps (right-hand gif).
+            scene point cloud. These locations are mapped back to 3D coordinates using calibrated depth maps.
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/genaug/setup.png">
-            <video width="45%" autoplay loop muted>
-              <source src="assets/genaug/datacollection.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/genaug/setup.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/datacollection.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -639,24 +615,32 @@
             We used GenAug to augment our dataset in the following ways:
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/distractor.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/distractor.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/table.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/table.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/object.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/object.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/texture.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/texture.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -666,19 +650,25 @@
             Here are some examples from our testing:
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/bowl2bowl.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/bowl2bowl.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/bowl2coaster.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/bowl2coaster.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
           <div class="image-container">
-            <video width="80%" autoplay loop muted>
-              <source src="assets/genaug/box2basket.mp4" type="video/mp4"/>
-            </video>
+            <div class="image" style="width: 90%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/genaug/box2basket.mp4" type="video/mp4"/>
+              </video>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -707,10 +697,15 @@
             For those who are unfamiliar, <a href="https://www.geoguessr.com/" target="_blank">GeoGuessr</a>
             is a popular web game where users are thrown into random locations around the world in
             Google Street View and are challenged to place a marker on the world map to guess where they are in the world
-            (the closer you guess, the more points you get). Here's an example image you might encounter:
+            (the closer you guess, the more points you get).
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/geoknowr/geoguessr.png">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/geoknowr/geoguessr.png">
+              <div class="caption">
+                Example screenshot from GeoGuessr (this is Japan).
+              </div>
+            </div>
           </div>
           <div class="text">
             My friend Zach Chapman and I wanted to use deep learning to create a GeoGuessr AI that would be able to
@@ -759,7 +754,12 @@
             score by average guessing.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/geoknowr/coverage.png">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/geoknowr/coverage.png">
+              <div class="caption">
+                Google Street View's coverage.
+              </div>
+            </div>
           </div>
           <div class="text">
             To combat this issue, we reframed the problem as classification by dividing up the globe into numerous regions.
@@ -774,7 +774,12 @@
             equal sized classes (and less data sparsity). Note how the clusters line up with Google's coverage.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/geoknowr/clusters.png">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/geoknowr/clusters.png">
+              <div class="caption">
+                Visualized clusters.
+              </div>
+            </div>
           </div>
           <div class="text">
             Our final performance boost came from recognizing that we did not have enough data to adequately train a
@@ -792,19 +797,25 @@
           <div class="text">
             Here are our results after training for ~5 hours:
           </div>
-          <div class="image-container">
-            <img width="45%" src="assets/geoknowr/loss.png">
-            <img width="45%" src="assets/geoknowr/accuracy.png">
-          </div>
-          <div class="image-container">
-            <img width="60%" src="assets/geoknowr/distances.png">
-          </div>
           <ul class="list">
             <li>5th percentile: 361.33km (correct part of country)</li>
             <li>10th percentile: 520.11km (correct country)</li>
             <li>25th percentile: 980.21km (correct region)</li>
             <li>Median: 2839.96km (correct continent)</li>
           </ul>
+          <div class="image-container">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/distances.png">
+            </div>
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/loss.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/accuracy.png">
+            </div>
+          </div>
         </div>
         <div class="subsection">
           <div class="subheader">Examples</div>
@@ -812,95 +823,115 @@
             Here are 10 example images and corresponding guesses from our model.
             The red marker represents the ground truth and the grey marker represents the AI's guess.
           </div>
-          <div class="text">
-            Eurajoki, Finland: 46.15km away<br>
-            GT: (61.24206624516949, 21.49451874391871)<br>
-            Guess: (60.866010738653614, 21.13157246788378)
+          <div class="image-title">
+            Eurajoki, Finland: 46.15km away
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/geoknowr/1a.png">
-            <img width="45%" src="assets/geoknowr/1b.png">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/1a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/1b.png">
+            </div>
           </div>
-          <div class="text">
-            Cedar Pocket, Australia: 766.68km away<br>
-            GT: (-26.2016867183339, 152.7428709700448)<br>
-            Guess: (-31.684634839922268, 147.96179641452864)
-          </div>
-          <div class="image-container">
-            <img width="45%" src="assets/geoknowr/2a.png">
-            <img width="45%" src="assets/geoknowr/2b.png">
-          </div>
-          <div class="text">
-            Ōdai, Japan: 554.07km away<br>
-            GT: (34.29128958773475, 136.2255376621636)<br>
-            Guess: (39.220061536212654, 137.1401260865559)
+          <div class="image-title">
+            Cedar Pocket, Australia: 766.68km away
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/geoknowr/3a.png">
-            <img width="45%" src="assets/geoknowr/3b.png">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/2a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/2b.png">
+            </div>
           </div>
-          <div class="text">
-            Pervomaiskii, Russia: 750.37km away<br>
-            GT: (54.67348511884279, 54.76858543638147)<br>
-            Guess: (57.3687329171972, 65.85774195636928)
-          </div>
-          <div class="image-container">
-            <img width="45%" src="assets/geoknowr/4a.png">
-            <img width="45%" src="assets/geoknowr/4b.png">
-          </div>
-          <div class="text">
-            Clavering Øer, Greenland: 3001.91km away<br>
-            GT: (74.36102804428536, -20.31095398871028)<br>
-            Guess: (62.88085149124142, -94.28640809358343)
+          <div class="image-title">
+            Ōdai, Japan: 554.07km away
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/geoknowr/5a.png">
-            <img width="45%" src="assets/geoknowr/5b.png">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/3a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/3b.png">
+            </div>
           </div>
-          <div class="text">
-            Nuenen, Netherlands: 728.77km away<br>
-            GT: (51.47712383096619, 5.568049157904403)<br>
-            Guess: (46.52608328096249, -0.99022351617955)
-          </div>
-          <div class="image-container">
-            <img width="45%" src="assets/geoknowr/6a.png">
-            <img width="45%" src="assets/geoknowr/6b.png">
-          </div>
-          <div class="text">
-            Tanjung Mulia, Indonesia: 778.63km away<br>
-            GT: (2.111117753198836, 100.2296566933782)<br>
-            Guess: (9.086239024023117, 99.60871719478148)
+          <div class="image-title">
+            Pervomaiskii, Russia: 750.37km away
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/geoknowr/7a.png">
-            <img width="45%" src="assets/geoknowr/7b.png">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/4a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/4b.png">
+            </div>
           </div>
-          <div class="text">
-            Takper, Nigeria: 860.73km away<br>
-            GT: (7.055152796196378, 8.483934407321177)<br>
-            Guess: (9.65765106509962, 1.1147835438224805)
-          </div>
-          <div class="image-container">
-            <img width="45%" src="assets/geoknowr/8a.png">
-            <img width="45%" src="assets/geoknowr/8b.png">
-          </div>
-          <div class="text">
-            Colonia Río Escondido, México: 26.80km away<br>
-            GT: (28.57000772521148, -100.6163712162074)<br>
-            Guess: (28.465027052700034, -100.36940739027031)
+          <div class="image-title">
+            Clavering Øer, Greenland: 3001.91km away
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/geoknowr/9a.png">
-            <img width="45%" src="assets/geoknowr/9b.png">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/5a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/5b.png">
+            </div>
           </div>
-          <div class="text">
-            Chipaya, Bolivia: 1133.61km away<br>
-            GT: (-19.00475769083379, -68.10597816923791)<br>
-            Guess: (-8.813989360376178, -68.40059804082549)
+          <div class="image-title">
+            Nuenen, Netherlands: 728.77km away
           </div>
           <div class="image-container">
-            <img width="45%" src="assets/geoknowr/10a.png">
-            <img width="45%" src="assets/geoknowr/10b.png">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/6a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/6b.png">
+            </div>
+          </div>
+          <div class="image-title">
+            Tanjung Mulia, Indonesia: 778.63km away
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/7a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/7b.png">
+            </div>
+          </div>
+          <div class="image-title">
+            Takper, Nigeria: 860.73km away
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/8a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/8b.png">
+            </div>
+          </div>
+          <div class="image-title">
+            Colonia Río Escondido, México: 26.80km away
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/9a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/9b.png">
+            </div>
+          </div>
+          <div class="image-title">
+            Chipaya, Bolivia: 1133.61km away
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/10a.png">
+            </div>
+            <div class="image" style="width: 45%;">
+              <img width="100%" src="assets/geoknowr/10b.png">
+            </div>
           </div>
         </div>
       </div>
@@ -939,7 +970,56 @@
         <div class="subsection">
           <div class="subheader">System Overview</div>
           <div class="image-container">
-            <img width="80%" src="assets/frijma/flow.png">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/frijma/flow.png">
+            </div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">User Experience</div>
+          <div class="text">
+            1. Suppose you go grocery shopping and return with the following receipt (I just found this online).
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 10%;">
+              <img width="100%" src="assets/frijma/receipt.jpg">
+              <div class="caption">
+                An example grocery receipt.
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            2. You can either take a photo or upload an image of the receipt.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/frijma/scan.png">
+              <div class="caption">
+                The scan/upload button can be found at the top of the webpage.
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            3. Frijma provides a list of all of the groceries detected on the receipt with their expiration dates.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/frijma/result.png">
+              <div class="caption">
+                Frijma's list of food items and their expiration dates.
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            4. Frijma also provides a list of relevant recipes to help use up all of your groceries on time.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/frijma/recipes.png">
+              <div class="caption">
+                Frijma's list of recipe inspiration.
+              </div>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -950,124 +1030,57 @@
             and n is the number of characters in the dataset (note that this is the optimal runtime).
             Here is the pseudocode for the three algorithms:
           </div>
-          <div class="algo">
-            function parse(receipt):
-            <div class="tabbed">
-              for line in receipt:
-              <div class="tabbed">
-                if line satisfies regex "*XX.XX":
-                <div class="tabbed">
-                  abbrv = line.remove(non-letters)<br>
-                  if abbrv == "":
-                  <div class="tabbed">
-                    continue
-                  </div>
-                  food, cost = search(abbrv)<br>
-                  if cost > MAX_COST:
-                  <div class="tabbed">
-                    continue
-                  </div>
-                  addToVisual(food)<br>
-                  queryRecipes(food)
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="algo">
-            function search(abbrv):
-            <div class="tabbed">
-              min_cost = infinity<br>
-              closest_food = null<br>
-              for keywords, food in dataset:
-              <div class="tabbed">
-                total_cost = 0<br>
-                for word in abbrv:
-                <div class="tabbed">
-                  keyword_min_cost = infinity<br>
-                  for keyword in keywords:
-                  <div class="tabbed">
-                    keyword_cost = edit_distance(word, keyword)<br>
-                    if keyword_cost < keyword_min_cost:
-                    <div class="tabbed">
-                      keyword_min_cost = keyword_cost
-                    </div>
-                  </div>
-                  total_cost += keyword_min_cost
-                </div>
-                avg_cost = total_cost / abbrv.word_count<br>
-                name_cost = edit_distance(abbrv, food)<br>
-                true_cost = (P * name_cost + (1 - P) * avg_cost) / abbrv.length<br>
-                if true_cost < min_cost:
-                <div class="tabbed">
-                  closest_food = food
-                  min_cost = true_cost
-                </div>
-              </div>
-              return closest_food, min_cost
-            </div>
-          </div>
-          <div class="algo">
-            function edit_distance(abbrv, food):
-            <div class="tabbed">
-              dp = zero_matrix(abbrv.length + 1, food.length + 1)<br>
-              for i from 0 to abbrv.length:
-              <div class="tabbed">
-                for j from 0 to food.length:
-                <div class="tabbed">
-                  if i == 0:
-                  <div class="tabbed">
-                    dp[i, j] = j * INSERTION_COST
-                  </div>
-                  else if j == 0:
-                  <div class="tabbed">
-                    dp[i, j] = i * DELETION_COST
-                  </div>
-                  else if abbrv[i - 1] == food[j - 1]:
-                  <div class="tabbed">
-                    dp[i, j] = dp[i - 1, j - 1]
-                  </div>
-                  else:
-                  <div class="tabbed">
-                    dp[i, j] = min(
-                    <div class="tabbed">
-                      dp[i][j - 1] + INSERTION_COST,<br>
-                      dp[i - 1][j] + DELETION_COST,<br>
-                      dp[i - 1][j - 1] + INSERTION_COST + DELETION_COST
-                    </div>
-                    )
-                  </div>
-                </div>
-              </div>
-              return dp[abbrv.length, food.length]
-            </div>
-          </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">User Experience</div>
-          <div class="text">
-            1. Suppose the user goes grocery shopping and returns with the following receipt (I just found this online).
-          </div>
-          <div class="image-container">
-            <img width="20%" src="assets/frijma/receipt.jpg">
-          </div>
-          <div class="text">
-            2. The user either takes a photo or uploads an image of their receipt.
-          </div>
-          <div class="image-container">
-            <img width="80%" src="assets/frijma/scan.png">
-          </div>
-          <div class="text">
-            3. Frijma provides a list of all of the groceries detected on the receipt with their expiration dates.
-          </div>
-          <div class="image-container">
-            <img width="80%" src="assets/frijma/result.png">
-          </div>
-          <div class="text">
-            4. Frijma also provides a list of relevant recipes to help use up all of your groceries on time.
-          </div>
-          <div class="image-container">
-            <img width="80%" src="assets/frijma/recipes.png">
-          </div>
+          <pre class="algo">
+parse(receipt):
+  for line in receipt:
+    if line satisfies regex "*XX.XX":
+      abbrv = line.remove(non-letters)
+      if abbrv == "":
+        continue
+      food, cost = search(abbrv)
+      if cost > MAX_COST:
+        continue
+      addToVisual(food)
+      queryRecipes(food)
+
+search(abbrv):
+  min_cost = infinity
+  closest_food = null
+  for keywords, food in dataset:
+    total_cost = 0
+    for word in abbrv:
+      keyword_min_cost = infinity
+      for keyword in keywords:
+        keyword_cost = edit_distance(word, keyword)
+        if keyword_cost < keyword_min_cost:
+          keyword_min_cost = keyword_cost
+      total_cost += keyword_min_cost
+    avg_cost = total_cost / abbrv.word_count
+    name_cost = edit_distance(abbrv, food)
+    true_cost = (P * name_cost + (1 - P) * avg_cost) / abbrv.length
+    if true_cost < min_cost:
+      closest_food = food
+      min_cost = true_cost
+  return closest_food, min_cost
+
+edit_distance(abbrv, food):
+  dp = zero_matrix(abbrv.length + 1, food.length + 1)
+  for i from 0 to abbrv.length:
+    for j from 0 to food.length:
+      if i == 0:
+        dp[i, j] = j * INSERTION_COST
+      else if j == 0:
+        dp[i, j] = i * DELETION_COST
+      else if abbrv[i - 1] == food[j - 1]:
+        dp[i, j] = dp[i - 1, j - 1]
+      else:
+        dp[i, j] = min(
+          dp[i][j - 1] + INSERTION_COST,
+          dp[i - 1][j] + DELETION_COST,
+          dp[i - 1][j - 1] + INSERTION_COST + DELETION_COST
+        )
+  return dp[abbrv.length, food.length]
+          </pre>
         </div>
       </div>
 
@@ -1118,7 +1131,12 @@
             incentivizing users to look around.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/project_sidewalk/webpage.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/project_sidewalk/webpage.png">
+              <div class="caption">
+                What a user might see as they label sidewalks.
+              </div>
+            </div>
           </div>
         </div>
         <div class="subsection">
@@ -1151,10 +1169,12 @@
         <div class="subsection">
           <div class="subheader">Notable Excerpts</div>
           <div class="text">
-            The piece begins with the iconic clarinet theme in the first cello and the baseline/clave rhythm in the second cello.
+            Bars 1 - 19: The piece begins with the iconic clarinet theme in the first cello and the baseline/clave rhythm in the second cello.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/1.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/1.png">
+            </div>
           </div>
           <div class="text">
             The first notoriously difficult section comes during the "Poco più mosso" at bar 66. In the original score, the strings
@@ -1164,7 +1184,9 @@
             effect of the counter theme.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/2.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/2.png">
+            </div>
           </div>
           <div class="text">
             The second notoriously difficult section, "Con fuoco", is also most people's favorite. Here, the two cellos trade off
@@ -1173,14 +1195,18 @@
             articulation in the eigth notes.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/3.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/3.png">
+            </div>
           </div>
           <div class="text">
             Another part that's slightly awkward is the second cello part after the "Con fuoco" when I tried to capture the effect of an entire string
             orchestra plucking away.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/4.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/4.png">
+            </div>
           </div>
           <div class="text">
             My favorite part of the entire piece is the tempo primo. After an energetic and dissonant build up, the music
@@ -1188,7 +1214,9 @@
             in the first cello. The second cello part is just barely playeable.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/5.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/5.png">
+            </div>
           </div>
           <div class="text">
             In my opinion, by far the hardest section is the return of the super high second theme in bar 198. It's just
@@ -1196,7 +1224,9 @@
             harmonics to mimic the color of a flute and clarinet.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/6.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/6.png">
+            </div>
           </div>
           <div class="text">
             The end of the piece consists of a gradual 16 bar crescendo where instruments from the symphony join one at a time.
@@ -1204,7 +1234,9 @@
             double-stops.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/danzon/7.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/danzon/7.png">
+            </div>
           </div>
         </div>
       </div>
@@ -1235,7 +1267,9 @@
             that reminds me of a sunrise with birds chirping away.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/1.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/1.png">
+            </div>
           </div>
           <div class="text">
             The famous love theme, tema d'amore, is first introduced in bar 33, the subject of the theme and variations. I started with
@@ -1243,14 +1277,18 @@
             two at a lower octave and two at a higher octave, each increasing in dynamics and complexity.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/2.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/2.png">
+            </div>
           </div>
           <div class="text">
             In bar 72, we take a break from the love theme and introduce the "Infanzia" theme, symbolizing young/naive love. The
             two cellos trade off a simple theme with playful pizzicato.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/3.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/3.png">
+            </div>
           </div>
           <div class="text">
             In the movie, the infanzia theme is often immediately followed by the "Maturità" theme, which features a rich
@@ -1259,7 +1297,9 @@
             parts in the "Infanzia" theme). 
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/4.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/4.png">
+            </div>
           </div>
           <div class="text">
             "Cinema in Fiamme" is a theme that plays only once in the entire movie right before disaster strikes. To make
@@ -1267,7 +1307,9 @@
             for added emphasis.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/5.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/5.png">
+            </div>
           </div>
           <div class="text">
             Following the aftermath of the disaster, the love theme returns again in bar 157. Although this time,
@@ -1276,14 +1318,18 @@
             times, each increasing in intensity and grandeur. 
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/6.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/6.png">
+            </div>
           </div>
           <div class="text">
             In my opinion, the hardest part by far is the first cello accompaniment of the penultimate love theme. No need
             to explain, just try playing it.
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/7.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/7.png">
+            </div>
           </div>
           <div class="text">
             The piece reaches a rather grand resolution in bar 205 which easily sounds like it could be the end of the piece.
@@ -1292,7 +1338,9 @@
             the nostalgic and cathartic reflections of one who's lover has passed away. 
           </div>
           <div class="image-container">
-            <img width="80%" src="assets/cinema_paradiso/8.png">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/cinema_paradiso/8.png">
+            </div>
           </div>
         </div>
       </div>
@@ -1388,18 +1436,6 @@
             <iframe height="360" width="640" src="https://www.youtube.com/embed/duuRF5fG5sM?rel=0" frameborder="0" allowfullscreen loading="lazy"></iframe>
           </div>
         </div>
-        <div class="subsection">
-          <div class="subheader">Strauss - Der Rosenkavalier Suite</div>
-          <div class="text">
-            08/05/2018<br>
-            Marrowstone Music Festival Symphony Orchestra<br>
-            This piece might be my favorite symphonic piece ever. Listen from 15:16 for one of the most sublime moments
-            in all of music. 
-          </div>
-          <div class="youtube">
-            <iframe height="360" width="640" src="https://www.youtube.com/embed/sEelWL_qu1s?rel=0" frameborder="0" allowfullscreen loading="lazy"></iframe>
-          </div>
-        </div>
       </div>
 
       <div id="contact" class="section">
@@ -1410,10 +1446,6 @@
             <li>
               <i class="fa fa-envelope"></i>
               <a href="mailto:kiami.sho@gmail.com">kiami.sho@gmail.com</a>
-            </li>
-            <li>
-              <i class="fa fa-phone"></i>
-              <a>+1 (206) 383-5764</a>
             </li>
             <li>
               <i class="fa fa-linkedin-square"></i>
@@ -1429,7 +1461,7 @@
 
       <div id="footer">© 2023 Shosuke C. Kiami</div>
     </div>
-    <div id="image-container"></div>
+    <div id="mandelbrot-container"></div>
     <script src="main.js"></script>
   </body>
 </html>

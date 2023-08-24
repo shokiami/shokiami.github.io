@@ -18,7 +18,7 @@ body {
 #title-container {
   text-align: center;
   font-family: 'Italiana';
-  color: white;
+  color: #ffffff;
   mix-blend-mode: difference;
   margin-bottom: 8vh;
 }
@@ -42,8 +42,8 @@ body {
 
 #navbar-title {
   font-size: 30px;
-  color: white;
-  border-bottom: 1px solid white;
+  color: #ffffff;
+  border-bottom: 1px solid #ffffff;
   text-decoration: none;
 }
 
@@ -61,7 +61,7 @@ body {
 
 #section-menu a {
   font-size: 20px;
-  color: white;
+  color: #ffffff;
   text-decoration: none;
   transition: 0.2s;
 }
@@ -80,7 +80,7 @@ body {
 }
 
 .dropdown-arrow {
-  border: solid white;
+  border: solid #ffffff;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 2px;
@@ -115,7 +115,7 @@ body {
 }
 
 #main {
-  background: white;
+  background: #ffffff;
   color: #222222;
   margin-left: 20%;
   margin-right: 20%;
@@ -159,10 +159,6 @@ body {
   padding-bottom: 20px;
 }
 
-.centered {
-  text-align: center;
-}
-
 .list {
   font-size: 16px;
   line-height: 150%;
@@ -171,7 +167,7 @@ body {
 }
 
 a {
-  color: blue;
+  color: #0055ff;
   text-decoration: none;
 }
 
@@ -180,15 +176,15 @@ a:hover {
 }
 
 .algo {
-  font-family: 'Courier New';
   font-size: 12px;
   line-height: 150%;
-  font-weight: bold;
-  padding-bottom: 20px;
-}
-
-.tabbed {
-  padding-left: 20px;
+  white-space: pre-wrap;
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0px;
+  margin-bottom: 20px;
 }
 
 #head-shot {
@@ -273,9 +269,21 @@ a:hover {
 .image-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 3%;
+  gap: 2%;
   padding-bottom: 20px;
+}
+
+.image-title {
+  font-size: 16px;
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.caption {
+  font-size: 12px;
+  text-align: center;
 }
 
 .youtube {
@@ -286,7 +294,7 @@ a:hover {
 }
 
 .youtube iframe {
-  background-color: black;
+  background-color: #000000;
 }
 
 #contact {
@@ -301,7 +309,7 @@ a:hover {
 }
 
 #contact li {
-  margin: 20px;
+  padding-bottom: 20px;
 }
 
 #contact a {
@@ -316,7 +324,7 @@ a:hover {
   padding-top: 40px;
 }
 
-.image {
+.mandelbrot {
   position: fixed;
   top: 50%;
   left: 50%;
