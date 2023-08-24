@@ -3,13 +3,22 @@ const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_WIDTH = 1920;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
+const SCROLL_DURATION = 1000;
+
+let selector;
+let scroll_top;
+let scroll_max;
+let start_pos;
+let scroll_dist;
+let start_time;
 
 window.onload = init;
+window.onpopstate = popstate;
 
 function init() {
   // init dropdowns
   for (let dropdown_menu of document.querySelectorAll('.dropdown-menu')) {
-    dropdown_menu.style.setProperty('height', '0px');
+    dropdown_menu.style.height = '0px';
   }
   // init mandelbrots
   let mandelbrot_container = document.getElementById('mandelbrot-container');
@@ -20,39 +29,112 @@ function init() {
     mandelbrot.className = 'mandelbrot';
     mandelbrot_container.appendChild(mandelbrot);
   }
-  update();
+  // init navlinks
+  for (let navlink of document.querySelectorAll('.navlink')) {
+    navlink.onclick = navlinkClick;
+  }
+  // init scroll max
+  selector = '';
+  scroll_top = 0.0;
+  scroll_max = document.documentElement.scrollHeight - window.innerHeight;
+  // start loop
+  loop();
 }
 
-function update() {
-  let scroll = Math.min(Math.max(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 0.0), 1.0);
+function loop(curr_time) {
+  updateScroll(curr_time);
+  updateMandelbrot();
+  window.requestAnimationFrame(loop);
+}
+
+function navlinkClick(event) {
+  event.preventDefault();
+  selector = this.getAttribute('href');
+  history.pushState(null, null, selector);
+  scroll();
+}
+
+function popstate() {
+  selector = window.location.hash;
+  if (selector === '') {
+    selector = '#home'
+  }
+  scroll();
+}
+
+function scroll() {
+  unrestrict();
+  start_pos = window.scrollY;
+  scroll_dist = document.querySelector(selector).getBoundingClientRect().top;
+  start_time = performance.now();
+}
+
+function unrestrict() {
+  let scroll = window.scrollY;
+  document.getElementById('home').style.display = 'flex';
+  for (let child of document.getElementById('main').children) {
+    child.style.display = 'block';
+  }
+  window.scrollTo(0.0, scroll_top + scroll);
+  scroll_top = 0.0;
+}
+
+function restrict() {
+  let target = document.querySelector(selector);
+  let diff = target.getBoundingClientRect().top;
+  scroll_top = window.scrollY + diff;
+  document.getElementById('home').style.display = 'none';
+  for (let child of document.getElementById('main').children) {
+    if (child.id !== target.id && child.id !== 'footer') {
+      child.style.display = 'none';
+    }
+  }
+  window.scrollTo(0.0, diff);
+}
+
+function updateScroll(curr_time) {
+  if (selector !== '') {
+    let timeElapsed = curr_time - start_time;
+    let p = Math.min(Math.max(timeElapsed / SCROLL_DURATION, 0.0), 1.0);
+    window.scrollTo(0, start_pos + scroll_dist * p * (2 - p));
+    if (timeElapsed > SCROLL_DURATION) {
+      if (selector !== '' && selector !== '#home' && selector !== '#about' && selector !== '#projects' && selector !== '#contact') {
+        restrict();
+      }
+      selector = '';
+    }
+  }
+}
+
+function updateMandelbrot() {
+  let scroll = Math.min(Math.max((scroll_top + window.scrollY) / scroll_max, 0.0), 1.0);
   let i_cont = scroll * (MANDELBROT_COUNT - 1);
   for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
-    // update visibility
+    // update display
     let i = parseInt(mandelbrot.id);
     if (i_cont < i || i_cont > i + 2) {
-      mandelbrot.style.setProperty('visibility', 'hidden');
+      mandelbrot.style.display = 'none';
       continue;
     }
-    mandelbrot.style.setProperty('visibility', 'visible');
+    mandelbrot.style.display = 'block';
     // update size
     let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
-    mandelbrot.style.setProperty('height', height);
+    mandelbrot.style.height = height;
     // update scale
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
     let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.9 ** i) + '%';
     let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.9 ** i) + '%';
     let transform = 'translate(-50%, -50%) scale(' + scale + ') translate(' + dx + ', ' + dy + ')';
-    mandelbrot.style.setProperty('transform', transform);
+    mandelbrot.style.transform = transform;
     // update position
     let top = 100.0 * (0.2 + 0.14 * 0.9 ** i_cont) + '%';
     let left = 100.0 * (0.9 - 0.25 * 0.9 ** i_cont) + '%';
-    mandelbrot.style.setProperty('top', top);
-    mandelbrot.style.setProperty('left', left);
+    mandelbrot.style.top = top;
+    mandelbrot.style.left = left;
     // update opacity
     let opacity = i > 0 ? Math.min(i_cont - i, 1.0) : 1.0;
-    mandelbrot.style.setProperty('opacity', opacity);
+    mandelbrot.style.opacity = opacity;
   }
-  window.requestAnimationFrame(update);
 }
 
 function toggleDropdown(dropdown) {
@@ -60,9 +142,9 @@ function toggleDropdown(dropdown) {
   if (dropdown_menu.style.getPropertyValue('height') == '0px') {
     let item_height = dropdown_menu.children[0].getBoundingClientRect().height;
     let height = dropdown_menu.children.length * item_height;
-    dropdown_menu.style.setProperty('height', height + 'px');
+    dropdown_menu.style.height = height + 'px';
   } else {
-    dropdown_menu.style.setProperty('height', '0px');
+    dropdown_menu.style.height = '0px';
   }
   let dropdown_arrow = dropdown.children[0];
   dropdown_arrow.classList.toggle('activated');

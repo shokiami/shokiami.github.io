@@ -1,7 +1,3 @@
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   margin: 0;
   font-family: 'Anaheim';
@@ -120,8 +116,6 @@ body {
   margin-left: 20%;
   margin-right: 20%;
   box-sizing: border-box;
-  padding-top: 20px;
-  padding-bottom: 40px;
   padding-left: 80px;
   padding-right: 80px;
 }
@@ -322,6 +316,7 @@ a:hover {
 #footer {
   text-align: center;
   padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 .mandelbrot {
