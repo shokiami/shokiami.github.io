@@ -122,12 +122,12 @@ body {
 
 .section {
   border-bottom: 1px solid #888888;
-  padding-top: 40px;
 }
 
 .header {
   font-size: 40px;
   text-align: center;
+  padding-top: 40px;
 }
 
 .date {
