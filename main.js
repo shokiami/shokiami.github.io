@@ -5,10 +5,10 @@ const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 const SCROLL_DURATION = 1000;
 
-let selector;
+let target;
 let scroll_top;
 let scroll_max;
-let start_pos;
+let scroll_start;
 let scroll_dist;
 let start_time;
 
@@ -34,7 +34,6 @@ function init() {
     navlink.onclick = navlinkClick;
   }
   // init scroll max
-  selector = '';
   scroll_top = 0.0;
   scroll_max = document.documentElement.scrollHeight - window.innerHeight;
   // start loop
@@ -49,23 +48,26 @@ function loop(curr_time) {
 
 function navlinkClick(event) {
   event.preventDefault();
-  selector = this.getAttribute('href');
-  history.pushState(null, null, selector);
-  scroll();
+  let href = this.getAttribute('href');
+  if (href !== window.location.hash) {
+    history.pushState(null, null, href);
+  }
+  scroll(href);
 }
 
 function popstate() {
-  selector = window.location.hash;
-  if (selector === '') {
-    selector = '#home'
+  let href = window.location.hash;
+  if (href === '') {
+    href = '#home'
   }
-  scroll();
+  scroll(href);
 }
 
-function scroll() {
+function scroll(href) {
   unrestrict();
-  start_pos = window.scrollY;
-  scroll_dist = document.querySelector(selector).getBoundingClientRect().top;
+  target = document.querySelector(href);
+  scroll_start = window.scrollY;
+  scroll_dist = target.getBoundingClientRect().top;
   start_time = performance.now();
 }
 
@@ -80,7 +82,6 @@ function unrestrict() {
 }
 
 function restrict() {
-  let target = document.querySelector(selector);
   let diff = target.getBoundingClientRect().top;
   scroll_top = window.scrollY + diff;
   document.getElementById('home').style.display = 'none';
@@ -93,15 +94,16 @@ function restrict() {
 }
 
 function updateScroll(curr_time) {
-  if (selector !== '') {
+  if (target) {
     let timeElapsed = curr_time - start_time;
     let p = Math.min(Math.max(timeElapsed / SCROLL_DURATION, 0.0), 1.0);
-    window.scrollTo(0, start_pos + scroll_dist * p * (2 - p));
+    window.scrollTo(0, scroll_start + scroll_dist * p * (2 - p));
     if (timeElapsed > SCROLL_DURATION) {
-      if (selector !== '' && selector !== '#home' && selector !== '#about' && selector !== '#projects' && selector !== '#contact') {
+      let id = target.id;
+      if (id !== 'home' && id !== 'about' && id !== 'projects' && id !== 'contact') {
         restrict();
       }
-      selector = '';
+      target = null;
     }
   }
 }
