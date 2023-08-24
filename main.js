@@ -3,7 +3,6 @@ const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_WIDTH = 1920;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
-const SCROLL_DURATION = 1000;
 
 let target;
 let scroll_top;
@@ -11,6 +10,7 @@ let scroll_max;
 let scroll_start;
 let scroll_dist;
 let start_time;
+let total_time;
 
 window.onload = init;
 window.onpopstate = popstate;
@@ -69,6 +69,7 @@ function scroll(href) {
   scroll_start = window.scrollY;
   scroll_dist = target.getBoundingClientRect().top;
   start_time = performance.now();
+  total_time = 10.0 * Math.sqrt(Math.abs(scroll_dist));
 }
 
 function unrestrict() {
@@ -95,10 +96,11 @@ function restrict() {
 
 function updateScroll(curr_time) {
   if (target) {
-    let timeElapsed = curr_time - start_time;
-    let p = Math.min(Math.max(timeElapsed / SCROLL_DURATION, 0.0), 1.0);
-    window.scrollTo(0, scroll_start + scroll_dist * p * (2 - p));
-    if (timeElapsed > SCROLL_DURATION) {
+    let elapsed_time = curr_time - start_time;
+    let p = Math.min(elapsed_time / total_time, 1.0);
+    p = p * (2.0 - p);
+    window.scrollTo(0, scroll_start + p * scroll_dist);
+    if (elapsed_time > total_time) {
       let id = target.id;
       if (id !== 'home' && id !== 'about' && id !== 'projects' && id !== 'contact') {
         restrict();
