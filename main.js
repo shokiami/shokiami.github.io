@@ -40,8 +40,8 @@ function init() {
   loop();
 }
 
-function loop(curr_time) {
-  updateScroll(curr_time);
+function loop() {
+  updateScroll();
   updateMandelbrot();
   window.requestAnimationFrame(loop);
 }
@@ -94,9 +94,9 @@ function restrict() {
   window.scrollTo(0.0, diff);
 }
 
-function updateScroll(curr_time) {
+function updateScroll() {
   if (target) {
-    let elapsed_time = curr_time - start_time;
+    let elapsed_time = performance.now() - start_time;
     let p = Math.min(elapsed_time / total_time, 1.0);
     p = p * (2.0 - p);
     window.scrollTo(0, scroll_start + p * scroll_dist);
