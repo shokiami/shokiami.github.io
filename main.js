@@ -125,13 +125,13 @@ function updateMandelbrot() {
     mandelbrot.style.height = height;
     // update scale
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
-    let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.9 ** i) + '%';
-    let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.9 ** i) + '%';
+    let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.5 ** i) + '%';
+    let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.5 ** i) + '%';
     let transform = 'translate(-50%, -50%) scale(' + scale + ') translate(' + dx + ', ' + dy + ')';
     mandelbrot.style.transform = transform;
     // update position
-    let top = 100.0 * (0.2 + 0.14 * 0.9 ** i_cont) + '%';
-    let left = 100.0 * (0.9 - 0.25 * 0.9 ** i_cont) + '%';
+    let top = 100.0 * (0.2 + 0.14 * 0.5 ** i_cont) + '%';
+    let left = 100.0 * (0.9 - 0.25 * 0.5 ** i_cont) + '%';
     mandelbrot.style.top = top;
     mandelbrot.style.left = left;
     // update opacity

@@ -60,8 +60,8 @@ int main() {
   for (int i = 0; i < 140; i++) {
     long double zoom = pow(SCALAR, i);
     int max_itr = 60000 * pow(zoom, 0.08) - 59000;
-    double top = 0.2 + 0.14 * pow(0.9, i);
-    double left = 0.9 - 0.25 * pow(0.9, i);
+    double top = 0.2 + 0.14 * pow(0.5, i);
+    double left = 0.9 - 0.25 * pow(0.5, i);
     string filename = to_string(i) + ".png";
     render(zoom, max_itr, top, left, filename);
   }
