@@ -4,7 +4,7 @@ const MANDELBROT_WIDTH = 1920;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 
-let target;
+let scroll_to;
 let scroll_top;
 let scroll_max;
 let scroll_start;
@@ -33,9 +33,11 @@ function init() {
   for (let navlink of document.querySelectorAll('.navlink')) {
     navlink.onclick = navlinkClick;
   }
-  // init scroll max
+  // init scroll
+  scroll_to = null;
   scroll_top = 0.0;
   scroll_max = document.documentElement.scrollHeight - window.innerHeight;
+  restrict(window.location.hash);
   // start loop
   loop();
 }
@@ -56,18 +58,14 @@ function navlinkClick(event) {
 }
 
 function popstate() {
-  let href = window.location.hash;
-  if (href === '') {
-    href = '#home'
-  }
-  scroll(href);
+  scroll(window.location.hash);
 }
 
 function scroll(href) {
   unrestrict();
-  target = document.querySelector(href);
+  scroll_to = href;
   scroll_start = window.scrollY;
-  scroll_dist = target.getBoundingClientRect().top;
+  scroll_dist = href === '' ? -scroll_start : document.querySelector(href).getBoundingClientRect().top;
   start_time = performance.now();
   total_time = 10.0 * Math.sqrt(Math.abs(scroll_dist));
 }
@@ -82,7 +80,11 @@ function unrestrict() {
   scroll_top = 0.0;
 }
 
-function restrict() {
+function restrict(href) {
+  if (href === '' || href === '#home' || href === '#about' || href === '#projects' || href === '#contact') {
+    return;
+  }
+  let target = document.querySelector(href);
   let diff = target.getBoundingClientRect().top;
   scroll_top = window.scrollY + diff;
   document.getElementById('home').style.display = 'none';
@@ -95,17 +97,14 @@ function restrict() {
 }
 
 function updateScroll() {
-  if (target) {
+  if (scroll_to !== null) {
     let elapsed_time = performance.now() - start_time;
     let p = Math.min(elapsed_time / total_time, 1.0);
     p = p * (2.0 - p);
     window.scrollTo(0, scroll_start + p * scroll_dist);
     if (elapsed_time > total_time) {
-      let id = target.id;
-      if (id !== 'home' && id !== 'about' && id !== 'projects' && id !== 'contact') {
-        restrict();
-      }
-      target = null;
+      restrict(scroll_to);
+      scroll_to = null;
     }
   }
 }
