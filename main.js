@@ -25,8 +25,9 @@ function init() {
   for (let i = 0; i < MANDELBROT_COUNT; i++) {
     let mandelbrot = document.createElement('img');
     mandelbrot.id = i;
-    mandelbrot.src = MANDELBROT_DIR + i + '.jpg';
+    mandelbrot.src = MANDELBROT_DIR + i + '.webp';
     mandelbrot.className = 'mandelbrot';
+    mandelbrot.loading = 'lazy';
     mandelbrot_container.appendChild(mandelbrot);
   }
   // init navlinks
