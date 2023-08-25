@@ -17,7 +17,7 @@
     </div>
 
     <div id="navbar">
-      <a id="navbar-title" href="">Shosuke Kiami</a>
+      <a id="navbar-title" href="">Sho Kiami</a>
       <ul id="section-menu">
         <li><a class="navlink" href="#home">Home</a></li>
         <li><a class="navlink" href="#about">About</a></li>
@@ -463,6 +463,24 @@ max_error(player_polys, avatar_polys):
           </ul>
         </div>
         <div class="subsection">
+          <div class="subheader">Model</div>
+          <div class="image-container">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/alphafour/resnet.png">
+              <div class="caption">
+                AlphaFour's model consisted of a deep residual network of 8 res blocks with 128 channels whose output
+                is fed into a policy network and a value network.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Algorithms</div>
+          <pre class="algo">
+mcts(state):
+          </pre>
+        </div>
+        <div class="subsection">
           <div class="subheader">Results</div>
           <div class="text">
             Here is the loss vs. epoch plot after training for 20 generations (~9 hours):
@@ -777,7 +795,9 @@ max_error(player_polys, avatar_polys):
             <div class="image" style="width: 90%;">
               <img width="100%" src="assets/geoknowr/clusters.png">
               <div class="caption">
-                Visualized clusters.
+                Visualziation of our clusters. We found that the Gaussian mixture model worked the best and 21 classes
+                was the sweet spot where less classes led to regions which were too large and more classes led to too
+                little examples per class.
               </div>
             </div>
           </div>
@@ -786,6 +806,14 @@ max_error(player_polys, avatar_polys):
             deep neural network from scratch, and so we used transfer learning on ResNet-18 pretrained on the ImageNet
             dataset. Now, our model no longer had to learn feature extraction and could instead focus on finding
             the relationship between the features provided by pretrained ResNet-18 and our classes.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/geoknowr/resnet18.png">
+              <div class="caption">
+                Transfer learning on ResNet-18 architecture.
+              </div>
+            </div>
           </div>
           <div class="text">
             Throughout this entire process, we also used an abundance of deep learning techniques such as learning rate
