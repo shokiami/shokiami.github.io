@@ -253,11 +253,34 @@ a:hover {
   text-align: left;
 }
 
-.pdf {
-  width: 100%;
+.pdf-container {
   display: flex;
   justify-content: center;
   padding-bottom: 20px;
+}
+
+.pdf {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 480px;
+  border: 1px solid #000000;
+}
+
+.pdf-thumbnail {
+  width: 100%;
+}
+
+.pdf-open {
+  position: absolute;
+  width: 45px;
+  z-index: 1;
+  opacity: 50%;
+}
+
+.pdf:hover .pdf-open {
+  width: 50px;
 }
 
 .image-container {
@@ -309,11 +332,6 @@ a:hover {
 .youtube:hover .youtube-play {
   width: 80px;
 }
-
-/* .youtube iframe {
-  background-color: #000000;
-  display: none;
-} */
 
 #contact {
   text-align: center;
