@@ -15,6 +15,8 @@ for d in os.listdir(IN_DIR):
   if not os.path.exists(out_dir):
     os.makedirs(out_dir)
   for f in os.listdir(in_dir):
+    if f == '.DS_Store':
+      continue
     filename, ext = os.path.splitext(f)
     if d == 'mandelbrot':
       ext = '.webp'
