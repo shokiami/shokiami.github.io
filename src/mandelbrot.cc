@@ -14,15 +14,15 @@ using std::string;
 using std::vector;
 namespace fs = std::filesystem;
 
-#define HEIGHT 1080
 #define WIDTH 1920
+#define HEIGHT 1080
 #define SCALAR 1.28402541669  // e^(1/4)
 #define REAL 0.33888665790093404
 #define IMAG 0.57352752336659824
 #define BAILOUT 1024
-#define DIR "mandelbrot_out/"
+#define DIR "assets/mandelbrot/"
 
-void render(long double zoom, int max_itr, double top, double left, string filename) {
+void render(long double zoom, int max_itr, double left, double top, string filename) {
   png::image<png::rgb_pixel> image = png::image<png::rgb_pixel>(WIDTH, HEIGHT);
   int percent = 0;
   for (int i = 0; i < HEIGHT; i++) {
@@ -45,7 +45,7 @@ void render(long double zoom, int max_itr, double top, double left, string filen
           break;
         }
       }
-      if (100.0 * (i * WIDTH + j + 1) / (HEIGHT * WIDTH) - percent >= 1.0) {
+      if (100.0 * (i * WIDTH + j + 1) / (WIDTH * HEIGHT) - percent >= 1.0) {
         percent++;
         cout << filename + ": " + to_string(percent) + "%" << endl;
       }
@@ -60,10 +60,10 @@ int main() {
   for (int i = 0; i < 140; i++) {
     long double zoom = pow(SCALAR, i);
     int max_itr = 60000 * pow(zoom, 0.08) - 59000;
-    double top = 0.2 + 0.14 * pow(0.5, i);
     double left = 0.9 - 0.25 * pow(0.5, i);
+    double top = 0.2 + 0.14 * pow(0.5, i);
     string filename = to_string(i) + ".png";
-    render(zoom, max_itr, top, left, filename);
+    render(zoom, max_itr, left, top, filename);
   }
   return EXIT_SUCCESS;
 }

@@ -1,6 +1,6 @@
 const MANDELBROT_COUNT = 140;
-const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_WIDTH = 1920;
+const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 
@@ -126,15 +126,15 @@ function updateMandelbrot() {
     mandelbrot.style.height = height;
     // update scale
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
-    let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.5 ** i) + '%';
     let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.5 ** i) + '%';
+    let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.5 ** i) + '%';
     let transform = 'translate(-50%, -50%) scale(' + scale + ') translate(' + dx + ', ' + dy + ')';
     mandelbrot.style.transform = transform;
     // update position
-    let top = 100.0 * (0.2 + 0.14 * 0.5 ** i_cont) + '%';
     let left = 100.0 * (0.9 - 0.25 * 0.5 ** i_cont) + '%';
-    mandelbrot.style.top = top;
+    let top = 100.0 * (0.2 + 0.14 * 0.5 ** i_cont) + '%';
     mandelbrot.style.left = left;
+    mandelbrot.style.top = top;
     // update opacity
     let opacity = i > 0 ? Math.min(i_cont - i, 1.0) : 1.0;
     mandelbrot.style.opacity = opacity;
