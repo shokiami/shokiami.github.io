@@ -16,7 +16,9 @@ window.onload = init;
 window.onpopstate = popstate;
 
 function init() {
-  // init dropdowns
+  // init dropdown
+  let project_dropdown = document.getElementById('project-dropdown');
+  project_dropdown.onclick = toggleDropdown;
   for (let dropdown_menu of document.querySelectorAll('.dropdown-menu')) {
     dropdown_menu.style.height = '0px';
   }
@@ -39,6 +41,10 @@ function init() {
   scroll_top = 0.0;
   scroll_max = document.documentElement.scrollHeight - window.innerHeight;
   restrict(window.location.hash);
+  // init youtube
+  for (let youtube of document.querySelectorAll('.youtube')) {
+    youtube.onclick = launchYoutube;
+  }
   // start loop
   loop();
 }
@@ -141,15 +147,31 @@ function updateMandelbrot() {
   }
 }
 
-function toggleDropdown(dropdown) {
-  let dropdown_menu = dropdown.parentElement.nextElementSibling;
+function toggleDropdown() {
+  let dropdown_menu = this.parentElement.nextElementSibling;
   if (dropdown_menu.style.getPropertyValue('height') == '0px') {
-    let item_height = dropdown_menu.children[0].getBoundingClientRect().height;
-    let height = dropdown_menu.children.length * item_height;
+    let height = 0;
+    for (let dropdown_item of dropdown_menu.children) {
+      height += dropdown_item.getBoundingClientRect().height;
+    }
     dropdown_menu.style.height = height + 'px';
   } else {
     dropdown_menu.style.height = '0px';
   }
-  let dropdown_arrow = dropdown.children[0];
+  let dropdown_arrow = this.children[0];
   dropdown_arrow.classList.toggle('activated');
+}
+
+function launchYoutube() {
+  let url = this.id;
+  url += url.includes('?')? '&rel=0&autoplay=1' : '?rel=0&autoplay=1';
+  let iframe = document.createElement('iframe');
+  iframe.src = url;
+  iframe.width = '640px';
+  iframe.height = '360px';
+  iframe.style.border = '0px';
+  iframe.allowFullscreen = true;
+  iframe.allow = 'autoplay';
+  this.innerHTML = '';
+  this.append(iframe);
 }
