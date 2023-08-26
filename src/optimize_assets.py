@@ -24,19 +24,21 @@ for d in os.listdir(IN_DIR):
       ext = '.jpg'
     in_path = os.path.join(in_dir, f)
     out_path = os.path.join(out_dir, filename + ext)
-    if not os.path.exists(out_path):
-      if d == 'mandelbrot':
-        img = Image.open(in_path)
-        img.save(out_path, 'WEBP', lossless=True)
-      elif ext == '.jpg':
-        img = Image.open(in_path)
-        w, h = img.size
-        if w > MAX_W or h > MAX_H:
-          r = MAX_W / w if w - MAX_W > h - MAX_H else MAX_H / h
-          w *= r
-          h *= r
-        img = img.resize((int(w), int(h)))
-        img = img.convert('RGB')
-        img.save(out_path, 'JPEG')
-      else:
-        shutil.copy(in_path, out_path)
+    if os.path.exists(out_path):
+      continue
+    print(in_path, out_path)
+    if d == 'mandelbrot':
+      img = Image.open(in_path)
+      img.save(out_path, 'WEBP', lossless=True)
+    elif ext == '.jpg':
+      img = Image.open(in_path)
+      w, h = img.size
+      if w > MAX_W or h > MAX_H:
+        r = MAX_W / w if w - MAX_W > h - MAX_H else MAX_H / h
+        w *= r
+        h *= r
+      img = img.resize((int(w), int(h)))
+      img = img.convert('RGB')
+      img.save(out_path, 'JPEG')
+    else:
+      shutil.copy(in_path, out_path)
