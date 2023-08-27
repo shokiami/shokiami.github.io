@@ -191,8 +191,7 @@ function play() {
 }
 
 function stopScroll(event) {
-  if (event.target.id === 'play-button' || document.getElementById('navbar').contains(event.target)) {
-    return;
+  if (event.target.tagName == 'BODY') {
+    scroll_to = null;
   }
-  scroll_to = null;
 }

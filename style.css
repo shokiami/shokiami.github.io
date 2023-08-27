@@ -37,7 +37,7 @@ body {
 }
 
 #play-button:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
   transition: 0.1s;
 }
 
@@ -297,7 +297,7 @@ a:hover {
 }
 
 .pdf:hover .pdf-open {
-  transform: scale(1.05);
+  transform: scale(1.1);
   transition: 0.1s;
 }
 
@@ -355,7 +355,7 @@ a:hover {
 }
 
 .youtube:hover .youtube-play {
-  transform: scale(1.05);
+  transform: scale(1.1);
   transition: 0.1s;
 }
 
