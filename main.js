@@ -26,12 +26,7 @@ function init() {
   // init mandelbrots
   let mandelbrot_container = document.getElementById('mandelbrot-container');
   for (let i = 0; i < MANDELBROT_COUNT; i++) {
-    let mandelbrot = document.createElement('img');
-    mandelbrot.id = i;
-    mandelbrot.src = MANDELBROT_DIR + i + '.webp';
-    mandelbrot.className = 'mandelbrot';
-    mandelbrot.loading = 'lazy';
-    mandelbrot_container.appendChild(mandelbrot);
+    mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp" loading="lazy">';
   }
   // init navlinks
   for (let navlink of document.querySelectorAll('.navlink')) {
@@ -149,6 +144,9 @@ function updateMandelbrot() {
     let opacity = i > 0 ? Math.min(i_cont - i, 1.0) : 1.0;
     mandelbrot.style.opacity = opacity;
   }
+  let zoom = MANDELBROT_SCALAR ** i_cont;
+  let [coeff, exp] = zoom.toExponential(4).replace('+', '').split('e');
+  document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
 }
 
 function toggleDropdown() {
@@ -167,17 +165,8 @@ function toggleDropdown() {
 }
 
 function launchYoutube() {
-  let url = this.id;
-  url += url.includes('?')? '&rel=0&autoplay=1' : '?rel=0&autoplay=1';
-  let iframe = document.createElement('iframe');
-  iframe.src = url;
-  iframe.width = '640px';
-  iframe.height = '360px';
-  iframe.style.border = '0px';
-  iframe.allowFullscreen = true;
-  iframe.allow = 'autoplay';
-  this.innerHTML = '';
-  this.append(iframe);
+  let url = this.id + (this.id.includes('?')? '&rel=0&autoplay=1' : '?rel=0&autoplay=1');
+  this.innerHTML = '<iframe src=' + url + ' width="640px" height="360px" frameborder="0" allow="autoplay; fullscreen"></iframe>';
 }
 
 function play() {

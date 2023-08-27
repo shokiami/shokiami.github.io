@@ -29,10 +29,11 @@ body {
 #play-button {
   cursor: pointer;
   position: absolute;
-  right: 30px;
-  top: 30px;
+  right: 20px;
+  top: 20px;
   mix-blend-mode: difference;
-  width: 30px;
+  width: 24px;
+  height: 24px;
   transition: 0.1s;
 }
 
@@ -118,6 +119,15 @@ body {
 .dropdown-menu {
   overflow: hidden;
   transition: 0.4s;
+}
+
+#zoom {
+  position: fixed;
+  font-size: 24px;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  left: 20px;
+  bottom: 20px;
 }
 
 #main {
