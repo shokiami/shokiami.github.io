@@ -72,6 +72,7 @@ function popstate() {
 }
 
 function scroll(href) {
+  document.getElementById('main').style.visibility = 'visible';
   unrestrict();
   scroll_to = href;
   scroll_start = window.scrollY;
@@ -88,7 +89,6 @@ function unrestrict() {
   }
   window.scrollTo(0.0, scroll_top + scroll);
   scroll_top = 0.0;
-  document.getElementById('main').style.visibility = 'visible';
 }
 
 function restrict(href) {
