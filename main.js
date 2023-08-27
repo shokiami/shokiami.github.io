@@ -14,11 +14,12 @@ let total_time;
 
 window.onload = init;
 window.onpopstate = popstate;
+window.onclick = stopScroll;
+window.onwheel = stopScroll;
 
 function init() {
   // init dropdown
-  let project_dropdown = document.getElementById('project-dropdown');
-  project_dropdown.onclick = toggleDropdown;
+  document.getElementById('project-dropdown').onclick = toggleDropdown;
   for (let dropdown_menu of document.querySelectorAll('.dropdown-menu')) {
     dropdown_menu.style.height = '0px';
   }
@@ -45,6 +46,8 @@ function init() {
   for (let youtube of document.querySelectorAll('.youtube')) {
     youtube.onclick = launchYoutube;
   }
+  // init play
+  document.getElementById('play-button').onclick = play;
   // start loop
   loop();
 }
@@ -85,6 +88,7 @@ function unrestrict() {
   }
   window.scrollTo(0.0, scroll_top + scroll);
   scroll_top = 0.0;
+  document.getElementById('main').style.visibility = 'visible';
 }
 
 function restrict(href) {
@@ -174,4 +178,21 @@ function launchYoutube() {
   iframe.allow = 'autoplay';
   this.innerHTML = '';
   this.append(iframe);
+}
+
+function play() {
+  unrestrict();
+  scroll_to = '';
+  scroll_start = window.scrollY;
+  scroll_dist = scroll_max - scroll_start;
+  start_time = performance.now();
+  total_time = 60000.0;
+  document.getElementById('main').style.visibility = 'hidden';
+}
+
+function stopScroll(event) {
+  if (event.target.id === 'play-button' || document.getElementById('navbar').contains(event.target)) {
+    return;
+  }
+  scroll_to = null;
 }
