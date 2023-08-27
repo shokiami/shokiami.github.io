@@ -106,7 +106,7 @@ function updateScroll() {
   if (scroll_to !== null) {
     let elapsed_time = performance.now() - start_time;
     let p = Math.min(elapsed_time / total_time, 1.0);
-    p = p * (2.0 - p);
+    p = p < 2.0 / 3.0 ? 1.2 * p : -1.8 * p**2 + 3.6 * p - 0.8;
     window.scrollTo(0, scroll_start + p * scroll_dist);
     if (elapsed_time > total_time) {
       restrict(scroll_to);
@@ -175,7 +175,7 @@ function play() {
   scroll_start = window.scrollY;
   scroll_dist = scroll_max - scroll_start;
   start_time = performance.now();
-  total_time = 60000.0;
+  total_time = 60000.0;  // ms
   document.getElementById('main').style.visibility = 'hidden';
 }
 
