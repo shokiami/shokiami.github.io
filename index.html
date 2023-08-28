@@ -370,7 +370,7 @@
           <div class="text">
             Here is the full pseudocode for the entire scoring algorithm:
           </div>
-          <pre class="algo">
+<pre class="algo">
 score(player_poses, avatar_poses):
   remove_outliers(player_poses)
   remove_outliers(player_poses)
@@ -414,7 +414,7 @@ poly_regression(poses):
   for body_part in body_parts:
     A = matrix(poses.length, POLY_DEGREE + 1)
     b = vector(poses.length)
-    for i from 0 to poses.length:
+    for i from 0 to poses.length - 1:
       A[i] = [1, i, i^2, ..., i^POLY_DEGREE]
       b[i] = poses[i][body_part]
     P = A * (A^T * A)^-1 * A^T
@@ -433,7 +433,7 @@ max_error(player_polys, avatar_polys):
       if error > max_error:
         max_error = error
   return max_error
-          </pre>
+</pre>
         </div>
       </div>
 
@@ -479,9 +479,54 @@ max_error(player_polys, avatar_polys):
         </div>
         <div class="subsection">
           <div class="subheader">Algorithms</div>
-          <pre class="algo">
+          <div class="text">
+            The algorithms in AlphaFour are parallelized, but for ease of comprehension, here are the summarized sequential versions:
+          </div>
+<pre class="algo">
+learn():
+  repeat NUM_GENS:
+    examples = []
+    repeat GAMES_PER_GEN:
+      examples += self_play()
+    repeat EPOCHS_PER_GEN:
+      train(examples)
+
+self_play():
+  examples = []
+  state = init_state()
+  player = 1
+  while True:
+    input_state = player * state
+    policy, value = monte_carlo_tree_search(input_state)
+    action = sample_action(state, policy)
+    state = get_next_state(state, player, action)
+    examples.append([input_state, policy, 0.0])
+    if is_terminal(state):
+      reward = 1.0 if is_win(state) else 0.0
+      for i from 0 to examples.length - 1:
+        example[i][2] = reward if examples.length - 1 - i % 2 == 0 else -reward
+      break
+    player *= -1
+  return examples
+
 monte_carlo_tree_search(state):
-          </pre>
+  root = new_mcts_node(state)
+  repeat MCTS_ITRS:
+    node = root
+    while node.is_expanded():
+      node = node.select()
+    if node.is_terminal():
+      value = -1.0 if is_win(state) else 0.0
+    else:
+      policy, value = model(node.state)
+      policy += dirichlet_noise() if node == root
+      policy[get_invalid_actions(node.state)] = 0.0
+      policy /= sum(policy)
+      node.expand(policy)
+    node.backpropogate(value)
+  policy = root.child_visit_counts() / MCTS_ITRS
+  value = root.value_sum / MCTS_ITRS
+</pre>
         </div>
         <div class="subsection">
           <div class="subheader">Results</div>
@@ -1067,7 +1112,7 @@ monte_carlo_tree_search(state):
             and n is the number of characters in the dataset (note that this is the optimal runtime).
             Here is the pseudocode for the three algorithms:
           </div>
-          <pre class="algo">
+<pre class="algo">
 parse(receipt):
   for line in receipt:
     if line satisfies regex "*XX.XX":
@@ -1117,7 +1162,7 @@ edit_distance(abbrv, food):
           dp[i - 1][j - 1] + INSERTION_COST + DELETION_COST
         )
   return dp[abbrv.length, food.length]
-          </pre>
+</pre>
         </div>
       </div>
 
