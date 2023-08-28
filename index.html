@@ -466,7 +466,35 @@ max_error(player_polys, avatar_polys):
           </ul>
         </div>
         <div class="subsection">
-          <div class="subheader">Model</div>
+          <div class="subheader">Training</div>
+          <div class="text">
+            AlphaFour, like AlphaZero, is based on an algorithm called Monte Carlo Tree Search (MCTS) which is a heuristic
+            search algorithm for playing board games.
+            The idea behind MCTS is that you gradually build up a game state tree by repeating the following actions:
+            selection, expansion, simulation, backpropagation.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/alphafour/algo.jpg">
+              <div class="caption">
+                AlphaFour's modifications to MCTS (adjusted UCB formula, Dirichlet noise at root, and deep neural network
+                instead of simulation).
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            During selection, you recurse along the tree until we reach some leaf node. Children are selected based on
+            their upper confidence bound (UCB) score which is a function of the child's average state value (encourage exploitation)
+            and inverse visit count (encourage exporation).
+            We then expand this leaf node by taking a valid action from the game state, giving us a new unexplored game state.
+            During simulation, we perform random game roll-outs from this state estimate its value.
+            This value is then backpropagated up the tree to update the value of each ancestral node.
+          </div>
+          <div class="text">
+            AlphaFour works by making a few key modifications to MCTS. The main difference is the use of a deep neural network
+            that takes in a given state and outputs a policy (probabilities over next best actions) and a value
+            (a scalar from -1.0 to 1.0).
+          </div>
           <div class="image-container">
             <div class="image" style="width: 90%;">
               <img width="100%" src="assets/alphafour/resnet.jpg">
@@ -476,9 +504,25 @@ max_error(player_polys, avatar_polys):
               </div>
             </div>
           </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Algorithms</div>
+          <div class="text">
+            AlphaFour uses its value network instead of random roll-outs to predict state values and uses its policy network
+            (and updated UCB formula) to predict child priors and guide exploration.
+            The idea is that MCTS can already play the game of Connect 4 at a basic level, and so MCTS helps the policy
+            and value networks learn, which in turn improves the effectiveness of MCTS, and so on.
+          </div>
+          <div class="text">
+            Finally, there are a couple minor modifications such as including Dirichlet noise when choosing actions from
+            the root node to encourage exploration and prevent MCTS from repeating the same games.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 60%;">
+              <img width="100%" src="assets/alphafour/fail.jpg">
+              <div class="caption">
+                An example training session where at generation 24 the model kept repeating the same games
+                and thus was able to overfit to those games and reach a loss of zero.
+              </div>
+            </div>
+          </div>
           <div class="text">
             The algorithms in AlphaFour are parallelized, but for ease of comprehension, here are the summarized sequential versions:
           </div>
