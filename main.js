@@ -3,6 +3,7 @@ const MANDELBROT_WIDTH = 1920;
 const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
+const PLAY_DURATION = 60000;  // ms
 
 let scroll_to;
 let scroll_top;
@@ -12,10 +13,11 @@ let scroll_dist;
 let start_time;
 let total_time;
 
-window.onload = init;
-window.onpopstate = popstate;
-window.onclick = stopScroll;
-window.onwheel = stopScroll;
+window.onpopstate = onPopState;
+window.onclick = onClick;
+window.onwheel = onWheel;
+
+init();
 
 function init() {
   // init dropdown
@@ -62,7 +64,7 @@ function navlinkClick(event) {
   scroll(href);
 }
 
-function popstate() {
+function onPopState() {
   scroll(window.location.hash);
 }
 
@@ -175,12 +177,17 @@ function play() {
   scroll_start = window.scrollY;
   scroll_dist = scroll_max - scroll_start;
   start_time = performance.now();
-  total_time = 60000.0;  // ms
+  total_time = PLAY_DURATION;
   document.getElementById('main').style.visibility = 'hidden';
 }
 
-function stopScroll(event) {
+function onClick(event) {
   if (event.target.tagName == 'BODY') {
+    unrestrict();
     scroll_to = null;
   }
+}
+
+function onWheel(event) {
+  scroll_to = null;
 }
