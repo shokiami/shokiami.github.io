@@ -1,6 +1,6 @@
 body {
   margin: 0px;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Times New Roman', serif;
 }
 
 #home {
@@ -245,7 +245,7 @@ a:hover {
 }
 
 .project-title {
-  font-size: 18px;
+  font-size: 20px;
 }
 
 .project-date {
