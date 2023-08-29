@@ -4,14 +4,17 @@ const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 const PLAY_DURATION = 60000;  // ms
+const UNRESTRICTED_HREFS = ['', '#home', '#about', '#projects', '#contact'];
 
 let scroll_to;
 let scroll_top;
 let scroll_max;
 let scroll_start;
-let scroll_dist;
+let scroll_dest;
 let start_time;
 let total_time;
+let restricted;
+let playing;
 
 window.onload = init;
 window.onpopstate = nav;
@@ -30,7 +33,6 @@ function init() {
   for (let i = 0; i < MANDELBROT_COUNT; i++) {
     mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp" loading="lazy">';
   }
-  resizeMandelbrot();
   // init navlinks
   for (let navlink of document.querySelectorAll('.navlink')) {
     navlink.onclick = navlinkClick;
@@ -38,13 +40,13 @@ function init() {
   // init scroll
   scroll_to = null;
   scroll_top = 0.0;
-  scroll_max = getScrollMax();
-  restrict();
+  resize();
   // init youtube
   for (let youtube of document.querySelectorAll('.youtube')) {
     youtube.onclick = launchYoutube;
   }
   // init play
+  playing = false;
   document.getElementById('play-button').onclick = playButtonClick;
   // start loop
   loop();
@@ -71,9 +73,9 @@ function nav() {
   let href = window.location.hash;
   scroll_to = href;
   scroll_start = window.scrollY;
-  scroll_dist = href === '' ? -scroll_start : document.querySelector(href).getBoundingClientRect().top;
+  scroll_dest = href === '' ? 0.0 : document.querySelector(href).offsetTop;
   start_time = performance.now();
-  total_time = 10.0 * Math.sqrt(Math.abs(scroll_dist));
+  total_time = 10.0 * Math.sqrt(Math.abs(scroll_dest - scroll_start));
 }
 
 function unrestrict() {
@@ -84,16 +86,17 @@ function unrestrict() {
   }
   window.scrollTo(0.0, scroll_top + scroll);
   scroll_top = 0.0;
+  restricted = false;
 }
 
 function restrict() {
   let href = window.location.hash;
-  if (href === '' || href === '#home' || href === '#about' || href === '#projects' || href === '#contact') {
+  if (UNRESTRICTED_HREFS.includes(href)) {
     return;
   }
   let target = document.querySelector(href);
   let diff = target.getBoundingClientRect().top;
-  scroll_top = 0.5 * Math.round(2 * (window.scrollY + diff));
+  scroll_top = Math.round(2 * (window.scrollY + diff)) / 2.0;
   document.getElementById('home').style.display = 'none';
   for (let child of document.getElementById('main').children) {
     if (child.id !== target.id && child.id !== 'footer') {
@@ -101,6 +104,7 @@ function restrict() {
     }
   }
   window.scrollTo(0.0, diff);
+  restricted = true;
 }
 
 function updateScroll() {
@@ -108,12 +112,26 @@ function updateScroll() {
     let elapsed_time = performance.now() - start_time;
     let p = Math.min(elapsed_time / total_time, 1.0);
     p = p < 2.0 / 3.0 ? 1.2 * p : -1.8 * p**2 + 3.6 * p - 0.8;
-    window.scrollTo(0, scroll_start + p * scroll_dist);
+    window.scrollTo(0, scroll_start + p * (scroll_dest - scroll_start));
     if (elapsed_time > total_time) {
       stop();
       restrict();
     }
   }
+  let viewing = '';
+  if (restricted) {
+    let target = document.querySelector(window.location.hash);
+    viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
+  } else if (!playing) {
+    viewing = 'Home';
+    for (let child of document.getElementById('main').children) {
+      if (child.offsetTop > window.scrollY + window.innerHeight / 2.0) {
+        break;
+      }
+      viewing = child.querySelectorAll('.header')[0].innerText;
+    }
+  }
+  document.getElementById('viewing').innerHTML = viewing;
 }
 
 function updateMandelbrot() {
@@ -147,18 +165,14 @@ function updateMandelbrot() {
   document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
 }
 
-function resizeMandelbrot() {
+function resize() {
+  unrestrict();
+  scroll_max = document.body.scrollHeight - window.innerHeight;
+  restrict();
   for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
     let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
     mandelbrot.style.height = height;
   }
-}
-
-function resize() {
-  unrestrict();
-  scroll_max = getScrollMax();
-  restrict();
-  resizeMandelbrot();
 }
 
 function toggleDropdown() {
@@ -182,7 +196,7 @@ function launchYoutube() {
 }
 
 function playButtonClick() {
-  document.getElementById('play-button').src.includes('play') ? play() : stop();
+  playing ? stop() : play();
 }
 
 function show() {
@@ -198,15 +212,17 @@ function play() {
   hide();
   scroll_to = '';
   scroll_start = window.scrollY;
+  scroll_dest = scroll_start < scroll_max ? scroll_max : 0.0;
   start_time = performance.now();
-  scroll_dist = scroll_start < scroll_max ? scroll_max - scroll_start : -scroll_start;
-  total_time = Math.abs(scroll_dist) / scroll_max * PLAY_DURATION;
+  total_time = Math.abs(scroll_dest - scroll_start) / scroll_max * PLAY_DURATION;
   document.getElementById('play-button').src = 'assets/icons/pause.png';
+  playing = true;
 }
 
 function stop() {
   scroll_to = null;
   document.getElementById('play-button').src = 'assets/icons/play.png';
+  playing = false;
 }
 
 function click(event) {
@@ -218,16 +234,4 @@ function click(event) {
       history.pushState(null, null, '#home');
     }
   }
-}
-
-function getScrollMax() {
-  let content_height = Math.max(
-    document.body.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.clientHeight,
-    document.documentElement.scrollHeight,
-    document.documentElement.offsetHeight
-  );
-  let viewport_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  return content_height - viewport_height;
 }

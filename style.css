@@ -119,6 +119,19 @@ a:hover {
   top: 20px;
 }
 
+#viewing {
+  position: fixed;
+  font-size: 20px;
+  color: #ffffff;
+  mix-blend-mode: difference;
+  left: 20px;
+  bottom: 20px;
+}
+
+#viewing i {
+  padding-left: 8px;
+}
+
 #play-button {
   cursor: pointer;
   position: fixed;
@@ -155,7 +168,7 @@ a:hover {
 }
 
 .header a {
-  color: #000000;
+  color: #222222;
   text-decoration: none;
 }
 
@@ -284,7 +297,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   width: 480px;
-  border: 1px solid #000000;
+  border: 1px solid #222222;
 }
 
 .pdf-thumbnail {
@@ -340,7 +353,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   height: 360px;
-  background-color: #000000;
+  background-color: #222222;
   overflow: hidden;
 }
 
@@ -372,6 +385,7 @@ a:hover {
   list-style: none;
   display: inline-block;
   margin: 0px;
+  padding-left: 22px;
   text-align: left;
 }
 
@@ -379,11 +393,14 @@ a:hover {
   padding-bottom: 20px;
 }
 
-#contact a {
+#contact li i {
+  padding-right: 8px;
+}
+
+#contact li a {
   color: #222222;
   font-size: 20px;
   text-decoration: none;
-  padding-left: 10px;
 }
 
 #footer {
