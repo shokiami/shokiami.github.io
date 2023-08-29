@@ -1,6 +1,7 @@
 import os
 import shutil
 from PIL import Image
+import moviepy.editor as mp
 
 IN_DIR = 'assets/'
 OUT_DIR = '../assets/'
@@ -40,5 +41,10 @@ for d in os.listdir(IN_DIR):
       img = img.resize((int(w), int(h)))
       img = img.convert('RGB')
       img.save(out_path, 'JPEG')
+    elif ext == '.mp4':
+      clip = mp.VideoFileClip(in_path)
+      clip = clip.set_fps(10)
+      clip = clip.resize(height=360)
+      clip.write_videofile(out_path)
     else:
       shutil.copy(in_path, out_path)
