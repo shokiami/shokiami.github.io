@@ -13,11 +13,11 @@ let scroll_dist;
 let start_time;
 let total_time;
 
-window.onpopstate = onPopState;
-window.onclick = onClick;
-window.onwheel = onWheel;
-
-init();
+window.onload = init;
+window.onpopstate = nav;
+window.onresize = resize;
+window.onclick = click;
+window.onwheel = wheel;
 
 function init() {
   // init dropdown
@@ -30,6 +30,7 @@ function init() {
   for (let i = 0; i < MANDELBROT_COUNT; i++) {
     mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp" loading="lazy">';
   }
+  resizeMandelbrot();
   // init navlinks
   for (let navlink of document.querySelectorAll('.navlink')) {
     navlink.onclick = navlinkClick;
@@ -37,8 +38,8 @@ function init() {
   // init scroll
   scroll_to = null;
   scroll_top = 0.0;
-  scroll_max = document.documentElement.scrollHeight - window.innerHeight;
-  restrict(window.location.hash);
+  scroll_max = getScrollMax();
+  restrict();
   // init youtube
   for (let youtube of document.querySelectorAll('.youtube')) {
     youtube.onclick = launchYoutube;
@@ -61,16 +62,13 @@ function navlinkClick(event) {
   if (href !== window.location.hash) {
     history.pushState(null, null, href);
   }
-  scroll(href);
+  nav();
 }
 
-function onPopState() {
-  scroll(window.location.hash);
-}
-
-function scroll(href) {
+function nav() {
   document.getElementById('main').style.visibility = 'visible';
   unrestrict();
+  let href = window.location.hash;
   scroll_to = href;
   scroll_start = window.scrollY;
   scroll_dist = href === '' ? -scroll_start : document.querySelector(href).getBoundingClientRect().top;
@@ -88,7 +86,8 @@ function unrestrict() {
   scroll_top = 0.0;
 }
 
-function restrict(href) {
+function restrict() {
+  let href = window.location.hash;
   if (href === '' || href === '#home' || href === '#about' || href === '#projects' || href === '#contact') {
     return;
   }
@@ -111,7 +110,7 @@ function updateScroll() {
     p = p < 2.0 / 3.0 ? 1.2 * p : -1.8 * p**2 + 3.6 * p - 0.8;
     window.scrollTo(0, scroll_start + p * scroll_dist);
     if (elapsed_time > total_time) {
-      restrict(scroll_to);
+      restrict();
       scroll_to = null;
     }
   }
@@ -128,9 +127,6 @@ function updateMandelbrot() {
       continue;
     }
     mandelbrot.style.display = 'block';
-    // update size
-    let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
-    mandelbrot.style.height = height;
     // update scale
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
     let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.5 ** i) + '%';
@@ -149,6 +145,37 @@ function updateMandelbrot() {
   let zoom = MANDELBROT_SCALAR ** i_cont;
   let [coeff, exp] = zoom.toExponential(4).replace('+', '').split('e');
   document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
+}
+
+function resizeMandelbrot() {
+  for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
+    let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
+    mandelbrot.style.height = height;
+  }
+}
+
+function resize() {
+  let href = window.location.hash;
+  if (href === '' || href === '#home' || href === '#about' || href === '#projects' || href === '#contact') {
+    scroll_max = getScrollMax();
+  } else {
+    // temporarily unrestrict
+    document.getElementById('home').style.display = 'flex';
+    for (let child of document.getElementById('main').children) {
+      child.style.display = 'block';
+    }
+    // update scroll_max
+    scroll_max = getScrollMax();
+    // temporarily restrict
+    let target = document.querySelector(href);
+    document.getElementById('home').style.display = 'none';
+    for (let child of document.getElementById('main').children) {
+      if (child.id !== target.id && child.id !== 'footer') {
+        child.style.display = 'none';
+      }
+    }
+  }
+  resizeMandelbrot();
 }
 
 function toggleDropdown() {
@@ -172,22 +199,34 @@ function launchYoutube() {
 }
 
 function play() {
+  document.getElementById('main').style.visibility = 'hidden';
   unrestrict();
   scroll_to = '';
   scroll_start = window.scrollY;
   scroll_dist = scroll_max - scroll_start;
   start_time = performance.now();
   total_time = PLAY_DURATION;
-  document.getElementById('main').style.visibility = 'hidden';
 }
 
-function onClick(event) {
+function click(event) {
   if (event.target.tagName == 'BODY') {
     unrestrict();
     scroll_to = null;
   }
 }
 
-function onWheel(event) {
+function wheel() {
   scroll_to = null;
+}
+
+function getScrollMax() {
+  let content_height = Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight
+  );
+  let viewport_height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+  return content_height - viewport_height;
 }
