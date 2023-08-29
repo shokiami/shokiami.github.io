@@ -145,6 +145,9 @@ function updateMandelbrot() {
       continue;
     }
     mandelbrot.style.display = 'block';
+    // update size
+    let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
+    mandelbrot.style.height = height;
     // update scale
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
     let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.5 ** i) + '%';
@@ -169,10 +172,6 @@ function resize() {
   unrestrict();
   scroll_max = document.body.scrollHeight - window.innerHeight;
   restrict();
-  for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
-    let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
-    mandelbrot.style.height = height;
-  }
 }
 
 function toggleDropdown() {
