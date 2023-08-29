@@ -17,7 +17,7 @@ window.onload = init;
 window.onpopstate = nav;
 window.onresize = resize;
 window.onclick = click;
-window.onwheel = wheel;
+window.onwheel = stop;
 
 function init() {
   // init dropdown
@@ -45,7 +45,7 @@ function init() {
     youtube.onclick = launchYoutube;
   }
   // init play
-  document.getElementById('play-button').onclick = play;
+  document.getElementById('play-button').onclick = playButtonClick;
   // start loop
   loop();
 }
@@ -66,8 +66,8 @@ function navlinkClick(event) {
 }
 
 function nav() {
-  document.getElementById('main').style.visibility = 'visible';
   unrestrict();
+  show();
   let href = window.location.hash;
   scroll_to = href;
   scroll_start = window.scrollY;
@@ -110,8 +110,8 @@ function updateScroll() {
     p = p < 2.0 / 3.0 ? 1.2 * p : -1.8 * p**2 + 3.6 * p - 0.8;
     window.scrollTo(0, scroll_start + p * scroll_dist);
     if (elapsed_time > total_time) {
+      stop();
       restrict();
-      scroll_to = null;
     }
   }
 }
@@ -155,26 +155,9 @@ function resizeMandelbrot() {
 }
 
 function resize() {
-  let href = window.location.hash;
-  if (href === '' || href === '#home' || href === '#about' || href === '#projects' || href === '#contact') {
-    scroll_max = getScrollMax();
-  } else {
-    // temporarily unrestrict
-    document.getElementById('home').style.display = 'flex';
-    for (let child of document.getElementById('main').children) {
-      child.style.display = 'block';
-    }
-    // update scroll_max
-    scroll_max = getScrollMax();
-    // temporarily restrict
-    let target = document.querySelector(href);
-    document.getElementById('home').style.display = 'none';
-    for (let child of document.getElementById('main').children) {
-      if (child.id !== target.id && child.id !== 'footer') {
-        child.style.display = 'none';
-      }
-    }
-  }
+  unrestrict();
+  scroll_max = getScrollMax();
+  restrict();
   resizeMandelbrot();
 }
 
@@ -198,25 +181,43 @@ function launchYoutube() {
   this.innerHTML = '<iframe src=' + url + ' width="640px" height="360px" frameborder="0" allow="autoplay; fullscreen"></iframe>';
 }
 
-function play() {
+function playButtonClick() {
+  document.getElementById('play-button').src.includes('play') ? play() : stop();
+}
+
+function show() {
+  document.getElementById('main').style.visibility = 'visible';
+}
+
+function hide() {
   document.getElementById('main').style.visibility = 'hidden';
+}
+
+function play() {
   unrestrict();
+  hide();
   scroll_to = '';
   scroll_start = window.scrollY;
-  scroll_dist = scroll_max - scroll_start;
   start_time = performance.now();
-  total_time = PLAY_DURATION;
+  scroll_dist = scroll_start < scroll_max ? scroll_max - scroll_start : -scroll_start;
+  total_time = Math.abs(scroll_dist) / scroll_max * PLAY_DURATION;
+  document.getElementById('play-button').src = 'assets/icons/pause.png';
+}
+
+function stop() {
+  scroll_to = null;
+  document.getElementById('play-button').src = 'assets/icons/play.png';
 }
 
 function click(event) {
-  if (event.target.tagName == 'BODY') {
+  if (event.target === document.body) {
     unrestrict();
-    scroll_to = null;
+    show();
+    stop();
+    if (window.location.hash !== '') {
+      history.pushState(null, null, '#home');
+    }
   }
-}
-
-function wheel() {
-  scroll_to = null;
 }
 
 function getScrollMax() {
