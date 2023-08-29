@@ -97,7 +97,7 @@
                   <img class="project-thumbnail in-progress" src="assets/driverless_steering/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Design and manufacturing of driverless steering assembly and gearbox.
+                  Design and manufacturing of a driverless steering system with unobtrusive integration.
                 </div>
               </a>
             </div>
@@ -123,7 +123,7 @@
                   <img class="project-thumbnail" src="assets/grasping_in_clutter/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                   RL algorithms for teaching a robotic arm + hand to grasp objects in clutter.
+                  Learning algorithms for teaching a robotic arm + hand to grasp objects in clutter.
                 </div>
               </a>
             </div>
@@ -135,7 +135,7 @@
                   <img class="project-thumbnail" src="assets/dancetime/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Multiplayer dance-based rhythm game inspired by Just Dance and FaceTime.
+                  A multiplayer dance-based rhythm game inspired by Just Dance and FaceTime.
                 </div>
               </a>
             </div>
@@ -147,7 +147,7 @@
                   <img class="project-thumbnail" src="assets/alphafour/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  AI that learns to play Connect 4 from scratch via self-play deep reinforcement learning.
+                  A Connect 4 AI that learns from scratch via self-play deep reinforcement learning.
                 </div>
               </a>
             </div>
@@ -159,7 +159,7 @@
                   <img class="project-thumbnail" src="assets/driverless_software/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Control and planning algorithms for a driverless formula race car.
+                  Planning and control algorithms for a driverless formula race car.
                 </div>
               </a>
             </div>
@@ -171,7 +171,7 @@
                   <img class="project-thumbnail" src="assets/genaug/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Training a robot to perform pick-place tasks with imitation learning and generative models.
+                  Training a robotic arm with generative models and imitation learning.
                 </div>
               </a>
             </div>
@@ -183,7 +183,7 @@
                   <img class="project-thumbnail" src="assets/geoknowr/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Data collection, training, and evaluation pipeline for a light-weight GeoGuessr AI.
+                  The data collection, training, and evaluation pipeline for a light-weight GeoGuessr AI.
                 </div>
               </a>
             </div>
@@ -195,7 +195,7 @@
                   <img class="project-thumbnail" src="assets/frijma/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Web app where you can scan receipts and keep track of expiration dates.
+                  A web app where you can scan receipts and keep track of expiration dates.
                 </div>
               </a>
             </div>
@@ -207,7 +207,7 @@
                   <img class="project-thumbnail" src="assets/project_sidewalk/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Data crowdsourcing and computer vision pipeline for sidewalk accessibility evaluation.
+                  A computer vision pipeline for automatic sidewalk accessibility evaluation.
                 </div>
               </a>
             </div>
@@ -219,7 +219,7 @@
                   <img class="project-thumbnail" src="assets/danzon/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Arrangement of Arturo Márquez's Danzón No. 2 for two cellos.
+                  An arrangement of Arturo Márquez's Danzón No. 2 for two cellos.
                 </div>
               </a>
             </div>
@@ -243,7 +243,7 @@
                   <img class="project-thumbnail" src="assets/cello/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Some random videos of me playing cello with friends.
+                  A collection of videos of me playing music with friends.
                 </div>
               </a>
             </div>
@@ -515,12 +515,13 @@ max_error(player_polys, avatar_polys):
           <div class="text">
             AlphaFour uses its value network instead of random roll-outs to predict state values and uses its policy network
             (and updated UCB formula) to predict child priors and guide exploration.
-            The idea is that MCTS can already play the game of Connect 4 at a basic level, and so MCTS helps the policy
-            and value networks learn, which in turn improves the effectiveness of MCTS, and so on.
+            The idea is that MCTS can already play the game of Connect 4 at a basic level, and so MCTS helps the policy/value
+            networks learn, which in turn improves the effectiveness of MCTS, and so on.
           </div>
           <div class="text">
-            Finally, there are a couple minor modifications such as including Dirichlet noise when choosing actions from
-            the root node to encourage exploration and prevent MCTS from repeating the same games.
+            Finally, there are a couple of other minor modifications such as adding Dirichlet noise to the policy at the
+            root node when choosing actions to encourage exploration and prevent MCTS from becoming deterministic
+            and repeating games.
           </div>
           <div class="image-container">
             <div class="image" style="width: 60%;">
@@ -588,18 +589,17 @@ monte_carlo_tree_search(state):
           <div class="image-container">
             <div class="image" style="width: 60%;">
               <img width="100%" src="assets/alphafour/loss.jpg">
+              <div class="caption">
+                Loss vs. epoch plot (each spike corresponds to a new generation; when a new set of self-play games are
+                generated, the model's train loss jumps up to its test loss).
+              </div>
             </div>
           </div>
           <div class="text">
-            Those who are familiar with machine learning might wonder what all of the little spikes are. Each of the spikes
-            correspond to new generations. When a new set of self-play games are generated, the model's train loss essentially
-            jumps up to its test loss. Nevertheless, it's still cool to see the overall converging nature of the plot.
-          </div>
-          <div class="text">
-            To demonstrate that the AI is indeed learning, here are some example games where player one is an optimal player
-            and player two is AlphaFour at different stages during its training.
+            To demonstrate that AlphaFour is indeed learning, here are some example games where player one is an optimal player
+            and player two is AlphaFour at different training generations.
             Note that Connect 4 is a solved game, so playing against an optimal player (who plays first) is impossible to
-            win against. Thus, how many moves the AI survives is a rough metric of how well it is playing.
+            beat. Thus, the number of turns AlphaFour survives can be used as a rough metric for how well it is playing.
           </div>
           <div class="image-container">
             <div class="image" style="width: 45%;">
@@ -630,9 +630,9 @@ monte_carlo_tree_search(state):
             </div>
           </div>
           <div class="text">
-            Checking AlphaFour's moves against a Connect 4 solver, we see that ~90% of the generation 20 moves are optimal.
+            Checking generation 20 AlphaFour's moves against a Connect 4 solver gives us that ~90% of its moves are optimal.
             Even better, it turns out that if the optimal player makes a single suboptimal move, AlphaFour can play
-            optimally enough to convert the game into a win.
+            well enough to convert the game into a win.
             In the following game, first player plays optimally except for move 5 in which it plays the third best move.
             Here, AlphaFour is able to take advantage of this mistake to win the game with an impressive 5 in a row.
           </div>
@@ -654,13 +654,13 @@ monte_carlo_tree_search(state):
           <div class="subheader">Abstract</div>
           <div class="text">
             My initial work on UW Formula Motorsports was developing autonomous driving software on the driverless sub-team.
-            While the rest of the team worked to build a formula race car from scratch, the goal of driverless was to modify
-            the car to compete in a ten lap autocross event.
+            While the rest of the team works to build a formula race car from scratch, the goal of driverless is to modify
+            the car to autonomously compete in a ten lap autocross event.
           </div>
           <div class="text">
-            The main challenge with driverless is the first lap logic since we are not given the layout of the course prior to competing
-            (our plan was to map out the course during the first lap and spam the optimal path for the remaining nine laps).
-            My main project was leading the development of planning/control algorithms to complete this first lap
+            Since we are not given the layout of the course prior to competing, the main challenge with driverless is the
+            first lap logic (during which an optimal path would be mapped out and then spammed for the remaining nine laps).
+            My main project was leading the development of planning/control algorithms for completing this first lap
             as fast as possible, resulting in the team's first-ever successful autonomous lap completion in simulation.
           </div>
         </div>
@@ -684,7 +684,7 @@ monte_carlo_tree_search(state):
         <div class="subsection">
           <div class="subheader">Algorithms</div>
           <div class="text">
-            The goal of our first-lap algorithm was to map from a set of detected nearby cones to a set of control values
+            The goal of the first-lap algorithm was to map from a set of detected nearby cones to a set of control values
             (steering, throttle, brake) that would lead to optimal driving.
             My friend Jaspern Geldenbott and I explored various first-lap algorithms, but the one we found that was
             the most promising was pure pursuit. The idea behind pure pursuit is to try to follow some reference
@@ -700,10 +700,10 @@ monte_carlo_tree_search(state):
             </div>
           </div>
           <div class="text">
-            There are many ways to choose this reference point, but the easiest way is to pick the cones on the left and right
-            that are in front of the car and furthest away and take the average of the two positions. For additional speed,
-            we ended up performing a weighted average to favor staying on the inside of turns. Since the left and right cones
-            are paired up across the track, the cones on the inside of the turn end up closer together, and thus we can
+            There are many ways to choose this reference point, but the easiest way is to first pick the cones on the left and right
+            that are both in front of the car and furthest away and then take the average of the two positions. For additional speed,
+            we ended up performing a weighted average to favor staying on the inside of turns. I realized that since the
+            cones are paired up across the track, the cones on the inside of the turn end up closer together, allowing us to
             use the minimum pairwise distance between cones to determine which side to favor.
           </div>
           <div class="text">
@@ -719,8 +719,8 @@ monte_carlo_tree_search(state):
             </div>
           </div>
           <div class="text">
-            Finally, given the final steering angle, we can calculate an optimal target speed to prevent wheel slip
-            and use PID controlling to extract throttle and brake values.
+            Finally, given the final steering angle, we can calculate a maximal target speed that doesn't introduce
+            wheel slip and use PID controlling to extract throttle and brake values.
           </div>
           <div class="text">
             Here is the high-level pseudocode for the first-lap algorithm:
@@ -856,8 +856,10 @@ pure_pursuit(ref):
             techniques (noise injection, transformations, etc.).
             Sure enough, in our real-world experiments, we found that GenAug improved our robot's zero-shot success rate
             by 40%, allowing our robot to perform general table-top manipulation tasks with minimal human demonstrations.
+          </div>
+          <div class="text">
             Our results were published in a paper that was accepted to the Robotics Science and Systems conference in
-            Jun 2023 and was a Best System Paper Finalist.
+            June 2023 and was a Best System Paper Finalist.
           </div>
         </div>
         <div class="subsection">
@@ -1395,15 +1397,17 @@ edit_distance(abbrv, food):
           <div class="text">
             In 2020, I joined the UW Makeability Lab as a software engineer, co-developing the Project Sidewalk webpage:
             a gameified website where users walk around in Google Street View and label sidewalk accessibility issues for wheelchair
-            users and older adults. Since deployment, we were able to build a never-seen-before dataset of 1 million labels
+            users and older adults. Since deployment, Project Sidewalk has been able to build a novel dataset of 1 million labels
             across 8 cities.
           </div>
           <div class="text">
-            In 2021, I joined forces with my friends Michael and Logan to apply deep learning to the above dataset to
+            In 2021, I joined forces with my friends Michael Duan and Logan Milandin to apply deep learning to the above dataset to
             create a computer vision pipeline for automatic sidwealk evaluation. As a culmination of our work, we authored
             a paper discussing the effects of filtered vs. unfiltered and single-city vs. cross-city training data and
-            how our models can label new cities with a promising 80-90% accuracy. Our paper was accepted to the ASSETS
-            conference in Oct 2022.
+            how our models can label new cities with a promising 80-90% accuracy.
+          </div>
+          <div class="text">
+            Our paper was accepted to the ASSETS conference in October 2022.
           </div>
         </div>
         <div class="subsection">
@@ -1459,11 +1463,11 @@ edit_distance(abbrv, food):
         <div class="subsection">
           <div class="subheader">Abstract</div>
           <div class="text">
-            I first played Danzón No. 2 by Arturo Márquez in my high school orchestra and I immediately fell in love with
-            the catchy melodies and energetic rhythms. Danzón is a style of dance originating in Cuba and popularized
-            in Mexico, and I felt compelled to arrange this piece because it is so fun to play and so that my friends
-            and I could spread this type of music into the otherwise eurocentric world of classical music. Also, after
-            years of pouring over this score, this is easily my most thought out (and also most difficult) arrangement.
+            I first played Danzón No. 2 by Arturo Márquez in my high school orchestra and immediately fell in love with
+            the catchy melodies and energetic rhythms. Danzón is a style of dance originating from Cuba and popularized
+            in Mexico, and I felt compelled to arrange this piece to help spread this music into the otherwise
+            eurocentric world of classical music. After years of pouring over this score, this is easily my most thought
+            out (and also most difficult) arrangement.
           </div>
         </div>
         <div class="subsection">
@@ -1663,7 +1667,7 @@ edit_distance(abbrv, food):
         <div class="subsection">
           <div class="subheader">Abstract</div>
           <div class="text">
-            Here are some random videos of me playing cello with friends.
+            Here are a collection of videos of me playing music with friends.
           </div>
         </div>
         <div class="subsection">
