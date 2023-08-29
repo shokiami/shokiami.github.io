@@ -10,11 +10,14 @@ body {
   align-items: center;
 }
 
+.inverted-color {
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+
 #title-container {
   text-align: center;
   font-family: 'Italiana', serif;
-  color: #ffffff;
-  mix-blend-mode: difference;
   margin-bottom: 11vh;
 }
 
@@ -40,14 +43,13 @@ a:hover {
   left: 20px;
   top: 20px;
   box-sizing: border-box;
-  mix-blend-mode: difference;
 }
 
 #navbar-title {
   font-size: 24px;
   color: #ffffff;
-  border-bottom: 1px solid #ffffff;
   text-decoration: none;
+  border-bottom: 1px solid #ffffff;
 }
 
 #section-menu {
@@ -63,7 +65,7 @@ a:hover {
 }
 
 #section-menu a {
-  font-size: 16px;
+  font-size: 20px;
   color: #ffffff;
   text-decoration: none;
   transition: padding-left 0.1s;
@@ -112,18 +114,14 @@ a:hover {
 
 #zoom {
   position: fixed;
-  font-size: 20px;
-  color: #ffffff;
-  mix-blend-mode: difference;
+  font-size: 22px;
   right: 20px;
   top: 20px;
 }
 
 #viewing {
   position: fixed;
-  font-size: 20px;
-  color: #ffffff;
-  mix-blend-mode: difference;
+  font-size: 22px;
   left: 20px;
   bottom: 20px;
 }
@@ -137,7 +135,6 @@ a:hover {
   position: fixed;
   right: 20px;
   bottom: 20px;
-  mix-blend-mode: difference;
   width: 24px;
   height: 24px;
   transition: transform 0.1s;
