@@ -132,7 +132,7 @@ a:hover {
 
 #zoom {
   position: fixed;
-  font-size: 24px;
+  font-size: 16px;
   color: #ffffff;
   mix-blend-mode: difference;
   left: 20px;
