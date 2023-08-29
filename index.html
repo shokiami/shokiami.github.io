@@ -646,8 +646,14 @@ monte_carlo_tree_search(state):
           <div class="subheader">Abstract</div>
           <div class="text">
             My initial work on UW Formula Motorsports was developing autonomous driving software on the driverless sub-team.
-            During my short time on driverless, I led the development of control and planning algorithms including a custom
-            pure-pursuit and PID controller algorithm that resulted in the team's first-ever successful autonomous lap completion.
+            While the rest of the team worked to build a formula race car from scratch, the goal of driverless was to modify
+            the car to compete in a ten lap autocross event.
+          </div>
+          <div class="text">
+            The main challenge with driverless is the first lap logic since we are not given the layout of the course prior to competing
+            (our plan was to map out the course during the first lap and spam the optimal path for the remaining nine laps).
+            My main project was leading the development of planning/control algorithms to complete this first lap
+            as fast as possible, resulting in the team's first-ever successful autonomous lap completion in simulation.
           </div>
         </div>
         <div class="subsection">
@@ -670,15 +676,31 @@ monte_carlo_tree_search(state):
         <div class="subsection">
           <div class="subheader">Algorithms</div>
           <div class="text">
-            I worked on the first-lap control/planning algorithm.
+            The goal of our first-lap algorithm was to map from a set of detected nearby cones to a set of control values
+            (steering, throttle, brake) that would lead to optimal driving.
+            My friend Jaspern Geldenbott and I explored various first-lap algorithms, but the one we found that was
+            the most promising was pure pursuit. The idea behind pure pursuit is to try to follow some reference
+            point that keeps moving along a target path (like following a carrot on a stick) ultimately resulting
+            in the car following the path.
           </div>
           <div class="image-container">
-            <div class="image" style="width: 90%;">
+            <div class="image" style="width: 80%;">
               <img width="100%" src="assets/driverless_software/pp.jpg">
               <div class="caption">
-                Pure-pursuit idea.
+                A car trying to follow a reference point moving along the path will inevitably lead to the car following the path.
               </div>
             </div>
+          </div>
+          <div class="text">
+            There are many ways to choose this reference point, but the easiest way is to pick the cones on the left and right
+            that are in front of the car and furthest away and take the average of the two positions. For additional speed,
+            we ended up performing a weighted average to favor staying on the inside of turns. Since the left and right cones
+            are paired up across the track, the cones on the inside of the turn end up closer together, and thus we can
+            use the minimum pairwise distance between cones to determine which side to favor.
+          </div>
+          <div class="text">
+            Once a reference point is chosen, it turns out that there exists a closed-form solution for the
+            desired steering angle. Simplifying the car's dynamics to a bicycle model, we get the following result:
           </div>
           <div class="image-container">
             <div class="image" style="width: 90%;">
@@ -688,13 +710,53 @@ monte_carlo_tree_search(state):
               </div>
             </div>
           </div>
+          <div class="text">
+            Finally, given the final steering angle, we can calculate an optimal target speed to prevent wheel slip
+            and use PID controlling to extract throttle and brake values.
+          </div>
+          <div class="text">
+            Here is the high-level pseudocode for the first-lap algorithm:
+          </div>
+<pre class="algo">
+get_controls(nearby_cones):
+  left_cones, right_cones = nearby_cones
+  left_target = get_target(left_cones)
+  right_target = get_target(right_cones)
+  left_target, right_target = pad_targets(left_target, right_target, CAR_WIDTH)
+  left_min_dist = min_pairwise_dist(left_cones)
+  right_min_dist = min_pairwise_dist(right_cones)
+  p = get_weight(left_min_dist, right_min_dist)
+  ref = p * left_target + (1 - p) * right_target
+  steering = pure_pursuit(ref)
+  target_speed = get_target_speed(steering)
+  throttle, brake = pid(target_speed)
+  return (steering, throttle, brake)
+
+get_target(cones):
+  target_cone = (0, 0)
+  for cone in cones:
+    if cone.x > 0 and ||cone|| > ||target_cone||:
+      target_cone = cone
+  rturn target_cone
+
+pure_pursuit(ref):
+  turn_radius = (ref.x^2 + ref.y^2) / (2 * ref.y)
+  steering = arctan(CAR_LENGTH / turn_radius)
+  return steering
+</pre>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Results</div>
+          <div class="text">
+            Here are the results of the first-lap algorithm:
+          </div>
           <div class="image-container">
             <div class="image" style="width: 60%;">
               <video width="100%" autoplay loop muted>
                 <source src="assets/driverless_software/pp_algo.mp4" type="video/mp4"/>
               </video>
               <div class="caption">
-                Algorithm working in PyGame simulation.
+                Algorithm working in a PyGame simulation.
               </div>
             </div>
           </div>
@@ -704,7 +766,7 @@ monte_carlo_tree_search(state):
                 <source src="assets/driverless_software/sim.mp4" type="video/mp4"/>
               </video>
               <div class="caption">
-                Algorithm working in Unreal Engine simulation.
+                Algorithm working in Unreal Engine.
               </div>
             </div>
           </div>
@@ -712,23 +774,26 @@ monte_carlo_tree_search(state):
         <div class="subsection">
           <div class="subheader">Hardware</div>
           <div class="text">
-            Although I mainly worked on software, I also designed and manufactured the mount for the steering stepper motor.
+            Although I mainly worked on software, I also worked on designing and manufacturing the mount for the steering stepper motor.
+            The previous design proposed by the mechanical leads was very wasteful (pictured left) and so I worked on an
+            assembly-based design that would reduce waste by ~85% (pictured right).
           </div>
           <div class="image-container">
-            <div class="image" style="width: 40%;">
+            <div class="image" style="width: 41%;">
               <img width="100%" src="assets/driverless_software/prev.jpg">
               <div class="caption">
                 Previous mount design.
               </div>
             </div>
-          </div>
-          <div class="image-container">
             <div class="image" style="width: 40%;">
               <img width="100%" src="assets/driverless_software/design.jpg">
               <div class="caption">
                 Proposed mount design.
               </div>
             </div>
+          </div>
+          <div class="text">
+            Here is me testing a 3D printed prototype to ensure it fits with the stepper motor and chassis:
           </div>
           <div class="image-container">
             <div class="image" style="width: 25%;">
@@ -744,11 +809,14 @@ monte_carlo_tree_search(state):
               </div>
             </div>
           </div>
+          <div class="text">
+            Here is the final mount machined out of aluminum and integrated with the stepper motor and chassis: 
+          </div>
           <div class="image-container">
             <div class="image" style="width: 40%;">
               <img width="100%" src="assets/driverless_software/integration.jpg">
               <div class="caption">
-                Final product and integration.
+                Final assembly and integration.
               </div>
             </div>
           </div>
