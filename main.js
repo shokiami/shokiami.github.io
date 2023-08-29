@@ -93,7 +93,7 @@ function restrict() {
   }
   let target = document.querySelector(href);
   let diff = target.getBoundingClientRect().top;
-  scroll_top = window.scrollY + diff;
+  scroll_top = 0.5 * Math.round(2 * (window.scrollY + diff));
   document.getElementById('home').style.display = 'none';
   for (let child of document.getElementById('main').children) {
     if (child.id !== target.id && child.id !== 'footer') {
@@ -117,6 +117,7 @@ function updateScroll() {
 }
 
 function updateMandelbrot() {
+  console.log(scroll_top + window.scrollY, scroll_max);
   let scroll = Math.min(Math.max((scroll_top + window.scrollY) / scroll_max, 0.0), 1.0);
   let i_cont = scroll * (MANDELBROT_COUNT - 1);
   for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
