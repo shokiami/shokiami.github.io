@@ -31,7 +31,7 @@ function init() {
   // init mandelbrots
   let mandelbrot_container = document.getElementById('mandelbrot-container');
   for (let i = 0; i < MANDELBROT_COUNT; i++) {
-    mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp" loading="lazy">';
+    mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp">';
   }
   // init navlinks
   for (let navlink of document.querySelectorAll('.navlink')) {
