@@ -67,12 +67,11 @@ a:hover {
   font-size: 16px;
   color: #ffffff;
   text-decoration: none;
-  transition: 0.1s;
+  transition: padding-left 0.1s;
 }
 
 #section-menu a:hover {
   padding-left: 10px;
-  transition: 0.1s;
 }
 
 #project-dropdown {
@@ -87,22 +86,20 @@ a:hover {
   display: inline-block;
   padding: 2px;
   transform: translateY(-2px) rotate(-45deg);
-  transition: 0.1s;
+  transition: transform 0.1s;
 }
 
 #project-dropdown:hover .dropdown-arrow {
   transform: translateY(-2px) scale(1.2) rotate(-45deg);
-  transition: 0.1s;
 }
 
 .activated {
   transform: translateY(-3px) rotate(45deg);
-  transition: 0.1s;
+  transition: transform 0.1s;
 }
 
 #project-dropdown:hover .activated {
   transform: translateY(-3px) scale(1.2) rotate(45deg);
-  transition: 0.1s;
 }
 
 #project-menu {
@@ -111,7 +108,7 @@ a:hover {
 
 .dropdown-menu {
   overflow: hidden;
-  transition: 0.4s;
+  transition: height 0.4s;
 }
 
 #zoom {
@@ -131,12 +128,11 @@ a:hover {
   mix-blend-mode: difference;
   width: 24px;
   height: 24px;
-  transition: 0.1s;
+  transition: transform 0.1s;
 }
 
 #play-button:hover {
   transform: scale(1.1);
-  transition: 0.1s;
 }
 
 #main {
@@ -255,12 +251,11 @@ a:hover {
 .project-thumbnail {
   width: 160px;
   border-radius: 10px;
-  transition: 0.1s;
+  transition: transform 0.1s;
 }
 
 .project-container a:not(.in-progress):hover .project-thumbnail {
   transform: scale(1.05);
-  transition: 0.1s;
 }
 
 .in-progress .project-thumbnail{
@@ -295,7 +290,7 @@ a:hover {
 
 .pdf-thumbnail {
   width: 100%;
-  transition: 0.1s;
+  transition: opacity 0.1s;
 }
 
 .pdf-open {
@@ -303,17 +298,15 @@ a:hover {
   width: 45px;
   z-index: 1;
   opacity: 0.5;
-  transition: 0.1s;
+  transition: transform 0.1s;
 }
 
 .pdf:hover .pdf-thumbnail {
   opacity: 0.5;
-  transition: 0.1s;
 }
 
 .pdf:hover .pdf-open {
   transform: scale(1.1);
-  transition: 0.1s;
 }
 
 .image-container {
@@ -354,24 +347,22 @@ a:hover {
 
 .youtube-thumbnail {
   width: 640px;
-  transition: 0.1s;
+  transition: opacity 0.1s;
 }
 
 .youtube-play {
   position: absolute;
   width: 75px;
   z-index: 1;
-  transition: 0.1s;
+  transition: transform 0.1s;
 }
 
 .youtube:hover .youtube-thumbnail {
   opacity: 0.5;
-  transition: 0.1s;
 }
 
 .youtube:hover .youtube-play {
   transform: scale(1.1);
-  transition: 0.1s;
 }
 
 #contact {

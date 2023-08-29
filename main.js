@@ -117,7 +117,6 @@ function updateScroll() {
 }
 
 function updateMandelbrot() {
-  console.log(scroll_top + window.scrollY, scroll_max);
   let scroll = Math.min(Math.max((scroll_top + window.scrollY) / scroll_max, 0.0), 1.0);
   let i_cont = scroll * (MANDELBROT_COUNT - 1);
   for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
