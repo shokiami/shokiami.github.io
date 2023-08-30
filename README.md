@@ -1,3 +1,2 @@
-# shokiami.com
-
-Welcome to my [website](https://shokiami.com/)!
+# [shokiami.com](https://shokiami.com)
+My personal website.
