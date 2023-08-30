@@ -28,15 +28,15 @@ function init() {
   for (let navlink of document.querySelectorAll('.navlink')) {
     navlink.onclick = navlinkClick;
   }
-  // init scroll
+  // init scrolling
   scroll_to = null;
   scroll_top = 0.0;
   resize();
-  // init youtube
+  // init youtube links
   for (let youtube of document.querySelectorAll('.youtube')) {
     youtube.onclick = launchYoutube;
   }
-  // init play
+  // init play button
   document.getElementById('play-button').onclick = playButtonClick;
   // init mandelbrot images
   let mandelbrot_container = document.getElementById('mandelbrot-container');
