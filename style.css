@@ -65,7 +65,7 @@ a:hover {
 }
 
 #section-menu a {
-  font-size: 20px;
+  font-size: 16px;
   color: #ffffff;
   text-decoration: none;
   transition: padding-left 0.1s;
@@ -114,14 +114,14 @@ a:hover {
 
 #zoom {
   position: fixed;
-  font-size: 22px;
+  font-size: 20px;
   right: 20px;
   top: 20px;
 }
 
 #viewing {
   position: fixed;
-  font-size: 22px;
+  font-size: 20px;
   left: 20px;
   bottom: 20px;
 }
