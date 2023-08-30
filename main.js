@@ -126,9 +126,12 @@ function updateScroll() {
   }
   let viewing = '';
   let selector = window.location.hash;
-  if (UNRESTRICTED_HREFS.includes(selector)) {
+  if (!UNRESTRICTED_HREFS.includes(selector)) {
+    let target = document.querySelector(selector);
+    viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
+  } else {
     let main = document.getElementById('main');
-    if (main.style.visibility = 'visibile') {
+    if (main.style.visibility !== 'hidden') {
       viewing = 'Home';
       for (let child of main.children) {
         if (child.offsetTop > window.scrollY + window.innerHeight / 2.0) {
@@ -137,9 +140,6 @@ function updateScroll() {
         viewing = child.querySelectorAll('.header')[0].innerText;
       }
     }
-  } else {
-    let target = document.querySelector(selector);
-    viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
   }
   document.getElementById('viewing').innerHTML = viewing;
 }
@@ -184,7 +184,7 @@ function hide() {
 }
 
 function click(event) {
-  if (event.target === document.body) {
+  if (document.getElementById('home').contains(event.target) || event.target === document.body) {
     unrestrict();
     show();
     stop();
