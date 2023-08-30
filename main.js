@@ -13,26 +13,17 @@ let scroll_start;
 let scroll_dest;
 let start_time;
 let total_time;
-let restricted;
-let playing;
 
 window.onload = init;
-window.onpopstate = nav;
+window.onpopstate = navigate;
 window.onresize = resize;
 window.onclick = click;
 window.onwheel = stop;
 
 function init() {
-  // init dropdown
-  document.getElementById('project-dropdown').onclick = toggleDropdown;
-  for (let dropdown_menu of document.querySelectorAll('.dropdown-menu')) {
-    dropdown_menu.style.height = '0px';
-  }
-  // init mandelbrots
-  let mandelbrot_container = document.getElementById('mandelbrot-container');
-  for (let i = 0; i < MANDELBROT_COUNT; i++) {
-    mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp">';
-  }
+  // init project dropdown
+  document.getElementById('project-dropdown').onmouseenter = expandProjects;
+  document.getElementById('section-menu').onmouseleave = collapseProjects;
   // init navlinks
   for (let navlink of document.querySelectorAll('.navlink')) {
     navlink.onclick = navlinkClick;
@@ -46,8 +37,12 @@ function init() {
     youtube.onclick = launchYoutube;
   }
   // init play
-  playing = false;
   document.getElementById('play-button').onclick = playButtonClick;
+  // init mandelbrot images
+  let mandelbrot_container = document.getElementById('mandelbrot-container');
+  for (let i = 0; i < MANDELBROT_COUNT; i++) {
+    mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp">';
+  }
   // start loop
   loop();
 }
@@ -58,22 +53,35 @@ function loop() {
   window.requestAnimationFrame(loop);
 }
 
+function expandProjects() {
+  let project_menu = document.getElementById('project-menu');
+  let height = 0;
+  for (let dropdown_item of project_menu.children) {
+    height += dropdown_item.getBoundingClientRect().height;
+  }
+  project_menu.style.height = height + 'px';
+}
+
+function collapseProjects() {
+  document.getElementById('project-menu').style.height = '0px';
+}
+
 function navlinkClick(event) {
   event.preventDefault();
   let href = this.getAttribute('href');
   if (href !== window.location.hash) {
     history.pushState(null, null, href);
   }
-  nav();
+  navigate();
 }
 
-function nav() {
+function navigate() {
   unrestrict();
   show();
-  let href = window.location.hash;
-  scroll_to = href;
+  let selector = window.location.hash;
+  scroll_to = selector;
   scroll_start = window.scrollY;
-  scroll_dest = href === '' ? 0.0 : document.querySelector(href).offsetTop;
+  scroll_dest = selector === '' ? 0.0 : document.querySelector(selector).offsetTop;
   start_time = performance.now();
   total_time = 10.0 * Math.sqrt(Math.abs(scroll_dest - scroll_start));
 }
@@ -86,15 +94,14 @@ function unrestrict() {
   }
   window.scrollTo(0.0, scroll_top + scroll);
   scroll_top = 0.0;
-  restricted = false;
 }
 
 function restrict() {
-  let href = window.location.hash;
-  if (UNRESTRICTED_HREFS.includes(href)) {
+  let selector = window.location.hash;
+  if (UNRESTRICTED_HREFS.includes(selector)) {
     return;
   }
-  let target = document.querySelector(href);
+  let target = document.querySelector(selector);
   let diff = target.getBoundingClientRect().top;
   scroll_top = Math.round(2 * (window.scrollY + diff)) / 2.0;
   document.getElementById('home').style.display = 'none';
@@ -104,7 +111,6 @@ function restrict() {
     }
   }
   window.scrollTo(0.0, diff);
-  restricted = true;
 }
 
 function updateScroll() {
@@ -119,19 +125,73 @@ function updateScroll() {
     }
   }
   let viewing = '';
-  if (restricted) {
-    let target = document.querySelector(window.location.hash);
-    viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
-  } else if (!playing) {
-    viewing = 'Home';
-    for (let child of document.getElementById('main').children) {
-      if (child.offsetTop > window.scrollY + window.innerHeight / 2.0) {
-        break;
+  let selector = window.location.hash;
+  if (UNRESTRICTED_HREFS.includes(selector)) {
+    let main = document.getElementById('main');
+    if (main.style.visibility = 'visibile') {
+      viewing = 'Home';
+      for (let child of main.children) {
+        if (child.offsetTop > window.scrollY + window.innerHeight / 2.0) {
+          break;
+        }
+        viewing = child.querySelectorAll('.header')[0].innerText;
       }
-      viewing = child.querySelectorAll('.header')[0].innerText;
     }
+  } else {
+    let target = document.querySelector(selector);
+    viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
   }
   document.getElementById('viewing').innerHTML = viewing;
+}
+
+function resize() {
+  unrestrict();
+  scroll_max = document.body.scrollHeight - window.innerHeight;
+  restrict();
+}
+
+function launchYoutube() {
+  let url = this.id + (this.id.includes('?')? '&rel=0&autoplay=1' : '?rel=0&autoplay=1');
+  this.innerHTML = '<iframe src=' + url + ' width="640px" height="360px" frameborder="0" allow="autoplay; fullscreen"></iframe>';
+}
+
+function playButtonClick() {
+  document.getElementById('play-button').src.includes('play') ? play() : stop();
+}
+
+function play() {
+  unrestrict();
+  hide();
+  scroll_to = '';
+  scroll_start = window.scrollY;
+  scroll_dest = scroll_start < scroll_max ? scroll_max : 0.0;
+  start_time = performance.now();
+  total_time = Math.abs(scroll_dest - scroll_start) / scroll_max * PLAY_DURATION;
+  document.getElementById('play-button').src = 'assets/icons/pause.png';
+}
+
+function stop() {
+  scroll_to = null;
+  document.getElementById('play-button').src = 'assets/icons/play.png';
+}
+
+function show() {
+  document.getElementById('main').style.visibility = 'visible';
+}
+
+function hide() {
+  document.getElementById('main').style.visibility = 'hidden';
+}
+
+function click(event) {
+  if (event.target === document.body) {
+    unrestrict();
+    show();
+    stop();
+    if (window.location.hash !== '') {
+      history.pushState(null, null, '#home');
+    }
+  }
 }
 
 function updateMandelbrot() {
@@ -166,71 +226,4 @@ function updateMandelbrot() {
   let zoom = MANDELBROT_SCALAR ** i_cont;
   let [coeff, exp] = zoom.toExponential(4).replace('+', '').split('e');
   document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
-}
-
-function resize() {
-  unrestrict();
-  scroll_max = document.body.scrollHeight - window.innerHeight;
-  restrict();
-}
-
-function toggleDropdown() {
-  let dropdown_menu = this.parentElement.nextElementSibling;
-  if (dropdown_menu.style.getPropertyValue('height') == '0px') {
-    let height = 0;
-    for (let dropdown_item of dropdown_menu.children) {
-      height += dropdown_item.getBoundingClientRect().height;
-    }
-    dropdown_menu.style.height = height + 'px';
-  } else {
-    dropdown_menu.style.height = '0px';
-  }
-  let dropdown_arrow = this.children[0];
-  dropdown_arrow.classList.toggle('activated');
-}
-
-function launchYoutube() {
-  let url = this.id + (this.id.includes('?')? '&rel=0&autoplay=1' : '?rel=0&autoplay=1');
-  this.innerHTML = '<iframe src=' + url + ' width="640px" height="360px" frameborder="0" allow="autoplay; fullscreen"></iframe>';
-}
-
-function playButtonClick() {
-  playing ? stop() : play();
-}
-
-function show() {
-  document.getElementById('main').style.visibility = 'visible';
-}
-
-function hide() {
-  document.getElementById('main').style.visibility = 'hidden';
-}
-
-function play() {
-  unrestrict();
-  hide();
-  scroll_to = '';
-  scroll_start = window.scrollY;
-  scroll_dest = scroll_start < scroll_max ? scroll_max : 0.0;
-  start_time = performance.now();
-  total_time = Math.abs(scroll_dest - scroll_start) / scroll_max * PLAY_DURATION;
-  document.getElementById('play-button').src = 'assets/icons/pause.png';
-  playing = true;
-}
-
-function stop() {
-  scroll_to = null;
-  document.getElementById('play-button').src = 'assets/icons/play.png';
-  playing = false;
-}
-
-function click(event) {
-  if (event.target === document.body) {
-    unrestrict();
-    show();
-    stop();
-    if (window.location.hash !== '') {
-      history.pushState(null, null, '#home');
-    }
-  }
 }
