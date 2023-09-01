@@ -263,25 +263,13 @@ function updateMandelbrot() {
 }
 
 function vw() {
-  return Math.max(
-    window.innerWidth,
-    document.documentElement.clientWidth
-  );
+  return document.getElementById('home').offsetWidth;
 }
 
 function vh() {
-  return Math.max(
-    window.innerHeight,
-    document.documentElement.clientHeight
-  );
+  return document.getElementById('home').offsetHeight;
 }
 
 function height() {
-  return Math.max(
-    document.body.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.clientHeight,
-    document.documentElement.scrollHeight,
-    document.documentElement.offsetHeight
-  );
+  return document.body.scrollHeight;
 }
