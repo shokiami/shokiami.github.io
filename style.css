@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-size: cover; */
+  background-size: contain;
   background-position: center;
   background-attachment: fixed;
 }
