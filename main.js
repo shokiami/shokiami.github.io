@@ -19,10 +19,6 @@ let start_time;
 let total_time;
 
 window.onload = init;
-window.onpopstate = navigate;
-window.onresize = resize;
-window.onclick = click;
-window.onwheel = stop;
 
 function init() {
   // init mobile
@@ -30,6 +26,11 @@ function init() {
     initMobile();
     return;
   }
+  // init callbacks
+  window.onpopstate = navigate;
+  window.onresize = resize;
+  window.onclick = click;
+  window.onwheel = stop;
   // init project dropdown
   document.getElementById('project-dropdown').onmouseenter = expandProjects;
   document.getElementById('section-menu').onmouseleave = collapseProjects;
