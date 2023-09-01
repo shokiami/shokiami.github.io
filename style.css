@@ -10,7 +10,7 @@ body {
   justify-content: center;
   align-items: center;
   background-size: contain;
-  background-position: center;
+  background-position: center center;
   background-attachment: fixed;
 }
 
