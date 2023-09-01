@@ -68,13 +68,12 @@ function initMobile() {
   mandelbrot.src = MANDELBROT_DIR + '0.webp';
   mandelbrot.style.transform = 'translate(-50%, -50%)';
   document.getElementById('mandelbrot-container').append(mandelbrot);
-  let prev_width;
+  let prev_height;
   function loop() {
-    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * vh(), vw());
-    if (width != prev_width) {
-      mandelbrot.style.width = width + 'px';
+    if (vh() != prev_height) {
+      mandelbrot.style.height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * vw(), vh()) + 'px';
+      prev_height = vh();
     }
-    prev_width = width;
     window.requestAnimationFrame(loop);
   }
   loop();
@@ -179,7 +178,7 @@ function updateScroll() {
 
 function resize() {
   unrestrict();
-  scroll_max = height() - vh();
+  scroll_max = maxScroll();
   restrict();
 }
 
@@ -270,6 +269,6 @@ function vh() {
   return document.getElementById('home').offsetHeight;
 }
 
-function height() {
-  return document.body.scrollHeight;
+function maxScroll() {
+  return document.getElementById('main').offsetHeight;
 }
