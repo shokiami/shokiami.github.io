@@ -70,7 +70,7 @@ function initMobile() {
   document.getElementById('mandelbrot-container').append(mandelbrot);
   let prev_width;
   function loop() {
-    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * window.innerHeight, window.innerWidth);
+    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * vh(), vw());
     if (width != prev_width) {
       mandelbrot.style.width = width + 'px';
     }
@@ -167,7 +167,7 @@ function updateScroll() {
     if (main.style.visibility !== 'hidden') {
       viewing = 'Home';
       for (let child of main.children) {
-        if (child.offsetTop > window.scrollY + window.innerHeight / 2.0) {
+        if (child.offsetTop > window.scrollY + vh() / 2.0) {
           break;
         }
         viewing = child.querySelectorAll('.header')[0].innerText;
@@ -179,7 +179,7 @@ function updateScroll() {
 
 function resize() {
   unrestrict();
-  scroll_max = document.body.scrollHeight - window.innerHeight;
+  scroll_max = height() - vh();
   restrict();
 }
 
@@ -239,8 +239,8 @@ function updateMandelbrot() {
     }
     mandelbrot.style.display = 'block';
     // update size
-    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * window.innerHeight, window.innerWidth);
-    let height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth, window.innerHeight);
+    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * vh(), vw());
+    let height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * vw(), vh());
     mandelbrot.style.width = width + 'px';
     mandelbrot.style.height = height + 'px';
     // update scale/translation
@@ -249,8 +249,8 @@ function updateMandelbrot() {
     let p_cont = 0.5**i_cont;
     let dx1 = -width * (p * MANDELBROT_X1 + (1.0 - p) * MANDELBROT_X2) + 'px';
     let dy1 = height * (p * MANDELBROT_Y1 + (1.0 - p) * MANDELBROT_Y2) + 'px';
-    let dx2 = p_cont * MANDELBROT_X1 * width + (1.0 - p_cont) * MANDELBROT_X2 * window.innerWidth - 0.5 * width + 'px';
-    let dy2 = -p_cont * MANDELBROT_Y1 * height - (1.0 - p_cont) * MANDELBROT_Y2 * window.innerHeight - 0.5 * height + 'px';
+    let dx2 = p_cont * MANDELBROT_X1 * width + (1.0 - p_cont) * MANDELBROT_X2 * vw() - 0.5 * width + 'px';
+    let dy2 = -p_cont * MANDELBROT_Y1 * height - (1.0 - p_cont) * MANDELBROT_Y2 * vh() - 0.5 * height + 'px';
     let transform = 'translate(' + dx2 + ', ' + dy2 + ') scale(' + scale + ') translate(' + dx1 + ', ' + dy1 + ')';
     mandelbrot.style.transform = transform;
     // update opacity
@@ -260,4 +260,28 @@ function updateMandelbrot() {
   let zoom = MANDELBROT_SCALAR ** i_cont;
   let [coeff, exp] = zoom.toExponential(4).replace('+', '').split('e');
   document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
+}
+
+function vw() {
+  return Math.max(
+    window.innerWidth,
+    document.documentElement.clientWidth
+  );
+}
+
+function vh() {
+  return Math.max(
+    window.innerHeight,
+    document.documentElement.clientHeight
+  );
+}
+
+function height() {
+  return Math.max(
+    document.body.scrollHeight,
+    document.body.offsetHeight,
+    document.documentElement.clientHeight,
+    document.documentElement.scrollHeight,
+    document.documentElement.offsetHeight
+  );
 }
