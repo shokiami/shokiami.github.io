@@ -58,9 +58,32 @@ function init() {
 }
 
 function initMobile() {
+  // remove margins from main
   let main = document.getElementById('main');
   main.style.marginLeft = '0px';
   main.style.marginRight = '0px';
+  // horizontal navbar
+  let navbar = document.getElementById('navbar');
+  navbar.style.left = '0px';
+  navbar.style.top = '0px';
+  navbar.style.width = '100%';
+  navbar.style.display = 'flex';
+  navbar.style.justifyContent = 'space-between';
+  navbar.style.alignItems = 'center';
+  navbar.style.borderBottom = '1px solid #ffffff';
+  navbar.style.backdropFilter = 'blur(10px)';
+  let navbar_title = document.getElementById('navbar-title');
+  navbar_title.style.padding = '20px';
+  navbar_title.style.borderBottom = 'none';
+  for (let section_item of document.getElementById('section-menu').children) {
+    section_item.style.display = 'inline-block';
+    let navlink = section_item.children[0];
+    navlink.style.fontSize = '24px';
+    navlink.style.padding = '20px';
+    navlink.style.transition = 'none';
+  }
+  document.getElementById('project-menu').style.display = 'none';
+  // remove play button
   document.getElementById('play-button').style.display = 'none';
   let mandelbrot = document.createElement('img');
   mandelbrot.id = '0';
