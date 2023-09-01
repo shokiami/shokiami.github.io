@@ -43,6 +43,7 @@ a:hover {
   position: fixed;
   left: 20px;
   top: 20px;
+  z-index: 2;
 }
 
 #navbar-title {

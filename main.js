@@ -72,6 +72,7 @@ function initMobile() {
   navbar.style.alignItems = 'center';
   navbar.style.borderBottom = '1px solid #ffffff';
   navbar.style.backdropFilter = 'blur(10px)';
+  navbar.style.webkitBackdropFilter = 'blur(10px)';
   let navbar_title = document.getElementById('navbar-title');
   navbar_title.style.padding = '20px';
   navbar_title.style.borderBottom = 'none';
