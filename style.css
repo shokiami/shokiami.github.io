@@ -9,10 +9,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-size: cover;
-  background-position-x: 50%;
-  background-position-y: 50%;
-  background-attachment: fixed;
 }
 
 .inverted-color {
@@ -388,7 +384,7 @@ a:hover {
 
 .mandelbrot {
   position: fixed;
-  left: 0px;
-  top: 0px;
+  left: 50%;
+  top: 50%;
   z-index: -1;
 }

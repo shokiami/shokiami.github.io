@@ -19,20 +19,20 @@ namespace fs = std::filesystem;
 #define WIDTH 1920
 #define HEIGHT 1080
 #define SCALAR 1.28402541669  // e^(1/4)
-#define LEFT1 0.65
-#define LEFT2 0.90
-#define TOP1 0.34
-#define TOP2 0.20
+#define X1 0.15
+#define X2 0.40
+#define Y1 0.16
+#define Y2 0.30
 #define BAILOUT 1024
 #define DIR "assets/mandelbrot/"
 
-void render(long double zoom, int max_itr, double left, double top, string filename) {
+void render(long double zoom, int max_itr, double x, double y, string filename) {
   png::image<png::rgb_pixel> image = png::image<png::rgb_pixel>(WIDTH, HEIGHT);
   int percent = 0;
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      long double c_r = 4.0 * (j - left * WIDTH) / min(WIDTH, HEIGHT) / zoom + REAL;
-      long double c_i = 4.0 * (top * HEIGHT - i) / min(WIDTH, HEIGHT) / zoom + IMAG;
+      long double c_r = 4.0 * (j - (0.5 + x) * WIDTH) / min(WIDTH, HEIGHT) / zoom + REAL;
+      long double c_i = 4.0 * ((0.5 - y) * HEIGHT - i) / min(WIDTH, HEIGHT) / zoom + IMAG;
       long double z_r = 0.0;
       long double z_i = 0.0;
       long double z_r2 = 0.0;
@@ -65,10 +65,10 @@ int main() {
     long double zoom = pow(SCALAR, i);
     int max_itr = 60000 * pow(zoom, 0.08) - 59000;
     double p = pow(0.5, i);
-    double left = p * LEFT1 + (1.0 - p) * LEFT2;
-    double top = p * TOP1 + (1.0 - p) * TOP2;
+    double x = p * X1 + (1.0 - p) * X2;
+    double y = p * Y1 + (1.0 - p) * Y2;
     string filename = to_string(i) + ".png";
-    render(zoom, max_itr, left, top, filename);
+    render(zoom, max_itr, x, y, filename);
   }
   return EXIT_SUCCESS;
 }

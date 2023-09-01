@@ -2,10 +2,10 @@ const MANDELBROT_COUNT = 140;
 const MANDELBROT_WIDTH = 1920;
 const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
-const MANDELBROT_LEFT1 = 0.65;
-const MANDELBROT_LEFT2 = 0.90;
-const MANDELBROT_TOP1 = 0.34;
-const MANDELBROT_TOP2 = 0.20;
+const MANDELBROT_X1 = 0.15;
+const MANDELBROT_X2 = 0.40;
+const MANDELBROT_Y1 = 0.16;
+const MANDELBROT_Y2 = 0.30;
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 const PLAY_DURATION = 60000;  // ms
 const UNRESTRICTED_HREFS = ['', '#home', '#about', '#projects', '#contact'];
@@ -61,8 +61,23 @@ function initMobile() {
   let main = document.getElementById('main');
   main.style.marginLeft = '0px';
   main.style.marginRight = '0px';
-  document.getElementById('home').style.backgroundImage = 'url(' + MANDELBROT_DIR + '0.webp)';
   document.getElementById('play-button').style.display = 'none';
+  let mandelbrot = document.createElement('img');
+  mandelbrot.id = '0';
+  mandelbrot.className = 'mandelbrot';
+  mandelbrot.src = MANDELBROT_DIR + '0.webp';
+  mandelbrot.style.transform = 'translate(-50%, -50%)';
+  document.getElementById('mandelbrot-container').append(mandelbrot);
+  let prev_width;
+  function loop() {
+    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * window.innerHeight, window.innerWidth);
+    if (width != prev_width) {
+      mandelbrot.style.width = width + 'px';
+    }
+    prev_width = width;
+    window.requestAnimationFrame(loop);
+  }
+  loop();
 }
 
 function loop() {
@@ -232,14 +247,10 @@ function updateMandelbrot() {
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
     let p = 0.5**i;
     let p_cont = 0.5**i_cont;
-    let dx1 = (0.5 - (p * MANDELBROT_LEFT1 + (1.0 - p) * MANDELBROT_LEFT2)) * width + 'px';
-    let dy1 = (0.5 - (p * MANDELBROT_TOP1 + (1.0 - p) * MANDELBROT_TOP2)) * height + 'px';
-    let x1 = (MANDELBROT_LEFT1 - 0.5) * width + 0.5 * window.innerWidth;
-    let x2 = MANDELBROT_LEFT2 * window.innerWidth;
-    let y1 = (MANDELBROT_TOP1 - 0.5) * height + 0.5 * window.innerHeight;
-    let y2 = MANDELBROT_TOP2 * window.innerHeight;
-    let dx2 = (p_cont * x1 + (1.0 - p_cont) * x2) - 0.5 * width + 'px';
-    let dy2 = (p_cont * y1 + (1.0 - p_cont) * y2) - 0.5 * height + 'px';
+    let dx1 = -width * (p * MANDELBROT_X1 + (1.0 - p) * MANDELBROT_X2) + 'px';
+    let dy1 = height * (p * MANDELBROT_Y1 + (1.0 - p) * MANDELBROT_Y2) + 'px';
+    let dx2 = p_cont * MANDELBROT_X1 * width + (1.0 - p_cont) * MANDELBROT_X2 * window.innerWidth - 0.5 * width + 'px';
+    let dy2 = -p_cont * MANDELBROT_Y1 * height - (1.0 - p_cont) * MANDELBROT_Y2 * window.innerHeight - 0.5 * height + 'px';
     let transform = 'translate(' + dx2 + ', ' + dy2 + ') scale(' + scale + ') translate(' + dx1 + ', ' + dy1 + ')';
     mandelbrot.style.transform = transform;
     // update opacity
