@@ -2,6 +2,10 @@ const MANDELBROT_COUNT = 140;
 const MANDELBROT_WIDTH = 1920;
 const MANDELBROT_HEIGHT = 1080;
 const MANDELBROT_SCALAR = 1.28402541669;  // e^(1/4)
+const MANDELBROT_LEFT1 = 0.65;
+const MANDELBROT_LEFT2 = 0.90;
+const MANDELBROT_TOP1 = 0.34;
+const MANDELBROT_TOP2 = 0.20;
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 const PLAY_DURATION = 60000;  // ms
 const UNRESTRICTED_HREFS = ['', '#home', '#about', '#projects', '#contact'];
@@ -206,19 +210,24 @@ function updateMandelbrot() {
     }
     mandelbrot.style.display = 'block';
     // update size
-    let height = 100.0 * Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth / window.innerHeight, 1.0) + '%';
-    mandelbrot.style.height = height;
-    // update scale
+    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * window.innerHeight, window.innerWidth);
+    let height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * window.innerWidth, window.innerHeight);
+    mandelbrot.style.width = width + 'px';
+    mandelbrot.style.height = height + 'px';
+    // update scale/translation
     let scale = MANDELBROT_SCALAR ** (i_cont - i);
-    let dx = 50.0 - 100.0 * (0.9 - 0.25 * 0.5 ** i) + '%';
-    let dy = 50.0 - 100.0 * (0.2 + 0.14 * 0.5 ** i) + '%';
-    let transform = 'translate(-50%, -50%) scale(' + scale + ') translate(' + dx + ', ' + dy + ')';
+    let p = 0.5**i;
+    let p_cont = 0.5**i_cont;
+    let dx1 = (0.5 - (p * MANDELBROT_LEFT1 + (1.0 - p) * MANDELBROT_LEFT2)) * width + 'px';
+    let dy1 = (0.5 - (p * MANDELBROT_TOP1 + (1.0 - p) * MANDELBROT_TOP2)) * height + 'px';
+    let x1 = (MANDELBROT_LEFT1 - 0.5) * width + 0.5 * window.innerWidth;
+    let x2 = MANDELBROT_LEFT2 * window.innerWidth;
+    let y1 = (MANDELBROT_TOP1 - 0.5) * height + 0.5 * window.innerHeight;
+    let y2 = MANDELBROT_TOP2 * window.innerHeight;
+    let dx2 = (p_cont * x1 + (1.0 - p_cont) * x2) - 0.5 * width + 'px';
+    let dy2 = (p_cont * y1 + (1.0 - p_cont) * y2) - 0.5 * height + 'px';
+    let transform = 'translate(' + dx2 + ', ' + dy2 + ') scale(' + scale + ') translate(' + dx1 + ', ' + dy1 + ')';
     mandelbrot.style.transform = transform;
-    // update position
-    let left = 100.0 * (0.9 - 0.25 * 0.5 ** i_cont) + '%';
-    let top = 100.0 * (0.2 + 0.14 * 0.5 ** i_cont) + '%';
-    mandelbrot.style.left = left;
-    mandelbrot.style.top = top;
     // update opacity
     let opacity = i > 0 ? Math.min(i_cont - i, 1.0) : 1.0;
     mandelbrot.style.opacity = opacity;

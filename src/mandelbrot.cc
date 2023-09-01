@@ -14,11 +14,15 @@ using std::string;
 using std::vector;
 namespace fs = std::filesystem;
 
+#define REAL 0.33888665790093404
+#define IMAG 0.57352752336659824
 #define WIDTH 1920
 #define HEIGHT 1080
 #define SCALAR 1.28402541669  // e^(1/4)
-#define REAL 0.33888665790093404
-#define IMAG 0.57352752336659824
+#define LEFT1 0.65
+#define LEFT2 0.90
+#define TOP1 0.34
+#define TOP2 0.20
 #define BAILOUT 1024
 #define DIR "assets/mandelbrot/"
 
@@ -60,8 +64,9 @@ int main() {
   for (int i = 0; i < 140; i++) {
     long double zoom = pow(SCALAR, i);
     int max_itr = 60000 * pow(zoom, 0.08) - 59000;
-    double left = 0.9 - 0.25 * pow(0.5, i);
-    double top = 0.2 + 0.14 * pow(0.5, i);
+    double p = pow(0.5, i);
+    double left = p * LEFT1 + (1.0 - p) * LEFT2;
+    double top = p * TOP1 + (1.0 - p) * TOP2;
     string filename = to_string(i) + ".png";
     render(zoom, max_itr, left, top, filename);
   }

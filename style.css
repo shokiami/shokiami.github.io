@@ -21,7 +21,7 @@ body {
 #title-container {
   text-align: center;
   font-family: 'Italiana', serif;
-  margin-bottom: 11vh;
+  margin-bottom: 7%;
 }
 
 #title {
@@ -384,8 +384,7 @@ a:hover {
 
 .mandelbrot {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  height: 100%;
+  left: 0px;
+  top: 0px;
   z-index: -1;
 }
