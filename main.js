@@ -61,13 +61,8 @@ function initMobile() {
   let main = document.getElementById('main');
   main.style.marginLeft = '0px';
   main.style.marginRight = '0px';
+  document.getElementById('home').style.backgroundImage = 'url(' + MANDELBROT_DIR + '0.webp)';
   document.getElementById('play-button').style.display = 'none';
-  document.getElementById('zoom').style.display = 'none';
-  let mandelbrot_container = document.getElementById('home');
-  mandelbrot_container.style.backgroundImage = 'url(' + MANDELBROT_DIR + '0.webp)';
-  mandelbrot_container.style.backgroundSize = 'cover';
-  mandelbrot_container.style.backgroundPosition = 'center';
-  mandelbrot_container.style.backgroundAttachment = 'fixed';
 }
 
 function loop() {
