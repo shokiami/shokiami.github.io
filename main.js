@@ -17,7 +17,6 @@ let scroll_start;
 let scroll_dest;
 let start_time;
 let total_time;
-let mobile;
 
 window.onload = init;
 window.onpopstate = navigate;
@@ -26,7 +25,11 @@ window.onclick = click;
 window.onwheel = stop;
 
 function init() {
-  mobile = window.outerWidth < 480 || window.outerHeight < 480;
+  // init mobile
+  if (window.outerWidth < 480 || window.outerHeight < 480) {
+    initMobile();
+    return;
+  }
   // init project dropdown
   document.getElementById('project-dropdown').onmouseenter = expandProjects;
   document.getElementById('section-menu').onmouseleave = collapseProjects;
@@ -46,12 +49,8 @@ function init() {
   document.getElementById('play-button').onclick = playButtonClick;
   // init mandelbrot images
   let mandelbrot_container = document.getElementById('mandelbrot-container');
-  for (let i = 0; i < (mobile ? 1 : MANDELBROT_COUNT); i++) {
+  for (let i = 0; i < MANDELBROT_COUNT; i++) {
     mandelbrot_container.innerHTML += '<img id="' + i + '" class="mandelbrot" src="' + MANDELBROT_DIR + i + '.webp">';
-  }
-  // init mobile
-  if (mobile) {
-    initMobile();
   }
   // start loop
   loop();
@@ -63,6 +62,11 @@ function initMobile() {
   main.style.marginRight = '0px';
   document.getElementById('play-button').style.display = 'none';
   document.getElementById('zoom').style.display = 'none';
+  let mandelbrot_container = document.getElementById('home');
+  mandelbrot_container.style.backgroundImage = 'url(' + MANDELBROT_DIR + '0.webp)';
+  mandelbrot_container.style.backgroundSize = 'cover';
+  mandelbrot_container.style.backgroundPosition = 'center';
+  mandelbrot_container.style.backgroundAttachment = 'fixed';
 }
 
 function loop() {
@@ -213,7 +217,7 @@ function click(event) {
 }
 
 function updateMandelbrot() {
-  let scroll = mobile ? 0.0 : Math.min(Math.max((scroll_top + window.scrollY) / scroll_max, 0.0), 1.0);
+  let scroll = Math.min(Math.max((scroll_top + window.scrollY) / scroll_max, 0.0), 1.0);
   let i_cont = scroll * (MANDELBROT_COUNT - 1);
   for (let mandelbrot of document.querySelectorAll('.mandelbrot')) {
     // update display
