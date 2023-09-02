@@ -10,6 +10,8 @@ const MANDELBROT_DIR = 'assets/mandelbrot/';
 const PLAY_DURATION = 60000;  // ms
 const UNRESTRICTED = ['', '#home', '#about', '#projects', '#contact'];
 
+let viewport_width;
+let viewport_height;
 let scroll_to;
 let scroll_top;
 let scroll_max;
@@ -111,16 +113,16 @@ function restrict() {
   if (UNRESTRICTED.includes(selector)) {
     return;
   }
-  let target = document.querySelector(selector);
-  let diff = target.offsetTop;
-  scroll_top = Math.round(2 * (window.scrollY + diff)) / 2.0;
+  scroll_top = document.querySelector(selector).offsetTop;
+  let scroll = window.scrollY - scroll_top;
   document.getElementById('home').style.display = 'none';
   for (let child of document.getElementById('main').children) {
-    if (child.id !== target.id && child.id !== 'footer') {
+    let child_selector = '#' + child.id;
+    if (child_selector !== selector && child_selector !== '#footer') {
       child.style.display = 'none';
     }
   }
-  window.scrollTo(0.0, diff);
+  window.scrollTo(0.0, scroll);
 }
 
 function updateScroll() {
@@ -137,14 +139,14 @@ function updateScroll() {
   let viewing = '';
   let selector = window.location.hash;
   if (!UNRESTRICTED.includes(selector)) {
-    let target = document.querySelector(selector);
-    viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
+    let section = document.querySelector(selector).querySelectorAll('.header')[0].innerText;
+    viewing = section + '<i class="fa fa-lock"></i>';
   } else {
     let main = document.getElementById('main');
     if (main.style.visibility !== 'hidden') {
       viewing = 'Home';
       for (let child of main.children) {
-        if (child.offsetTop > window.scrollY + vh() / 2.0) {
+        if (child.offsetTop > window.scrollY + viewport_height / 2.0) {
           break;
         }
         viewing = child.querySelectorAll('.header')[0].innerText;
@@ -156,7 +158,10 @@ function updateScroll() {
 
 function resize() {
   unrestrict();
-  scroll_max = maxScroll();
+  let home = document.getElementById('home');
+  viewport_width = home.offsetWidth;
+  viewport_height = home.offsetHeight;
+  scroll_max = document.getElementById('main').offsetHeight;
   restrict();
 }
 
@@ -216,8 +221,8 @@ function updateMandelbrot() {
     }
     mandelbrot.style.display = 'block';
     // update size
-    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * vh(), vw());
-    let height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * vw(), vh());
+    let width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * viewport_height, viewport_width);
+    let height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * viewport_width, viewport_height);
     mandelbrot.style.width = width + 'px';
     mandelbrot.style.height = height + 'px';
     // update scale/translation
@@ -226,8 +231,8 @@ function updateMandelbrot() {
     let p_cont = 0.5**i_cont;
     let dx1 = -width * (p * MANDELBROT_X1 + (1.0 - p) * MANDELBROT_X2) + 'px';
     let dy1 = height * (p * MANDELBROT_Y1 + (1.0 - p) * MANDELBROT_Y2) + 'px';
-    let dx2 = p_cont * MANDELBROT_X1 * width + (1.0 - p_cont) * MANDELBROT_X2 * vw() - 0.5 * width + 'px';
-    let dy2 = -p_cont * MANDELBROT_Y1 * height - (1.0 - p_cont) * MANDELBROT_Y2 * vh() - 0.5 * height + 'px';
+    let dx2 = p_cont * MANDELBROT_X1 * width + (1.0 - p_cont) * MANDELBROT_X2 * viewport_width - 0.5 * width + 'px';
+    let dy2 = -p_cont * MANDELBROT_Y1 * height - (1.0 - p_cont) * MANDELBROT_Y2 * viewport_height - 0.5 * height + 'px';
     let transform = 'translate(' + dx2 + ', ' + dy2 + ') scale(' + scale + ') translate(' + dx1 + ', ' + dy1 + ')';
     mandelbrot.style.transform = transform;
     // update opacity
@@ -237,18 +242,6 @@ function updateMandelbrot() {
   let zoom = MANDELBROT_SCALAR ** i_cont;
   let [coeff, exp] = zoom.toExponential(4).replace('+', '').split('e');
   document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
-}
-
-function vw() {
-  return document.getElementById('home').offsetWidth;
-}
-
-function vh() {
-  return document.getElementById('home').offsetHeight;
-}
-
-function maxScroll() {
-  return document.getElementById('main').offsetHeight;
 }
 
 function initMobile() {
@@ -300,13 +293,13 @@ function initMobile() {
   mandelbrot.src = MANDELBROT_DIR + '0.webp';
   mandelbrot.style.transform = 'translate(-50%, -50%)';
   document.getElementById('mandelbrot-container').append(mandelbrot);
-  let prev_height;
   function loop() {
-    if (vh() != prev_height) {
-      mandelbrot.style.height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * vw(), vh()) + 'px';
-      prev_height = vh();
+    let home = document.getElementById('home');
+    if (home.style.display === 'flex') {
+      viewport_width = home.offsetWidth;
+      mandelbrot.style.width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * viewport_height, viewport_width) + 'px';
+      window.requestAnimationFrame(loop);
     }
-    window.requestAnimationFrame(loop);
   }
   loop();
 }
@@ -322,16 +315,13 @@ function mobileNavLinkClick(event) {
 
 function mobileNavigate() {
   mobileRestrict();
-  let target = document.querySelector(window.location.hash);
-  window.scrollTo(0.0, target.offsetTop - document.getElementById('navbar').offsetHeight);
+  let scroll = document.querySelector(window.location.hash).offsetTop;
+  let navbar_height = document.getElementById('navbar').offsetHeight;
+  window.scrollTo(0.0, scroll - navbar_height);
 }
 
 function mobileRestrict() {
   let selector = window.location.hash;
-  if (selector == '') {
-    selector = '#home';
-  }
-  let target = document.querySelector(selector); 
   let main = document.getElementById('main');
   if (UNRESTRICTED.includes(selector)) {
     main.style.marginTop = '0px';
@@ -347,7 +337,8 @@ function mobileRestrict() {
     main.style.marginTop = document.getElementById('navbar').offsetHeight + 'px';
     document.getElementById('home').style.display = 'none';
     for (let child of main.children) {
-      if (child.id === target.id || child.id === 'footer') {
+      let child_selector = '#' + child.id;
+      if (child_selector === selector || child_selector === '#footer') {
         child.style.display = 'block';
       } else {
         child.style.display = 'none';
