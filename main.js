@@ -57,54 +57,6 @@ function init() {
   loop();
 }
 
-function initMobile() {
-  // remove margins from main
-  let main = document.getElementById('main');
-  main.style.marginLeft = '0px';
-  main.style.marginRight = '0px';
-  // horizontal navbar
-  let navbar = document.getElementById('navbar');
-  navbar.classList = '';
-  navbar.style.left = '0px';
-  navbar.style.top = '0px';
-  navbar.style.width = '100%';
-  navbar.style.display = 'flex';
-  navbar.style.justifyContent = 'space-between';
-  navbar.style.alignItems = 'center';
-  navbar.style.backdropFilter = 'blur(10px)';
-  navbar.style.webkitBackdropFilter = 'blur(10px)';
-  let navbar_title = document.getElementById('navbar-title');
-  navbar_title.style.padding = '20px';
-  navbar_title.style.borderBottom = 'none';
-  navbar_title.style.color = '#222222';
-  for (let section_item of document.getElementById('section-menu').children) {
-    section_item.style.display = 'inline-block';
-    let navlink = section_item.children[0];
-    navlink.style.fontSize = '24px';
-    navlink.style.padding = '20px';
-    navlink.style.transition = 'none';
-    navlink.style.color = '#222222';
-  }
-  document.getElementById('project-menu').style.display = 'none';
-  // remove play button
-  document.getElementById('play-button').style.display = 'none';
-  let mandelbrot = document.createElement('img');
-  mandelbrot.id = '0';
-  mandelbrot.className = 'mandelbrot';
-  mandelbrot.src = MANDELBROT_DIR + '0.webp';
-  mandelbrot.style.transform = 'translate(-50%, -50%)';
-  document.getElementById('mandelbrot-container').append(mandelbrot);
-  let prev_height;
-  function loop() {
-    if (vh() != prev_height) {
-      mandelbrot.style.height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * vw(), vh()) + 'px';
-      prev_height = vh();
-    }
-    window.requestAnimationFrame(loop);
-  }
-  loop();
-}
-
 function loop() {
   updateScroll();
   updateMandelbrot();
@@ -297,4 +249,52 @@ function vh() {
 
 function maxScroll() {
   return document.getElementById('main').offsetHeight;
+}
+
+function initMobile() {
+  // remove margins from main
+  let main = document.getElementById('main');
+  main.style.marginLeft = '0px';
+  main.style.marginRight = '0px';
+  // horizontal navbar
+  let navbar = document.getElementById('navbar');
+  navbar.classList = '';
+  navbar.style.left = '0px';
+  navbar.style.top = '0px';
+  navbar.style.width = '100%';
+  navbar.style.display = 'flex';
+  navbar.style.justifyContent = 'space-between';
+  navbar.style.alignItems = 'center';
+  navbar.style.backdropFilter = 'blur(10px)';
+  navbar.style.webkitBackdropFilter = 'blur(10px)';
+  let navbar_title = document.getElementById('navbar-title');
+  navbar_title.style.padding = '20px';
+  navbar_title.style.borderBottom = 'none';
+  navbar_title.style.color = '#222222';
+  for (let section_item of document.getElementById('section-menu').children) {
+    section_item.style.display = 'inline-block';
+    let navlink = section_item.children[0];
+    navlink.style.fontSize = '24px';
+    navlink.style.padding = '20px';
+    navlink.style.transition = 'none';
+    navlink.style.color = '#222222';
+  }
+  document.getElementById('project-menu').style.display = 'none';
+  // remove play button
+  document.getElementById('play-button').style.display = 'none';
+  let mandelbrot = document.createElement('img');
+  mandelbrot.id = '0';
+  mandelbrot.className = 'mandelbrot';
+  mandelbrot.src = MANDELBROT_DIR + '0.webp';
+  mandelbrot.style.transform = 'translate(-50%, -50%)';
+  document.getElementById('mandelbrot-container').append(mandelbrot);
+  let prev_height;
+  function loop() {
+    if (vh() != prev_height) {
+      mandelbrot.style.height = Math.max(MANDELBROT_HEIGHT / MANDELBROT_WIDTH * vw(), vh()) + 'px';
+      prev_height = vh();
+    }
+    window.requestAnimationFrame(loop);
+  }
+  loop();
 }
