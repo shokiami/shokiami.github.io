@@ -8,7 +8,7 @@ const MANDELBROT_Y1 = 0.16;
 const MANDELBROT_Y2 = 0.30;
 const MANDELBROT_DIR = 'assets/mandelbrot/';
 const PLAY_DURATION = 60000;  // ms
-const UNRESTRICTED_HREFS = ['', '#home', '#about', '#projects', '#contact'];
+const UNRESTRICTED = ['', '#home', '#about', '#projects', '#contact'];
 
 let scroll_to;
 let scroll_top;
@@ -67,7 +67,7 @@ function expandProjects() {
   let project_menu = document.getElementById('project-menu');
   let height = 0;
   for (let dropdown_item of project_menu.children) {
-    height += dropdown_item.getBoundingClientRect().height;
+    height += dropdown_item.offsetHeight;
   }
   project_menu.style.height = height + 'px';
 }
@@ -78,9 +78,9 @@ function collapseProjects() {
 
 function navlinkClick(event) {
   event.preventDefault();
-  let href = this.getAttribute('href');
-  if (href !== window.location.hash) {
-    history.pushState(null, null, href);
+  let selector = this.getAttribute('href');
+  if (selector !== window.location.hash) {
+    history.pushState(null, null, selector);
   }
   navigate();
 }
@@ -108,11 +108,11 @@ function unrestrict() {
 
 function restrict() {
   let selector = window.location.hash;
-  if (UNRESTRICTED_HREFS.includes(selector)) {
+  if (UNRESTRICTED.includes(selector)) {
     return;
   }
   let target = document.querySelector(selector);
-  let diff = target.getBoundingClientRect().top;
+  let diff = target.offsetTop;
   scroll_top = Math.round(2 * (window.scrollY + diff)) / 2.0;
   document.getElementById('home').style.display = 'none';
   for (let child of document.getElementById('main').children) {
@@ -128,7 +128,7 @@ function updateScroll() {
     let elapsed_time = performance.now() - start_time;
     let p = Math.min(elapsed_time / total_time, 1.0);
     p = p < 2.0 / 3.0 ? 1.2 * p : -1.8 * p**2 + 3.6 * p - 0.8;
-    window.scrollTo(0, scroll_start + p * (scroll_dest - scroll_start));
+    window.scrollTo(0.0, scroll_start + p * (scroll_dest - scroll_start));
     if (elapsed_time > total_time) {
       stop();
       restrict();
@@ -136,7 +136,7 @@ function updateScroll() {
   }
   let viewing = '';
   let selector = window.location.hash;
-  if (!UNRESTRICTED_HREFS.includes(selector)) {
+  if (!UNRESTRICTED.includes(selector)) {
     let target = document.querySelector(selector);
     viewing = target.querySelectorAll('.header')[0].innerText + '<i class="fa fa-lock"></i>';
   } else {
@@ -267,6 +267,7 @@ function initMobile() {
   navbar.style.alignItems = 'center';
   navbar.style.backdropFilter = 'blur(10px)';
   navbar.style.webkitBackdropFilter = 'blur(10px)';
+  navbar.style.borderBottom = '1px solid #222222';
   let navbar_title = document.getElementById('navbar-title');
   navbar_title.style.padding = '20px';
   navbar_title.style.borderBottom = 'none';
@@ -280,8 +281,19 @@ function initMobile() {
     navlink.style.color = '#222222';
   }
   document.getElementById('project-menu').style.display = 'none';
+  // init navlinks
+  for (let navlink of document.querySelectorAll('.navlink')) {
+    navlink.onclick = mobileNavLinkClick;
+  }
+  window.onpopstate = mobileNavigate;
+  mobileRestrict();
+  // init youtube links
+  for (let youtube of document.querySelectorAll('.youtube')) {
+    youtube.onclick = launchYoutube;
+  }
   // remove play button
   document.getElementById('play-button').style.display = 'none';
+  // init mandelbrot image
   let mandelbrot = document.createElement('img');
   mandelbrot.id = '0';
   mandelbrot.className = 'mandelbrot';
@@ -297,4 +309,49 @@ function initMobile() {
     window.requestAnimationFrame(loop);
   }
   loop();
+}
+
+function mobileNavLinkClick(event) {
+  event.preventDefault();
+  let href = this.getAttribute('href');
+  if (href !== window.location.hash) {
+    history.pushState(null, null, href);
+  }
+  mobileNavigate();
+}
+
+function mobileNavigate() {
+  mobileRestrict();
+  let target = document.querySelector(window.location.hash);
+  window.scrollTo(0.0, target.offsetTop - document.getElementById('navbar').offsetHeight);
+}
+
+function mobileRestrict() {
+  let selector = window.location.hash;
+  if (selector == '') {
+    selector = '#home';
+  }
+  let target = document.querySelector(selector); 
+  let main = document.getElementById('main');
+  if (UNRESTRICTED.includes(selector)) {
+    main.style.marginTop = '0px';
+    document.getElementById('home').style.display = 'flex';
+    for (let child of main.children) {
+      if (UNRESTRICTED.includes('#' + child.id)) {
+        child.style.display = 'block';
+      } else {
+        child.style.display = 'none';
+      }
+    }
+  } else {
+    main.style.marginTop = document.getElementById('navbar').offsetHeight + 'px';
+    document.getElementById('home').style.display = 'none';
+    for (let child of main.children) {
+      if (child.id === target.id || child.id === 'footer') {
+        child.style.display = 'block';
+      } else {
+        child.style.display = 'none';
+      }
+    }
+  }
 }
