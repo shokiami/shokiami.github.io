@@ -295,8 +295,9 @@ function initMobile() {
   document.getElementById('mandelbrot-container').append(mandelbrot);
   function loop() {
     let home = document.getElementById('home');
-    if (home.style.display === 'flex') {
+    if (home.style.display !== 'none') {
       viewport_width = home.offsetWidth;
+      viewport_height = home.offsetHeight;
       mandelbrot.style.width = Math.max(MANDELBROT_WIDTH / MANDELBROT_HEIGHT * viewport_height, viewport_width) + 'px';
       window.requestAnimationFrame(loop);
     }
