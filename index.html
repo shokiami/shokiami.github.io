@@ -64,8 +64,8 @@
             computational biology, computer vision, and deep robotic learning.
           </div>
           <div class="text">
-            Midway through undergrad, I was reminded of my long-term curiosity for ME and began pursuing my thrid major.
-            Today, I continue to further my passion for ME through my work as suspension engineer on UW Formula Motorsports
+            Midway through undergrad, I was reminded of my long-term curiosity for ME and began pursuing my third major.
+            Today, I continue to further my passion for ME through my work as a suspension engineer at UW Formula Motorsports
             and robotics researcher in the UW WEIRD lab.
           </div>
           <div class="text">
@@ -181,7 +181,7 @@
                   <img class="project-thumbnail" src="assets/geoknowr/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  The data collection, training, and evaluation pipeline for a light-weight GeoGuessr AI.
+                  The data collection, training, and evaluation pipeline for a lightweight GeoGuessr AI.
                 </div>
               </a>
             </div>
@@ -300,10 +300,10 @@
           </div>
           <div class="text">
             Define a pose to be a set of (x, y) coordinates for various key joints/body parts. Given a constant stream
-            of noisy pose readings, how can we arrive at a score which captures how similarly the two players danced?
+            of noisy pose readings, how can we arrive at a score that captures how similarly the two players danced?
           </div>
           <div class="text">
-            There were three main nuances which made this problem challenging:
+            There were three main nuances that made this problem challenging:
           </div>
           <ul class="list">
             <li>Invariance: translation/scaling should not affect scoring.</li>
@@ -328,15 +328,15 @@
             </div>
           </div>
           <div class="text">
-            So instead, I came up with a two part solution. The first part is a conditional moving average which only
+            So instead, I came up with a two-part solution. The first part is a conditional moving average which only
             averages if a current point is further from its neighbors than they are to each other (these points are
-            defined to be outliers). This does a better job preserving the shape of the data.
+            defined to be outliers). This does a better job of preserving the shape of the data.
           </div>
           <div class="image-container">
             <div class="image" style="width: 60%;">
               <img width="100%" src="assets/dancetime/2.jpg">
               <div class="caption">
-                Outliers set to average of their neighbors and marked with an "X".
+                Outliers set to the average of their neighbors and marked with an "X".
               </div>
             </div>
           </div>
@@ -356,7 +356,7 @@
           <div class="text">
             Using polynomial regression actually serves a second purpose in helping address the timing offset issue by
             transforming our problem to continuous space, making it easy to find the horizontal translation that
-            minimizes the polynomials errors.
+            minimizes the error.
             I ended up using maximum error instead of mean error since it is a more accurate measure of alignment.
             Finally, we can take the error and offset and feed them into some activation function such as a sigmoid
             to get a similarity score between 0 and 1.
@@ -489,16 +489,16 @@ max_error(player_polys, avatar_polys):
             </div>
           </div>
           <div class="text">
-            During selection, you recurse along the tree until we reach some leaf node. Children are selected based on
+            During selection, we recurse along the tree until we reach some leaf node. Children are selected based on
             their upper confidence bound (UCB) score which is a function of the child's average state value (encourage exploitation)
-            and inverse visit count (encourage exporation).
+            and inverse visit count (encourage exploration).
             We then expand this leaf node by taking a valid action from the game state, giving us a new unexplored game state.
-            During simulation, we perform random game roll-outs from this state estimate its value.
+            During simulation, we perform random game roll-outs from this state to estimate its value.
             This value is then backpropagated up the tree to update the value of each ancestral node.
           </div>
           <div class="text">
             AlphaFour works by making a few key modifications to MCTS. The main difference is the use of a deep neural network
-            that takes in a given state and outputs a policy (probabilities over next best actions) and a value
+            that takes in a given state and outputs a policy (probabilities over actions) and a value
             (a scalar from -1.0 to 1.0).
           </div>
           <div class="image-container">
@@ -631,7 +631,7 @@ monte_carlo_tree_search(state):
             Checking generation 20 AlphaFour's moves against a Connect 4 solver gives us that ~90% of its moves are optimal.
             Even better, it turns out that if the optimal player makes a single suboptimal move, AlphaFour can play
             well enough to convert the game into a win.
-            In the following game, first player plays optimally except for move 5 in which it plays the third best move.
+            In the following game, first player plays optimally except for move 5 in which it plays the third-best move.
             Here, AlphaFour is able to take advantage of this mistake to win the game with an impressive 5 in a row.
           </div>
           <div class="image-container">
@@ -651,9 +651,9 @@ monte_carlo_tree_search(state):
         <div class="subsection">
           <div class="subheader">Abstract</div>
           <div class="text">
-            My initial work on UW Formula Motorsports was developing autonomous driving software on the driverless sub-team.
+            My initial work at UW Formula Motorsports was developing autonomous driving software on the driverless sub-team.
             While the rest of the team works to build a formula race car from scratch, the goal of driverless is to modify
-            the car to autonomously compete in a ten lap autocross event.
+            the car to autonomously compete in a ten-lap autocross event.
           </div>
           <div class="text">
             Since we are not given the layout of the course prior to competing, the main challenge with driverless is the
@@ -812,7 +812,7 @@ pure_pursuit(ref):
             <div class="image" style="width: 41.5%;">
               <img width="100%" src="assets/driverless_software/prototype2.jpg">
               <div class="caption">
-                3D printed prototype mounted to car.
+                3D printed prototype mounted to the car.
               </div>
             </div>
           </div>
@@ -854,7 +854,7 @@ pure_pursuit(ref):
             as a prior and thus provide more semantically meaningful augmentation than classical data augmentation
             techniques (noise injection, transformations, etc.).
             Sure enough, in our real-world experiments, we found that GenAug improved our robot's zero-shot success rate
-            by 40%, allowing our robot to perform general table-top manipulation tasks with minimal human demonstrations.
+            by 40%, allowing our robot to perform general tabletop manipulation tasks with minimal human demonstrations.
           </div>
           <div class="text">
             Our results were published in a paper that was accepted to the Robotics Science and Systems conference in
@@ -985,7 +985,7 @@ pure_pursuit(ref):
         <div class="subsection">
           <div class="subheader">Abstract</div>
           <div class="text">
-            GeoKnowr is a lightweight GeoGuessr AI that can reliably guess within 2000 km of the groun truth.
+            GeoKnowr is a lightweight GeoGuessr AI that can reliably guess within 2000 km of the ground truth.
           </div>
           <div class="text">
             For those who are unfamiliar, <a href="https://www.geoguessr.com/" target="_blank">GeoGuessr</a>
@@ -1026,7 +1026,7 @@ pure_pursuit(ref):
         <div class="subsection">
           <div class="subheader">Data Collection</div>
           <div class="text">
-            Our data colelction pipeline could be broken up into the following steps:
+            Our data collection pipeline could be broken up into the following steps:
           </div>
           <ol class="list">
             <li>Choose a random (latitude, longitude) coordinate.</li>
@@ -1035,7 +1035,7 @@ pure_pursuit(ref):
             <li>Repeat steps 1-3 until we gather enough data.</li>
           </ol>
           <div class="text">
-            Using this method, we downloaded a total of 32,000 images with resolution 480x360 from around the world.
+            Using this method, we downloaded a total of 32,000 images with a resolution of 480x360 from around the world.
           </div>
         </div>
         <div class="subsection">
@@ -1044,7 +1044,7 @@ pure_pursuit(ref):
             Initially, we framed this as a regression problem, with the goal of minimizing surface distance around the
             unit sphere because this is ultimately the criterion we are trying to minimize when playing GeoGuessr.
             However, the issue with this was that our model would learn to spam Greenland. This made sense because most
-            of the Google's street view data is in the northern hemisphere and thus our model could achieve a decent
+            of Google Street View data is in the northern hemisphere and thus our model could achieve a decent
             score by average guessing.
           </div>
           <div class="image-container">
@@ -1062,16 +1062,16 @@ pure_pursuit(ref):
             Another motivation behind this pivot was the recognition that humans also play GeoGuessr by region-guessing.
           </div>
           <div class="text">
-            First we tried dividing up the world into a uniform grid, however, the majority of these classes had little to no
+            First, we tried dividing up the world into a uniform grid, however, the majority of these classes had little to no
             examples being over water or in areas with low GSV coverage, so our model would learn to spam the majority class.
             We addressed this by cleverly using clustering algorithms to perform the class divisions for us, leading to more
-            equal sized classes (and less data sparsity). Note how the clusters line up with Google's coverage.
+            equal-sized classes (and less data sparsity). Note how the clusters line up with Google's coverage.
           </div>
           <div class="image-container">
             <div class="image" style="width: 90%;">
               <img width="100%" src="assets/geoknowr/clusters.jpg">
               <div class="caption">
-                Visualziation of our clusters. We found that the Gaussian mixture model worked the best and 21 classes
+                Visualization of our clusters. We found that the Gaussian mixture model worked the best and 21 classes
                 was the sweet spot where less classes led to regions which were too large and more classes led to too
                 little examples per class.
               </div>
@@ -1079,9 +1079,9 @@ pure_pursuit(ref):
           </div>
           <div class="text">
             Our final performance boost came from recognizing that we did not have enough data to adequately train a
-            deep neural network from scratch, and so we used transfer learning on ResNet-18 pretrained on the ImageNet
+            deep neural network from scratch, and so we used transfer learning on ResNet-18 pre-trained on the ImageNet
             dataset. Now, our model no longer had to learn feature extraction and could instead focus on finding
-            the relationship between the features provided by pretrained ResNet-18 and our classes.
+            the relationship between the features provided by pre-trained ResNet-18 and our classes.
           </div>
           <div class="image-container">
             <div class="image" style="width: 90%;">
@@ -1329,7 +1329,7 @@ pure_pursuit(ref):
         <div class="subsection">
           <div class="subheader">Algorithms</div>
           <div class="text">
-            Although I worked on the entire pipeline, the I focused on the parsing, search, and edit-distance
+            Although I worked on the entire pipeline, I focused on the parsing, search, and edit-distance
             algorithms. The runtime of the three combined algorithms is O(mn) where m is the number of characters in the receipt
             and n is the number of characters in the dataset (note that this is the optimal runtime).
             Here is the pseudocode for the three algorithms:
@@ -1395,13 +1395,13 @@ edit_distance(abbrv, food):
           <div class="subheader">Abstract</div>
           <div class="text">
             In 2020, I joined the UW Makeability Lab as a software engineer, co-developing the Project Sidewalk webpage:
-            a gameified website where users walk around in Google Street View and label sidewalk accessibility issues for wheelchair
+            a gamified website where users walk around in Google Street View and label sidewalk accessibility issues for wheelchair
             users and older adults. Since deployment, Project Sidewalk has been able to build a novel dataset of 1 million labels
             across 8 cities.
           </div>
           <div class="text">
             In 2021, I joined forces with my friends Michael Duan and Logan Milandin to apply deep learning to the above dataset to
-            create a computer vision pipeline for automatic sidwealk evaluation. As a culmination of our work, we authored
+            create a computer vision pipeline for automatic sidewalk evaluation. As a culmination of our work, we authored
             a paper discussing the effects of filtered vs. unfiltered and single-city vs. cross-city training data and
             how our models can label new cities with a promising 80-90% accuracy.
           </div>
@@ -1433,7 +1433,7 @@ edit_distance(abbrv, food):
           <div class="subheader">Data Collection</div>
           <div class="text">
             Here's a screenshot of the Project Sidewalk webpage for crowdsourcing labels. I worked on many features
-            including visualizing the users observed area in the bottom right corner that improved data quality by
+            including visualizing the user's observed area in the bottom right corner that improved data quality by
             incentivizing users to look around.
           </div>
           <div class="image-container">
@@ -1490,7 +1490,7 @@ edit_distance(abbrv, food):
             </div>
           </div>
           <div class="text">
-            66 - 71: The first notoriously difficult section is the build up to "Con fuoco" where I tripled up on
+            66 - 71: The first notoriously difficult section is the build-up to "Con fuoco" where I tripled up on
             octaves to capture the power of a string section in unison while interspersing harmonics in the second cello
             part to simulate the high counter theme played by the woodwinds.
           </div>
@@ -1510,7 +1510,7 @@ edit_distance(abbrv, food):
           </div>
           <div class="text">
             121 - 143: Here I tried to capture the effect of an entire string orchestra plucking away in the second
-            cello part (if you did't have calluses you will now).
+            cello part (if you didn't have calluses you will now).
           </div>
           <div class="image-container">
             <div class="image" style="width: 80%;">
@@ -1519,7 +1519,7 @@ edit_distance(abbrv, food):
           </div>
           <div class="text">
             164 - 182: The "Tempo primo" recaps the first theme in the first cello part and features the entire
-            piano part in the second cello part (just barely playeable but very impactful).
+            piano part in the second cello part (just barely playable but very impactful).
           </div>
           <div class="image-container">
             <div class="image" style="width: 80%;">
@@ -1536,7 +1536,7 @@ edit_distance(abbrv, food):
             </div>
           </div>
           <div class="text">
-            345 - 361: The piece ends with a gradual 16 bar crescendo where I gradually climb octaves and incorporate
+            345 - 361: The piece ends with a gradual 16-bar crescendo where I gradually climb octaves and incorporate
             double-stops to simulate instruments from the symphony joining in one at a time.
           </div>
           <div class="image-container">
@@ -1571,8 +1571,8 @@ edit_distance(abbrv, food):
         <div class="subsection">
           <div class="subheader">Notable Excerpts</div>
           <div class="text">
-            1 - 28: The introductory theme featuring a grand b-flat major arpeggio and recurring ornaments that
-            remind me of a sunrise with birds chirping in the background.
+            1 - 28: The introductory theme features a grand b-flat major arpeggio and recurring ornaments that
+            reminds me of a sunrise with birds chirping in the background.
           </div>
           <div class="image-container">
             <div class="image" style="width: 80%;">
@@ -1590,7 +1590,7 @@ edit_distance(abbrv, food):
           </div>
           <div class="text">
             72 - 113: We take a break from the love theme and introduce the "Infanzia" theme—a simple theme
-            with playful pizzacato that symbolizes young/naive love.
+            with playful pizzicato that symbolizes young/naive love.
           </div>
           <div class="image-container">
             <div class="image" style="width: 80%;">
@@ -1598,7 +1598,7 @@ edit_distance(abbrv, food):
             </div>
           </div>
           <div class="text">
-            114 - 134: We develop into the "Maturità" theme—a rich melody where both cellos play in the similar register
+            114 - 134: We develop into the "Maturità" theme—a rich melody where both cellos play in a similar register
             to symbolize a unionizing of the two lover's values (as opposed to the contrasting parts in the "Infanzia" theme).
           </div>
           <div class="image-container">
@@ -1608,7 +1608,7 @@ edit_distance(abbrv, food):
           </div>
           <div class="text">
             136 - 147: "Cinema in Fiamme" is where disaster strikes in the movie, and to make it especially climactic,
-            I decided to double up on the theme and add an alternating arppegiated motif for added emphasis.
+            I decided to double up on the theme and add an alternating arpeggiated motif for added emphasis.
           </div>
           <div class="image-container">
             <div class="image" style="width: 80%;">
