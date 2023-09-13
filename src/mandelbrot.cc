@@ -18,11 +18,13 @@ namespace fs = std::filesystem;
 #define IMAG 0.57352752336659824
 #define WIDTH 1920
 #define HEIGHT 1080
+#define COUNT 140
 #define SCALAR 1.28402541669  // e^(1/4)
-#define X1 0.15
-#define X2 0.40
-#define Y1 0.16
-#define Y2 0.30
+#define CENTER_X1 0.1
+#define CENTER_Y1 0.0
+#define ZOOM_X2 0.4
+#define ZOOM_Y2 0.3
+#define ZOOM_SCALAR 0.3
 #define BAILOUT 1024
 #define DIR "assets/mandelbrot/"
 
@@ -31,8 +33,8 @@ void render(long double zoom, int max_itr, double x, double y, string filename) 
   int percent = 0;
   for (int i = 0; i < HEIGHT; i++) {
     for (int j = 0; j < WIDTH; j++) {
-      long double c_r = 4.0 * (j - (0.5 + x) * WIDTH) / min(WIDTH, HEIGHT) / zoom + REAL;
-      long double c_i = 4.0 * ((0.5 - y) * HEIGHT - i) / min(WIDTH, HEIGHT) / zoom + IMAG;
+      long double c_r = (j - (0.5 + x) * WIDTH) / min(WIDTH, HEIGHT) / (ZOOM_SCALAR * zoom) + REAL;
+      long double c_i = ((0.5 - y) * HEIGHT - i) / min(WIDTH, HEIGHT) / (ZOOM_SCALAR * zoom) + IMAG;
       long double z_r = 0.0;
       long double z_i = 0.0;
       long double z_r2 = 0.0;
@@ -61,12 +63,14 @@ void render(long double zoom, int max_itr, double x, double y, string filename) 
 
 int main() {
   fs::create_directory(DIR);
-  for (int i = 0; i < 140; i++) {
+  for (int i = 0; i < COUNT; i++) {
     long double zoom = pow(SCALAR, i);
     int max_itr = 60000 * pow(zoom, 0.08) - 59000;
     double p = pow(0.5, i);
-    double x = p * X1 + (1.0 - p) * X2;
-    double y = p * Y1 + (1.0 - p) * Y2;
+    double zoom_x1 = REAL * ZOOM_SCALAR * min(WIDTH, HEIGHT) / WIDTH + CENTER_X1;
+    double zoom_y1 = IMAG * ZOOM_SCALAR * min(WIDTH, HEIGHT) / HEIGHT + CENTER_Y1;
+    double x = p * zoom_x1 + (1.0 - p) * ZOOM_X2;
+    double y = p * zoom_y1 + (1.0 - p) * ZOOM_Y2;
     string filename = to_string(i) + ".png";
     render(zoom, max_itr, x, y, filename);
   }
