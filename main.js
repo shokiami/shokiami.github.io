@@ -25,10 +25,18 @@ let total_time;
 
 window.onload = init;
 
+function isMobile() {
+  let home = document.getElementById('home');
+  viewport_width = home.offsetWidth;
+  viewport_height = home.offsetHeight;
+  console.log(window.outerWidth, window.outerHeight, window.innerWidth, window.innerHeight, viewport_width, viewport_height);
+  document.getElementById('title').innerHTML = viewport_width + 'x' + viewport_height;
+  return window.outerWidth < 480 || window.outerHeight < 480;
+}
+
 function init() {
-  document.getElementById('title').innerHTML = window.outerWidth + 'x' + window.outerHeight;
   // init mobile
-  if (window.outerWidth < 480 || window.outerHeight < 480) {
+  if (isMobile()) {
     initMobile();
     return;
   }
