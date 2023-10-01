@@ -25,15 +25,6 @@ let total_time;
 
 window.onload = init;
 
-function isMobile() {
-  let home = document.getElementById('home');
-  viewport_width = home.offsetWidth;
-  viewport_height = home.offsetHeight;
-  console.log(window.screen.width, window.screen.height);
-  document.getElementById('title').innerHTML = window.screen.width + 'x' + window.screen.height;
-  return window.outerWidth < 480 || window.outerHeight < 480;
-}
-
 function init() {
   // init mobile
   if (isMobile()) {
@@ -256,6 +247,10 @@ function updateMandelbrot() {
   let zoom = SCALAR ** i_cont;
   let [coeff, exp] = zoom.toExponential(4).replace('+', '').split('e');
   document.getElementById('zoom').innerHTML = coeff + '&#215;10<sup>' + exp + '</sup>';
+}
+
+function isMobile() {
+  return window.screen.width < 1000 && window.screen.height < 1000;
 }
 
 function initMobile() {
