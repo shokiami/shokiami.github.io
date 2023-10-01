@@ -29,8 +29,8 @@ function isMobile() {
   let home = document.getElementById('home');
   viewport_width = home.offsetWidth;
   viewport_height = home.offsetHeight;
-  console.log(window.outerWidth, window.outerHeight, window.innerWidth, window.innerHeight, viewport_width, viewport_height);
-  document.getElementById('title').innerHTML = viewport_width + 'x' + viewport_height;
+  console.log(window.screen.width, window.screen.height);
+  document.getElementById('title').innerHTML = window.screen.width + 'x' + window.screen.height;
   return window.outerWidth < 480 || window.outerHeight < 480;
 }
 
