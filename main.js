@@ -26,6 +26,7 @@ let total_time;
 window.onload = init;
 
 function init() {
+  document.getElementById('title').innerHTML = window.outerWidth + 'x' + window.outerHeight;
   // init mobile
   if (window.outerWidth < 480 || window.outerHeight < 480) {
     initMobile();
