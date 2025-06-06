@@ -15,7 +15,7 @@
     <div id="home">
       <div id="title-container" class="inverted-color">
         <div id="title">Hi, I'm Sho</div>
-        <div id="subtitle">Engineer, Math Enthusiast, Cellist</div>
+        <div id="subtitle">PhD Student, Math Enthusiast, Cellist</div>
       </div>
     </div>
 
@@ -26,18 +26,21 @@
         <li><a class="navlink" href="#about">About</a></li>
         <li><a id="project-dropdown" class="navlink" href="#projects">Projects</a></li>
         <ul id="project-menu">
+          <li><a class="navlink" href="#stochastic">A Curious Process</a></li>
+          <li><a class="navlink" href="#fohlcvx">FOHLCVX</a></li>
+          <li><a class="navlink" href="#driverless">Driverless Race Car</a></li>
           <li><a class="navlink" href="#dancetime">DanceTime</a></li>
           <li><a class="navlink" href="#alphafour">AlphaFour</a></li>
-          <li><a class="navlink" href="#driverless-software">Driverless Software</a></li>
           <li><a class="navlink" href="#genaug">GenAug</a></li>
           <li><a class="navlink" href="#geoknowr">GeoKnowr</a></li>
           <li><a class="navlink" href="#frijma">Frijma</a></li>
           <li><a class="navlink" href="#project-sidewalk">Project Sidewalk</a></li>
+          <li><a class="navlink" href="#sdag">sDAG</a></li>
           <li><a class="navlink" href="#danzon">Danzón No. 2</a></li>
           <li><a class="navlink" href="#cinema-paradiso">Cinema Paradiso</a></li>
           <li><a class="navlink" href="#cello">Cello</a></li>
         </ul>
-        <li><a href="assets/shokiami_resume.pdf" target="_blank">Resume</a></li>
+        <li><a href="assets/kiami_cv.pdf" target="_blank">CV</a></li>
         <li><a class="navlink" href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -55,14 +58,17 @@
         <div class="subsection">
           <img id="headshot" src="assets/sho.png">
           <div class="text">
+            I am an incoming PhD student at the UC Berkeley interested in topics in theoretical computer science including
+            the design and analysis of randomized/approximation algorithms, optimization, spectral graph theory, and numerical linear algebra.
+          </div>
+          <div class="text">
             I graduated from the University of Washington in June 2024 with a Bachelor's degree in computer science
-            and mathematics. Over the course of my undergrad, I gained research and project experience across several
-            fields including dynamical systems, mathematical optimization, machine learning, computational biology, and
-            mechanical engineering.
+            and mathematics. During my undergrad, I gained research and project experience across several
+            fields including optimal control, machine learning, computational biology, and mechanical engineering.
           </div>
           <div class="text">
             Outside of school, my main hobby is playing the cello, but I also enjoy playing other instruments
-            (piano and guitar), music composition, calisthenics, skiing, drawing, and cooking.
+            (piano and guitar), music composition, calisthenics, skiing, painting, drawing, and origami.
           </div>
         </div>
       </div>
@@ -72,45 +78,60 @@
         <div class="date"></div>
         <div class="subsection">
           <div id="project-list">
+
             <div class="project-container">
               <a class="in-progress">
-                <div class="project-title">Driverless Steering</div>
-                <div class="project-date">Jul 2023 - Present</div>
+                <div class="project-title">Euclidate</div>
+                <div class="project-date">Nov 2024 - Present</div>
                 <div class="project-thumbnail-container">
                   <div class="in-progress-text">In Progress</div>
-                  <img class="project-thumbnail in-progress" src="assets/driverless_steering/thumbnail.jpg">
+                  <img class="project-thumbnail" src="assets/euclideate/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Design and manufacturing of an autonomous steering actuator with unobtrusive integration.
+                  A highly optimized C++ algorithm that solves Euclidean construction problems.
                 </div>
               </a>
             </div>
+
             <div class="project-container">
-              <a class="in-progress">
-                <div class="project-title">Nimble Surgical</div>
-                <div class="project-date">Oct 2023 - Present</div>
+              <a class="navlink" href="#stochastic">
+                <div class="project-title">A Curious Process</div>
+                <div class="project-date">Sep 2024 - Dec 2024</div>
                 <div class="project-thumbnail-container">
-                  <div class="in-progress-text">In Progress</div>
-                  <img class="project-thumbnail" src="assets/nimble_surgical/thumbnail.jpg">
+                  <img class="project-thumbnail" src="assets/stochastic/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  A soft-body continuum catheter surgical robot for minimally invasive heart surgery.
+                  Analyzing a curious stochastic process in the complex plane.
                 </div>
               </a>
             </div>
+
             <div class="project-container">
-              <a class="in-progress">
-                <div class="project-title">Drawing Robot</div>
-                <div class="project-date">Aug 2023 - Present</div>
+              <a class="navlink" href="#fohlcvx">
+                <div class="project-title">FOHLCVX</div>
+                <div class="project-date">Jun 2024 - Nov 2024</div>
                 <div class="project-thumbnail-container">
-                  <div class="in-progress-text">In Progress</div>
-                  <img class="project-thumbnail" src="assets/drawing_robot/thumbnail.jpg">
+                  <img class="project-thumbnail" src="assets/fohlcvx/thumbnail.jpg">
                 </div>
                 <div class="project-description">
-                  Design and manufacturing of a robotic arm that can draw any image of your choice.
+                  A novel optimal control algorithm with theoretical guarantees. 
                 </div>
               </a>
             </div>
+
+            <div class="project-container">
+              <a class="navlink" href="#driverless">
+                <div class="project-title">Driverless Race Car</div>
+                <div class="project-date">Jan 2023 - Jun 2024</div>
+                <div class="project-thumbnail-container">
+                  <img class="project-thumbnail" src="assets/driverless/thumbnail.jpg">
+                </div>
+                <div class="project-description">
+                  Algorithms and mechanical steering system for an autonomous formula race car.
+                </div>
+              </a>
+            </div>
+
             <div class="project-container">
               <a class="navlink" href="#dancetime">
                 <div class="project-title">DanceTime</div>
@@ -123,6 +144,7 @@
                 </div>
               </a>
             </div>
+
             <div class="project-container">
               <a class="navlink" href="#alphafour">
                 <div class="project-title">AlphaFour</div>
@@ -135,18 +157,7 @@
                 </div>
               </a>
             </div>
-            <div class="project-container">
-              <a class="navlink" href="#driverless-software">
-                <div class="project-title">Driverless Software</div>
-                <div class="project-date">Jan 2023 - May 2023</div>
-                <div class="project-thumbnail-container">
-                  <img class="project-thumbnail" src="assets/driverless_software/thumbnail.jpg">
-                </div>
-                <div class="project-description">
-                  Planning and control algorithms for an autonomous formula race car.
-                </div>
-              </a>
-            </div>
+
             <div class="project-container">
               <a class="navlink" href="#genaug">
                 <div class="project-title">GenAug</div>
@@ -159,6 +170,7 @@
                 </div>
               </a>
             </div>
+
             <div class="project-container">
               <a class="navlink" href="#geoknowr">
                 <div class="project-title">GeoKnowr</div>
@@ -171,6 +183,7 @@
                 </div>
               </a>
             </div>
+
             <div class="project-container">
               <a class="navlink" href="#frijma">
                 <div class="project-title">Frijma</div>
@@ -183,6 +196,7 @@
                 </div>
               </a>
             </div>
+
             <div class="project-container">
               <a class="navlink" href="#project-sidewalk">
                 <div class="project-title">Project Sidewalk</div>
@@ -195,6 +209,20 @@
                 </div>
               </a>
             </div>
+
+            <div class="project-container">
+              <a class="navlink" href="#sdag">
+                <div class="project-title">sDAG</div>
+                <div class="project-date">Jun 2021 - Sep 2021</div>
+                <div class="project-thumbnail-container">
+                  <img class="project-thumbnail" src="assets/sdag/thumbnail.jpg">
+                </div>
+                <div class="project-description">
+                  A data structure that compactly represents a collection of phylogenetic trees.
+                </div>
+              </a>
+            </div>
+
             <div class="project-container">
               <a class="navlink" href="#danzon">
                 <div class="project-title">Danzón No. 2</div>
@@ -207,6 +235,7 @@
                 </div>
               </a>
             </div>
+
             <div class="project-container">
               <a class="navlink" href="#cinema-paradiso">
                 <div class="project-title">Cinema Paradiso</div>
@@ -219,6 +248,7 @@
                 </div>
               </a>
             </div>
+
             <div class="project-container">
               <a class="navlink" href="#cello">
                 <div class="project-title">Cello</div>
@@ -230,6 +260,262 @@
                   A collection of videos of me playing music with friends.
                 </div>
               </a>
+            </div>
+            
+            <div class="project-container"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <div id="stochastic" class="section">
+        <div class="header"><a class="navlink" href="#stochastic">A Curious Process</a></div>
+        <div class="date">Sep 2024 - Dec 2024</div>
+
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+
+          <div class="text">
+            Given an initial point $x_0 \in \mathbb{R}^d$ and a sequence of vectors $v_1, v_2, \dots$ in $\mathbb{R}^d$,
+            we define a greedy sequence by setting $x_{n} = x_{n-1} \pm v_n$ where the sign is chosen so as to minimize $\|x_n\|$. 
+            We prove that if the vectors $v_i$ are chosen uniformly at random from $\mathbb{S}^{d-1}$ then elements of the sequence
+            are, on average, approximately distance $\|x_n\| \sim \sqrt{\pi d/8}$ from the origin. We show that the sequence
+            $(\|x_n\|)_{n=1}^{\infty}$ has an invariant measure $\pi_d$ depending only on $d$ and we determine its mean and
+            study its decay for all $d$. We also investigate a completely deterministic example in $d=2$ where the $v_n$
+            are derived from the van der Corput sequence. Several additional examples are considered.
+          </div>
+
+          <div class="text">
+            Joint work with Alex Albors, François Clément, Braeden Sodt, Ding Yifan, and Tony Zeng.
+            Completed as part of the Washington Experimental Mathematics Laboratory under the supervision of Dr. Stefan Steinerberger.
+            Under revision at Involve 2025 (a mathematics journal).
+          </div>
+        </div>
+        
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Publication: <a href="https://arxiv.org/abs/2412.04284" target="_blank">https://arxiv.org/abs/2412.04284</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Publication</div>
+          <div class="pdf-container">
+            <a class="pdf" href="assets/stochastic/paper.pdf" target="_blank">
+              <img class="pdf-thumbnail" src="assets/stochastic/paper_thumbnail.jpg">
+              <img class="pdf-open" src="assets/icons/pdf-open.png">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="fohlcvx" class="section">
+        <div class="header"><a class="navlink" href="#fohlcvx">FOHLCVX</a></div>
+        <div class="date">Jun 2024 - Nov 2024</div>
+
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+          <div class="text">
+            Lossless Convexification (LCvx) is a clever trick that transforms a class of nonconvex optimal control problems
+            (where the nonconvexity arises from a lower bound on the control norm) into equivalent convex problems via convex
+            relaxations, the goal being to solve these problems efficiently via polynomial-time numerical solvers. However,
+            to solve these infinite-dimensional problems in practice, they must first be converted into finite-dimensional
+            problems, and it remains an open area of research to ensure the theoretical guarantees of LCvx are maintained
+            across this discretization step. Prior work has proven guarantees for zero-order hold control parameterization.
+            In this work, we extend these results to the more general, and practically useful, first-order hold control
+            parameterization. We first show that under mild assumptions, we are guaranteed a solution that violates our
+            nonconvex constraint at no more than $n_x + 1$ vertices in our discretized trajectory (where $n_x$ is the dimension
+            of our state-space). Then, we discuss an algorithm that, for a specific case of problems, finds a solution where
+            our nonconvex constraint is violated along no more than $2n_x + 2$ edges in at most
+            $\lceil \log_2 ((\rho_{\max} - \rho_{\min}) / \varepsilon_\rho) \rceil + 1$
+            calls to our solver (where $[\rho_{\min}, \rho_{\max}]$ represent the bounds on our control norm and
+            $\varepsilon_\rho$ is some desired suboptimality tolerance). Finally, we provide numerical results
+            demonstrating the effectiveness of our proposed method.
+          </div>
+
+          <div class="text">
+            Completed as part of the University of Washington Autonomous Controls Laboratory under the supervision of Dr. Behçet Açıkmeşe.
+            Planned submission to IEEE Conference on Decision and Control 2025.
+          </div>
+        </div>
+        
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Code: <a href="https://github.com/shokiami/trajopt" target="_blank">https://github.com/shokiami/trajopt</a></li>
+            <li>Publication: <a href="https://arxiv.org/abs/2411.18004" target="_blank">https://arxiv.org/abs/2411.18004</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Publication</div>
+          <div class="pdf-container">
+            <a class="pdf" href="assets/fohlcvx/paper.pdf" target="_blank">
+              <img class="pdf-thumbnail" src="assets/fohlcvx/paper_thumbnail.jpg">
+              <img class="pdf-open" src="assets/icons/pdf-open.png">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="driverless" class="section">
+        <div class="header"><a class="navlink" href="#driverless">Driverless Race Car</a></div>
+        <div class="date">Sep 2024 - Dec 2024</div>
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+          <div class="text">
+            My initial work at UW Formula Motorsports was developing autonomous driving software on the driverless sub-team.
+            While the rest of the team works to build a formula race car from scratch, the goal of driverless is to modify
+            the car to autonomously compete in a ten-lap autocross event.
+          </div>
+          <div class="text">
+            Since we are not given the layout of the course prior to competing, the main challenge with driverless is the
+            first lap logic (during which an optimal path would be mapped out and then spammed for the remaining nine laps).
+            My main project was leading the development of planning/control algorithms for completing this first lap
+            as fast as possible, resulting in the team's first-ever successful autonomous lap completion in simulation.
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Driverless Code: <a href="https://github.com/uwfsae/driverless" target="_blank">https://github.com/uwfsae/driverless</a></li>
+            <li>Algorithm Testing: <a href="https://github.com/shokiami/fsae_sim" target="_blank">https://github.com/shokiami/fsae_sim</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Software & Tools</div>
+          <ul class="list">
+            <li>Language: C++, Python</li>
+            <li>Robotics Library: <a href="https://www.ros.org" target="_blank">ROS</a></li>
+            <li>Simulation: <a href="https://www.unrealengine.com/en-US" target="_blank">Unreal Engine</a></li>
+            <li>GUI Library: PyGame</li>
+            <li>Util Libraries: NumPy</li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Algorithms</div>
+          <div class="text">
+            The goal of the first-lap algorithm was to map from a set of detected nearby cones to a set of control values
+            (steering, throttle, brake) that would lead to optimal driving.
+            My friend Jaspern Geldenbott and I explored various first-lap algorithms, but the one we found that was
+            the most promising was pure pursuit. The idea behind pure pursuit is to try to follow some reference
+            point that keeps moving along a target path (like following a carrot on a stick) ultimately resulting
+            in the car following the path.
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 80%;">
+              <img width="100%" src="assets/driverless/pp.jpg">
+              <div class="caption">
+                A car trying to follow a reference point moving along the path will inevitably lead to the car following the path.
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            There are many ways to choose this reference point, but the easiest way is to first pick the cones on the left and right
+            that are both in front of the car and furthest away and then take the average of the two positions. For additional speed,
+            we ended up performing a weighted average to favor staying on the inside of turns. I realized that since the
+            cones are paired up across the track, the cones on the inside of the turn end up closer together, allowing us to
+            use the minimum pairwise distance between cones to determine which side to favor.
+          </div>
+          <div class="text">
+            Once a reference point is chosen, it turns out that there exists a closed-form solution for the
+            desired steering angle. Simplifying the car's dynamics to a bicycle model, we get the following result:
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 90%;">
+              <img width="100%" src="assets/driverless/calc.jpg">
+              <div class="caption">
+                Steering angle calculations.
+              </div>
+            </div>
+          </div>
+          <div class="text">
+            Finally, given the final steering angle, we can calculate a maximal target speed that doesn't introduce
+            wheel slip and use PID controlling to extract throttle and brake values.
+          </div>
+          <div class="text">
+            Here is the high-level pseudocode for the first-lap algorithm:
+          </div>
+<pre class="algo">
+get_controls(nearby_cones):
+  left_cones, right_cones = nearby_cones
+  left_target = get_target(left_cones)
+  right_target = get_target(right_cones)
+  left_target, right_target = pad_targets(left_target, right_target, CAR_WIDTH)
+  left_min_dist = min_pairwise_dist(left_cones)
+  right_min_dist = min_pairwise_dist(right_cones)
+  p = get_weight(left_min_dist, right_min_dist)
+  ref = p * left_target + (1 - p) * right_target
+  steering = pure_pursuit(ref)
+  target_speed = get_target_speed(steering)
+  throttle, brake = pid(target_speed)
+  return (steering, throttle, brake)
+
+get_target(cones):
+  target_cone = (0, 0)
+  for cone in cones:
+    if cone.x > 0 and ||cone|| > ||target_cone||:
+      target_cone = cone
+  rturn target_cone
+
+pure_pursuit(ref):
+  turn_radius = (ref.x^2 + ref.y^2) / (2 * ref.y)
+  steering = arctan(CAR_LENGTH / turn_radius)
+  return steering
+</pre>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Results</div>
+          <div class="text">
+            Here are the results of the first-lap algorithm:
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 60%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/driverless/pp_algo.mp4" type="video/mp4"/>
+              </video>
+              <div class="caption">
+                Algorithm working in a PyGame simulation with four visualizations:
+                no effects, only detected cones, detected cones + reference point, only detected cones + reference point.
+              </div>
+            </div>
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 60%;">
+              <video width="100%" autoplay loop muted>
+                <source src="assets/driverless/sim.mp4" type="video/mp4"/>
+              </video>
+              <div class="caption">
+                Algorithm working in Unreal Engine with real-world physics.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Hardware</div>
+          <div class="text">
+            I also designed and manufactured the team's first driverless steering system
+            (motor + custom rank and pinion).
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 41%;">
+              <img width="100%" src="assets/driverless/cad.jpg">
+              <div class="caption">
+                CAD design.
+              </div>
+            </div>
+            <div class="image" style="width: 50%;">
+              <img width="100%" src="assets/driverless/ansys.jpg">
+              <div class="caption">
+                Ansys simulation.
+              </div>
+            </div>
+          </div>
+          <div class="image-container">
+            <div class="image" style="width: 70%;">
+              <img width="100%" src="assets/driverless/final.jpg">
+              <div class="caption">
+                Final assembly and integration.
+              </div>
             </div>
           </div>
         </div>
@@ -626,191 +912,6 @@ monte_carlo_tree_search(state):
                 Generation 20 vs. Optimal Player w/ 1 Mistake (40 moves)
               </div>
               <img width="100%" src="assets/alphafour/20_vs_subopt.gif">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="driverless-software" class="section">
-        <div class="header"><a class="navlink" href="#driverless-software">Driverless Software</a></div>
-        <div class="date">Jan 2023 - May 2023</div>
-        <div class="subsection">
-          <div class="subheader">Abstract</div>
-          <div class="text">
-            My initial work at UW Formula Motorsports was developing autonomous driving software on the driverless sub-team.
-            While the rest of the team works to build a formula race car from scratch, the goal of driverless is to modify
-            the car to autonomously compete in a ten-lap autocross event.
-          </div>
-          <div class="text">
-            Since we are not given the layout of the course prior to competing, the main challenge with driverless is the
-            first lap logic (during which an optimal path would be mapped out and then spammed for the remaining nine laps).
-            My main project was leading the development of planning/control algorithms for completing this first lap
-            as fast as possible, resulting in the team's first-ever successful autonomous lap completion in simulation.
-          </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Links</div>
-          <ul class="list">
-            <li>Driverless Code: <a href="https://github.com/uwfsae/driverless" target="_blank">https://github.com/uwfsae/driverless</a></li>
-            <li>Algorithm Testing: <a href="https://github.com/shokiami/fsae_sim" target="_blank">https://github.com/shokiami/fsae_sim</a></li>
-          </ul>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Software & Tools</div>
-          <ul class="list">
-            <li>Language: C++, Python</li>
-            <li>Robotics Library: <a href="https://www.ros.org" target="_blank">ROS</a></li>
-            <li>Simulation: <a href="https://www.unrealengine.com/en-US" target="_blank">Unreal Engine</a></li>
-            <li>GUI Library: PyGame</li>
-            <li>Util Libraries: NumPy</li>
-          </ul>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Algorithms</div>
-          <div class="text">
-            The goal of the first-lap algorithm was to map from a set of detected nearby cones to a set of control values
-            (steering, throttle, brake) that would lead to optimal driving.
-            My friend Jaspern Geldenbott and I explored various first-lap algorithms, but the one we found that was
-            the most promising was pure pursuit. The idea behind pure pursuit is to try to follow some reference
-            point that keeps moving along a target path (like following a carrot on a stick) ultimately resulting
-            in the car following the path.
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 80%;">
-              <img width="100%" src="assets/driverless_software/pp.jpg">
-              <div class="caption">
-                A car trying to follow a reference point moving along the path will inevitably lead to the car following the path.
-              </div>
-            </div>
-          </div>
-          <div class="text">
-            There are many ways to choose this reference point, but the easiest way is to first pick the cones on the left and right
-            that are both in front of the car and furthest away and then take the average of the two positions. For additional speed,
-            we ended up performing a weighted average to favor staying on the inside of turns. I realized that since the
-            cones are paired up across the track, the cones on the inside of the turn end up closer together, allowing us to
-            use the minimum pairwise distance between cones to determine which side to favor.
-          </div>
-          <div class="text">
-            Once a reference point is chosen, it turns out that there exists a closed-form solution for the
-            desired steering angle. Simplifying the car's dynamics to a bicycle model, we get the following result:
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 90%;">
-              <img width="100%" src="assets/driverless_software/calc.jpg">
-              <div class="caption">
-                Steering angle calculations.
-              </div>
-            </div>
-          </div>
-          <div class="text">
-            Finally, given the final steering angle, we can calculate a maximal target speed that doesn't introduce
-            wheel slip and use PID controlling to extract throttle and brake values.
-          </div>
-          <div class="text">
-            Here is the high-level pseudocode for the first-lap algorithm:
-          </div>
-<pre class="algo">
-get_controls(nearby_cones):
-  left_cones, right_cones = nearby_cones
-  left_target = get_target(left_cones)
-  right_target = get_target(right_cones)
-  left_target, right_target = pad_targets(left_target, right_target, CAR_WIDTH)
-  left_min_dist = min_pairwise_dist(left_cones)
-  right_min_dist = min_pairwise_dist(right_cones)
-  p = get_weight(left_min_dist, right_min_dist)
-  ref = p * left_target + (1 - p) * right_target
-  steering = pure_pursuit(ref)
-  target_speed = get_target_speed(steering)
-  throttle, brake = pid(target_speed)
-  return (steering, throttle, brake)
-
-get_target(cones):
-  target_cone = (0, 0)
-  for cone in cones:
-    if cone.x > 0 and ||cone|| > ||target_cone||:
-      target_cone = cone
-  rturn target_cone
-
-pure_pursuit(ref):
-  turn_radius = (ref.x^2 + ref.y^2) / (2 * ref.y)
-  steering = arctan(CAR_LENGTH / turn_radius)
-  return steering
-</pre>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Results</div>
-          <div class="text">
-            Here are the results of the first-lap algorithm:
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 60%;">
-              <video width="100%" autoplay loop muted>
-                <source src="assets/driverless_software/pp_algo.mp4" type="video/mp4"/>
-              </video>
-              <div class="caption">
-                Algorithm working in a PyGame simulation with four visualizations:
-                no effects, only detected cones, detected cones + reference point, only detected cones + reference point.
-              </div>
-            </div>
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 60%;">
-              <video width="100%" autoplay loop muted>
-                <source src="assets/driverless_software/sim.mp4" type="video/mp4"/>
-              </video>
-              <div class="caption">
-                Algorithm working in Unreal Engine with real-world physics.
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Hardware</div>
-          <div class="text">
-            Although I mainly worked on software, I also worked on designing and manufacturing the mount for the steering stepper motor.
-            The previous design proposed by the mechanical leads was very wasteful (pictured left) and so I worked on an
-            assembly-based design that would reduce waste by ~85% (pictured right).
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 41.5%;">
-              <img width="100%" src="assets/driverless_software/prev.jpg">
-              <div class="caption">
-                Previous mount design.
-              </div>
-            </div>
-            <div class="image" style="width: 40%;">
-              <img width="100%" src="assets/driverless_software/design.jpg">
-              <div class="caption">
-                Proposed mount design.
-              </div>
-            </div>
-          </div>
-          <div class="text">
-            Here is me testing a 3D printed prototype to ensure it fits with the stepper motor and chassis:
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 25%;">
-              <img width="100%" src="assets/driverless_software/prototype1.jpg">
-              <div class="caption">
-                3D printed prototype mounted to stepper motor.
-              </div>
-            </div>
-            <div class="image" style="width: 41.5%;">
-              <img width="100%" src="assets/driverless_software/prototype2.jpg">
-              <div class="caption">
-                3D printed prototype mounted to the car.
-              </div>
-            </div>
-          </div>
-          <div class="text">
-            Here is the final mount machined out of aluminum and integrated with the stepper motor and chassis: 
-          </div>
-          <div class="image-container">
-            <div class="image" style="width: 40%;">
-              <img width="100%" src="assets/driverless_software/integration.jpg">
-              <div class="caption">
-                Final assembly and integration.
-              </div>
             </div>
           </div>
         </div>
@@ -1436,6 +1537,57 @@ edit_distance(abbrv, food):
           <div class="pdf-container">
             <a class="pdf" href="assets/project_sidewalk/paper.pdf" target="_blank">
               <img class="pdf-thumbnail" src="assets/project_sidewalk/paper_thumbnail.jpg">
+              <img class="pdf-open" src="assets/icons/pdf-open.png">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div id="sdag" class="section">
+        <div class="header"><a class="navlink" href="#sdag">sDAG</a></div>
+        <div class="date">Jun 2021 - Sep 2021</div>
+
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+
+          <div class="text">
+            Bayesian phylogenetics typically estimates a posterior distribution, or
+            aspects thereof, using Markov chain Monte Carlo methods. These methods
+            integrate over tree space by applying local rearrangements to move
+            a tree through its space as a random walk. Previous work explored the
+            possibility of replacing this random walk with a systematic search, but
+            was quickly overwhelmed by the large number of probable trees in the
+            posterior distribution. In this paper we develop methods to sidestep this
+            problem using a recently introduced structure called the subsplit directed
+            acyclic graph (sDAG). This structure can represent many trees at once,
+            and local rearrangements of trees translate to methods of enlarging the
+            sDAG. Here we propose two methods of introducing, ranking, and selecting
+            local rearrangements on sDAGs to produce a collection of trees with
+            high posterior density. One of these methods successfully recovers the set
+            of high posterior density trees across a range of data sets. However, we
+            find that a simpler strategy of aggregating trees into an sDAG in fact is
+            computationally faster and returns a higher fraction of probable trees.
+          </div>
+
+          <div class="text">
+            Joint work with Chris Jennings-Shaffer, David H Rich, Matthew Macaulay, Michael D Karcher, Tanvi Ganapathy,
+            Anna Kooperberg, Cheng Zhang, Marc A Suchard, Frederick A Matsen IV.
+            Completed as part of the Fred Hutchinson Cancer Research Center under the supervision of Dr. Erick Matsen.
+            Under revision at Algorithms for Molecular Biology 2024.
+          </div>
+        </div>
+        
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Publication: <a href="https://arxiv.org/abs/2411.09074" target="_blank">https://arxiv.org/abs/2411.09074</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Publication</div>
+          <div class="pdf-container">
+            <a class="pdf" href="assets/sdag/paper.pdf" target="_blank">
+              <img class="pdf-thumbnail" src="assets/sdag/paper_thumbnail.jpg">
               <img class="pdf-open" src="assets/icons/pdf-open.png">
             </a>
           </div>
