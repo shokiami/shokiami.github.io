@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anaheim&family=Italiana&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   </head>
   <body>
     <div id="home">
       <div id="title-container" class="inverted-color">
         <div id="title">Hi, I'm Sho</div>
-        <div id="subtitle">PhD Student, Math Enthusiast, Cellist</div>
+        <div id="subtitle">PhD Student, Math + CS Enthusiast, Cellist</div>
       </div>
     </div>
 
@@ -26,8 +27,8 @@
         <li><a class="navlink" href="#about">About</a></li>
         <li><a id="project-dropdown" class="navlink" href="#projects">Projects</a></li>
         <ul id="project-menu">
+          <li><a class="navlink" href="#pllcvx">PLLCvx Algorithm</a></li>
           <li><a class="navlink" href="#stochastic">A Curious Process</a></li>
-          <li><a class="navlink" href="#fohlcvx">FOHLCVX</a></li>
           <li><a class="navlink" href="#driverless">Driverless Race Car</a></li>
           <li><a class="navlink" href="#dancetime">DanceTime</a></li>
           <li><a class="navlink" href="#alphafour">AlphaFour</a></li>
@@ -58,8 +59,9 @@
         <div class="subsection">
           <img id="headshot" src="assets/sho.png">
           <div class="text">
-            I am an incoming PhD student at UC Berkeley with research interests in theoretical computer science,
-            particularly in the design and analysis of randomized and approximation algorithms.
+            I am a first-year PhD student at UC Berkeley with research interests in theoretical computer science,
+            particularly in the design and analysis of randomized and approximation algorithms. I have been working on
+            isoperimetric problems with Satish Rao and streaming algorithms with Jelani Nelson.
           </div>
           <div class="text">
             I graduated from the University of Washington in June 2024 with a Bachelor's degree in computer science
@@ -81,6 +83,20 @@
 
             <div class="project-container">
               <a class="in-progress">
+                <div class="project-title">\(\ell_2\) Heavy Hitters</div>
+                <div class="project-date">Sep 2025 - Present</div>
+                <div class="project-thumbnail-container">
+                  <div class="in-progress-text">In Progress</div>
+                  <img class="project-thumbnail" src="assets/heavyhitter/thumbnail.jpg">
+                </div>
+                <div class="project-description">
+                  A new \(O(\log n)\) bit super heavy hitter algorithm with \(1 - \varepsilon^k\) success probability.
+                </div>
+              </a>
+            </div>
+
+            <div class="project-container">
+              <a class="in-progress">
                 <div class="project-title">Euclideate</div>
                 <div class="project-date">Nov 2024 - Present</div>
                 <div class="project-thumbnail-container">
@@ -94,6 +110,19 @@
             </div>
 
             <div class="project-container">
+              <a class="navlink" href="#pllcvx">
+                <div class="project-title">PLLCvx Algorithm</div>
+                <div class="project-date">Jun 2024 - Jun 2025</div>
+                <div class="project-thumbnail-container">
+                  <img class="project-thumbnail" src="assets/pllcvx/thumbnail.jpg">
+                </div>
+                <div class="project-description">
+                  A novel optimal control algorithm for linear systems with piecewise linear controls.
+                </div>
+              </a>
+            </div>
+
+            <div class="project-container">
               <a class="navlink" href="#stochastic">
                 <div class="project-title">A Curious Process</div>
                 <div class="project-date">Sep 2024 - Dec 2024</div>
@@ -102,19 +131,6 @@
                 </div>
                 <div class="project-description">
                   Analyzing a curious stochastic process in the complex plane.
-                </div>
-              </a>
-            </div>
-
-            <div class="project-container">
-              <a class="navlink" href="#fohlcvx">
-                <div class="project-title">FOHLCVX</div>
-                <div class="project-date">Jun 2024 - Nov 2024</div>
-                <div class="project-thumbnail-container">
-                  <img class="project-thumbnail" src="assets/fohlcvx/thumbnail.jpg">
-                </div>
-                <div class="project-description">
-                  A novel optimal control algorithm with theoretical guarantees. 
                 </div>
               </a>
             </div>
@@ -268,6 +284,55 @@
         </div>
       </div>
 
+      <div id="pllcvx" class="section">
+        <div class="header"><a class="navlink" href="#pllcvx">PLLcvx Algorithm</a></div>
+        <div class="date">Jun 2024 - Jun 2025</div>
+
+        <div class="subsection">
+          <div class="subheader">Abstract</div>
+          <div class="text">
+            Lossless Convexification (LCvx) is a convexification technique that transforms a class of nonconvex optimal
+            control problems—where the nonconvexity arises from a lower bound on the control norm—into equivalent convex
+            problems, with the goal being to apply fast polynomial-time solvers. However, to solve these infinite-dimensional
+            problems in practice, they must first be converted into finite-dimensional problems, and it remains an open
+            challenge to ensure the theoretical guarantees of LCvx are maintained across this discretization step.
+            Prior work has proven guarantees for piecewise constant controls, but these methods do not extend to
+            piecewise linear controls, which are more relevant to real world applications.
+          </div>
+          <div class="text">
+            In this work, we present an algorithm that extends LCvx guarantees to piecewise linear controls. Under mild
+            assumptions, our algorithm provably finds a solution violating the nonconvex constraints along at most
+            \(2n_x + 2\) trajectory "edges" using \(O(\log(\Delta\rho/\varepsilon))\) solver calls (where \(n_x\) is the state
+            space dimension and \(\Delta\rho = \rho_{\max} - \rho_{\min}\) is the difference in our control norm bounds).
+            A key feature is the perturbation of the control norm lower bound and the addition of rate constraints on the
+            controls, ensuring LCvx holds along the trajectory edges. Finally, we provide numerical results demonstrating
+            the effectiveness of our algorithm.
+          </div>
+
+          <div class="text">
+            Completed as part of the University of Washington Autonomous Controls Laboratory under the supervision of Dr. Behçet Açıkmeşe.
+            Under review at American Control Conference 2026.
+          </div>
+        </div>
+        
+        <div class="subsection">
+          <div class="subheader">Links</div>
+          <ul class="list">
+            <li>Code: <a href="https://github.com/shokiami/trajopt" target="_blank">https://github.com/shokiami/trajopt</a></li>
+            <li>Publication: <a href="https://arxiv.org/abs/2411.18004" target="_blank">https://arxiv.org/abs/2411.18004</a></li>
+          </ul>
+        </div>
+        <div class="subsection">
+          <div class="subheader">Publication</div>
+          <div class="pdf-container">
+            <a class="pdf" href="assets/pllcvx/paper.pdf" target="_blank">
+              <img class="pdf-thumbnail" src="assets/pllcvx/paper_thumbnail.jpg">
+              <img class="pdf-open" src="assets/icons/pdf-open.png">
+            </a>
+          </div>
+        </div>
+      </div>
+
       <div id="stochastic" class="section">
         <div class="header"><a class="navlink" href="#stochastic">A Curious Process</a></div>
         <div class="date">Sep 2024 - Dec 2024</div>
@@ -276,12 +341,12 @@
           <div class="subheader">Abstract</div>
 
           <div class="text">
-            Given an initial point $x_0 \in \mathbb{R}^d$ and a sequence of vectors $v_1, v_2, \dots$ in $\mathbb{R}^d$,
-            we define a greedy sequence by setting $x_{n} = x_{n-1} \pm v_n$ where the sign is chosen so as to minimize $\|x_n\|$. 
-            We prove that if the vectors $v_i$ are chosen uniformly at random from $\mathbb{S}^{d-1}$ then elements of the sequence
-            are, on average, approximately distance $\|x_n\| \sim \sqrt{\pi d/8}$ from the origin. We show that the sequence
-            $(\|x_n\|)_{n=1}^{\infty}$ has an invariant measure $\pi_d$ depending only on $d$ and we determine its mean and
-            study its decay for all $d$. We also investigate a completely deterministic example in $d=2$ where the $v_n$
+            Given an initial point \(x_0 \in \mathbb{R}^d\) and a sequence of vectors \(v_1, v_2, \dots\) in \(\mathbb{R}^d\),
+            we define a greedy sequence by setting \(x_{n} = x_{n-1} \pm v_n\) where the sign is chosen so as to minimize \(\|x_n\|\). 
+            We prove that if the vectors \(v_i\) are chosen uniformly at random from \(\mathbb{S}^{d-1}\) then elements of the sequence
+            are, on average, approximately distance \(\|x_n\| \sim \sqrt{\pi d/8}\) from the origin. We show that the sequence
+            \((\|x_n\|)_{n=1}^{\infty}\) has an invariant measure \(\pi_d\) depending only on \(d\) and we determine its mean and
+            study its decay for all \(d\). We also investigate a completely deterministic example in \(d=2\) where the \(v_n\)
             are derived from the van der Corput sequence. Several additional examples are considered.
           </div>
 
@@ -303,54 +368,6 @@
           <div class="pdf-container">
             <a class="pdf" href="assets/stochastic/paper.pdf" target="_blank">
               <img class="pdf-thumbnail" src="assets/stochastic/paper_thumbnail.jpg">
-              <img class="pdf-open" src="assets/icons/pdf-open.png">
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div id="fohlcvx" class="section">
-        <div class="header"><a class="navlink" href="#fohlcvx">FOHLCVX</a></div>
-        <div class="date">Jun 2024 - Nov 2024</div>
-
-        <div class="subsection">
-          <div class="subheader">Abstract</div>
-          <div class="text">
-            Lossless Convexification (LCvx) is a clever trick that transforms a class of nonconvex optimal control problems
-            (where the nonconvexity arises from a lower bound on the control norm) into equivalent convex problems via convex
-            relaxations, the goal being to solve these problems efficiently via polynomial-time numerical solvers. However,
-            to solve these infinite-dimensional problems in practice, they must first be converted into finite-dimensional
-            problems, and it remains an open area of research to ensure the theoretical guarantees of LCvx are maintained
-            across this discretization step. Prior work has proven guarantees for zero-order hold control parameterization.
-            In this work, we extend these results to the more general, and practically useful, first-order hold control
-            parameterization. We first show that under mild assumptions, we are guaranteed a solution that violates our
-            nonconvex constraint at no more than $n_x + 1$ vertices in our discretized trajectory (where $n_x$ is the dimension
-            of our state-space). Then, we discuss an algorithm that, for a specific case of problems, finds a solution where
-            our nonconvex constraint is violated along no more than $2n_x + 2$ edges in at most
-            $\lceil \log_2 ((\rho_{\max} - \rho_{\min}) / \varepsilon_\rho) \rceil + 1$
-            calls to our solver (where $[\rho_{\min}, \rho_{\max}]$ represent the bounds on our control norm and
-            $\varepsilon_\rho$ is some desired suboptimality tolerance). Finally, we provide numerical results
-            demonstrating the effectiveness of our proposed method.
-          </div>
-
-          <div class="text">
-            Completed as part of the University of Washington Autonomous Controls Laboratory under the supervision of Dr. Behçet Açıkmeşe.
-            Planned submission to IEEE Conference on Decision and Control 2025.
-          </div>
-        </div>
-        
-        <div class="subsection">
-          <div class="subheader">Links</div>
-          <ul class="list">
-            <li>Code: <a href="https://github.com/shokiami/trajopt" target="_blank">https://github.com/shokiami/trajopt</a></li>
-            <li>Publication: <a href="https://arxiv.org/abs/2411.18004" target="_blank">https://arxiv.org/abs/2411.18004</a></li>
-          </ul>
-        </div>
-        <div class="subsection">
-          <div class="subheader">Publication</div>
-          <div class="pdf-container">
-            <a class="pdf" href="assets/fohlcvx/paper.pdf" target="_blank">
-              <img class="pdf-thumbnail" src="assets/fohlcvx/paper_thumbnail.jpg">
               <img class="pdf-open" src="assets/icons/pdf-open.png">
             </a>
           </div>
